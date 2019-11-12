@@ -21,20 +21,29 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public User update(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		session.beginTransaction();
+		User u = (User) session.merge(user);
+		session.getTransaction().commit();
+		return u;
 	}
 
 	@Override
-	public void delete(User user) {
-		// TODO Auto-generated method stub
+	public void delete(Long id) {
+		session.beginTransaction();
+		User u = findById(id);
+		session.delete(u);
+		session.getTransaction().commit();
 		
 	}
 
 	@Override
 	public List<User> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return session.createQuery("select o from User o").list();
+	}
+
+	@Override
+	public User findById(Long id) {
+		return session.find(User.class, id);
 	}
 
 }
