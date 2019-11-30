@@ -12,11 +12,11 @@ public class UserDAOImpl implements UserDAO{
 	Session session = HibernateUtil.openSession();
 	
 	@Override
-	public User add(User user) {
+	public void add(User user) {
 		session.beginTransaction();
-		User u = (User) session.save(user);
+		session.save(user);
 		session.getTransaction().commit();
-		return u;
+
 	}
 
 	@Override

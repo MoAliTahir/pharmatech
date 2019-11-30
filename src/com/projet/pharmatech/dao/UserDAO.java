@@ -6,7 +6,7 @@ import com.projet.pharmatech.dao.entities.User;
 
 public interface UserDAO {
 	
-	public User add(User user);
+	public void add(User user);
 	
 	public User update(User user);
 	
