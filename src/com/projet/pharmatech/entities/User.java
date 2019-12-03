@@ -1,4 +1,4 @@
-package com.projet.pharmatech.dao.entities;
+package com.projet.pharmatech.entities;
 
 import java.io.Serializable;
 
