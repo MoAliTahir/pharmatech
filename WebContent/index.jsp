@@ -12,16 +12,6 @@
 <title>Bienvenue</title>
 </head>
 <body>
-	<f:view>
-		<h1>Trois balises HTML</h1>
-		
-		<div ng-app="">
-		  <p>NG bind Test: <input type="text" ng-model="name"></p>
-		  <p ng-bind="name"></p>
-		</div>
-		
-		<h:outputText value="Bonjour "></h:outputText>
-	
-	</f:view>
+
 </body>
 </html>

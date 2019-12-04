@@ -1,25 +1,25 @@
-package com.projet.pharmatech.entities;
+package com.projet.pharmatech.beans;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.faces.bean.ManagedBean;
 
-@Entity
-@Table(name = "client")
+@ManagedBean(name="client")
 public class Client implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
+	
 	int id;
 	String nom;
 	String prenom;
 	boolean client_abonne;
 	
+	public Client() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public int getId() {
 		return id;

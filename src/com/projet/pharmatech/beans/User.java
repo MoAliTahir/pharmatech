@@ -1,12 +1,12 @@
-package com.projet.pharmatech.entities;
+package com.projet.pharmatech.beans;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.faces.bean.ManagedBean;
+import javax.persistence.Id;
 
 
-@Entity
-@Table(name = "user")
+@ManagedBean(name="user")
 public class User implements Serializable{
 	
 	/**
@@ -14,7 +14,7 @@ public class User implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Id
+	
 	private long id;
 	private String nom;
 	private String prenom;
