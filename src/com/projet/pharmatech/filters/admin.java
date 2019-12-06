@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebFilter;
  * Servlet Filter implementation class admin
  */
 @WebFilter("/admin")
-public class admin{// implements Filter 
+public class admin implements Filter{
 
     /**
      * Default constructor. 
