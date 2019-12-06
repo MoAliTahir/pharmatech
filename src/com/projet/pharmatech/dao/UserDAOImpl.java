@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.projet.pharmatech.dao.entities.User;
+import com.projet.pharmatech.entities.User;
 import com.projet.pharmatech.utils.HibernateUtil;
 
 public class UserDAOImpl implements UserDAO{

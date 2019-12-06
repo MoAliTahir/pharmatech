@@ -1,21 +1,16 @@
-package com.projet.pharmatech.dao.entities;
+package com.projet.pharmatech.beans;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.faces.bean.ManagedBean;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "medicament")
+@ManagedBean(name="medicament")
 public class Medicament implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private long id;
 	
 	private String libelle;

@@ -2,7 +2,8 @@ package com.projet.pharmatech.dao;
 
 import java.util.List;
 
-import com.projet.pharmatech.dao.entities.User;
+import com.projet.pharmatech.entities.User;
+
 
 public interface UserDAO {
 	
