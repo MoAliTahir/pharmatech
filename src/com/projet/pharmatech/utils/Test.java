@@ -3,7 +3,7 @@ package com.projet.pharmatech.utils;
 import org.hibernate.Session;
 
 import com.projet.pharmatech.dao.UserDAOImpl;
-import com.projet.pharmatech.dao.entities.User;
+import com.projet.pharmatech.entities.User;
 
 public class Test {
 

@@ -3,7 +3,7 @@ package com.projet.pharmatech.beans;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.persistence.Id;
+
 
 
 @ManagedBean(name="user")

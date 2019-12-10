@@ -21,15 +21,19 @@
 		</div>-->
 		
 			
-		<h:outputText value="Connectez-vous "></h:outputText>
+		<h:form>
+		<h:outputText value="Connectez-vous "></h:outputText><br><br>
 		<h:outputLabel value="Username: " />
 	
-			<h:inputText value="#{loginBean.userName}" />
-			         
+			<h:inputText value="#{loginBean.userName}" required="true" requiredMessage="Nom d'utilisateur obligatoir" id="username" /><br><br>
+			<h:message for="username" errorClass="error_message" ></h:message>
+			
 			<h:outputLabel value="Password: " />
-			<h:inputSecret value="#{loginBean.password}" />
+			<h:inputSecret value="#{loginBean.password}" required="true" requiredMessage="Mot de passe obligatoir" id="pass"/><br>
+			 <h:message for="pass" errorClass="error_message" ></h:message>
 			 
-			<h:commandButton value="Login" action="#{loginBean.validateUserLogin}" />
+			<h:commandButton value="Login" action="#{loginBean.login}" />
+		</h:form>
 		
 		</f:view>
 </body>
