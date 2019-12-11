@@ -12,11 +12,10 @@
 	<f:view>
 		<h1>Page d'acceuil</h1>
 		<h:form>
-			<h:outputText value="Welcome ... #{ loginBean.userName }"></h:outputText><br>
+			<h:outputText value="Welcome Admin... #{ loginBean.userName }"></h:outputText><br>
 			
 			<h:commandLink action="#{loginBean.logout }" value="Logout"></h:commandLink>
 		</h:form>
 	</f:view>
-	
 </body>
 </html>

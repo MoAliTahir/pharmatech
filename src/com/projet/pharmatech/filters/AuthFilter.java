@@ -10,6 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.projet.pharmatech.presentation.LoginBean;
 
@@ -39,27 +40,31 @@ public class AuthFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
-		LoginBean session = (LoginBean) req.getSession().getAttribute("loginBean");
+		//LoginBean session = (LoginBean) req.getSession().getAttribute("loginBean");
+		
+		HttpSession session = req.getSession(false);
 		String url = req.getRequestURI();
 		System.out.println(session);
-		if(session != null)
-			System.out.println(session.getPassword());
-		System.out.println(req.getServletContext().getContextPath());
-		System.out.println(url.indexOf("acceuil.jsp"));
-		if(url.indexOf("/login.jsp")>=0 || (session != null && session.isLogged) || url.indexOf("/public/")>=0 || url.contains("javax.faces.resource"))
+		System.out.println(req.getContextPath());
+		if(url.indexOf("/login.jsp")>=0 
+				|| (session != null && session.getAttribute("authUser")!=null) 
+				|| url.indexOf("/public/")>=0 
+				|| url.contains("javax.faces.resource"))
 		{
 			chain.doFilter(request, response);
 			
 		}else
 		{
-			if(url.indexOf("/logout.jsp")>=0)
+			resp.sendRedirect(req.getContextPath() + "/faces/login.jsp");
+		}
+			/*if(url.indexOf("/logout.jsp")>=0)
 			{
 				req.getSession().removeAttribute("loginBean");
 				req.getSession().invalidate();
 				resp.sendRedirect(req.getContextPath() + "/faces/login.jsp");
 			}else
 				resp.sendRedirect(req.getContextPath() + "/faces/login.jsp");
-		}
+		}*/
 	}
 
 	/**
