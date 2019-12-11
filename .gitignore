@@ -1,6 +1,8 @@
 HELP.md
 /target/
 
+### Hibernate ###
+/src/hibernate.cfg.xml
 
 ### Eclipse ###
 /build/

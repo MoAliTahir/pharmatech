@@ -12,6 +12,9 @@
 <title>Bienvenue</title>
 </head>
 <body>
-
+	<f:view>
+		<h1>
+		GO</h1>
+	</f:view>
 </body>
 </html>
