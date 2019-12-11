@@ -32,8 +32,8 @@
         <property name="hbm2ddl.auto">update</property>
          
         <!-- <mapping resource="dao/Categorie.hbm.xml"/> -->
-        <mapping class="com.projet.pharmatech.dao.entities.User"/>
-        <mapping class="com.projet.pharmatech.dao.entities.Medicament"/>
+        <mapping class="com.projet.pharmatech.entities.User"/>
+        <mapping class="com.projet.pharmatech.entities.Medicament"/>
   
            
     </session-factory>
