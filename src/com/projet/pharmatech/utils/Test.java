@@ -2,7 +2,6 @@ package com.projet.pharmatech.utils;
 
 import org.hibernate.Session;
 
-import com.projet.pharmatech.dao.UserDAOImpl;
 import com.projet.pharmatech.entities.User;
 
 public class Test {
@@ -14,7 +13,7 @@ public class Test {
 		
 		session.createQuery("select o from Medicament o").list();
 
-		UserDAOImpl dao = new UserDAOImpl();
+		/*UserDAOImpl dao = new UserDAOImpl();*/
 		
 		User user = new User();
 		user.setNom("Tahir");

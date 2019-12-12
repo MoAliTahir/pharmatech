@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script type="text/javascript" src="module.js"></script>
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Bienvenue</title>
+</head>
+<body> 
+			<h1>Hello</h1>
+			  	<p:spinner />
+			 
+			<p:link outcome="login" value="book">
+				<f:param name="productId" value="10"></f:param>
+			</p:link>
+			
+			<p:button outcome="acceuil" value="Bookmark" icon="pi pi-star" style="margin-right:20px;"> 
+				<f:param name="productId" value="10" /> 
+			</p:button> 
+			
+</body>
+</html>

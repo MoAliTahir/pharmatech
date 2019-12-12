@@ -46,16 +46,16 @@ public class AuthFilter implements Filter {
 		String url = req.getRequestURI();
 		System.out.println(session);
 		System.out.println(req.getContextPath());
-		if(url.indexOf("/login.jsp")>=0 
+		if(url.indexOf("/login.xhtml")>=0 
 				|| (session != null && session.getAttribute("authUser")!=null) 
-				|| url.indexOf("/public/")>=0 
 				|| url.contains("javax.faces.resource"))
 		{
+			System.out.println("loggedIn");
 			chain.doFilter(request, response);
 			
 		}else
 		{
-			resp.sendRedirect(req.getContextPath() + "/faces/login.jsp");
+			resp.sendRedirect(req.getContextPath() + "/faces/login.xhtml");
 		}
 			/*if(url.indexOf("/logout.jsp")>=0)
 			{

@@ -43,15 +43,15 @@ public class AdminFilter implements Filter{
 		String url = req.getRequestURI();
 		if(url.indexOf("/admin")>=0 && session != null)
 		{
-			//Si l'admin est connecté
+			//Si l'admin est connectï¿½
 			if(session.getAttribute("isAdmin") != null && session.getAttribute("isAdmin").equals(true))
 				chain.doFilter(request, response);
 			else
-				//si la session est expirée et l'utilisateur reessaye de recharger les pages
-				resp.sendRedirect(req.getContextPath() + "/faces/acceuil.jsp");
+				//si la session est expirï¿½e et l'utilisateur reessaye de recharger les pages
+				resp.sendRedirect(req.getContextPath() + "/faces/acceuil.xhtml");
 		}	
 		else
-			resp.sendRedirect(req.getContextPath() + "/faces/acceuil.jsp");
+			resp.sendRedirect(req.getContextPath() + "/faces/acceuil.xhtml");
 		// pass the request along the filter chain
 		
 	}

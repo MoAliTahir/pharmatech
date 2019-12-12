@@ -14,11 +14,11 @@
  -->
 
 <navigation-rule>
-     <from-view-id>/login.jsp</from-view-id>
+     <from-view-id>/login.xhtml</from-view-id>
      <navigation-case>
        <from-action>#{loginBean.login}</from-action>
        <from-outcome>login</from-outcome>
-       <to-view-id>/index.jsp</to-view-id>
+       <to-view-id>/index.xhtml</to-view-id>
        <redirect/>
      </navigation-case>
 

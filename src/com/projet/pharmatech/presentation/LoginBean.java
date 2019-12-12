@@ -43,14 +43,14 @@ public class LoginBean implements Serializable {
 	public String login(){
 		UserService userService = new UserService();
 		User user = userService.login(userName, password);
-		if (user != null) {
+  		if (user != null) {
 			System.out.println("Logging In...");
 			HttpSession session = SessionUtil.getSession();
 			session.setAttribute("authUser", user);
 			session.setAttribute("isAdmin", user.getRole().equals("admin"));
 			if(user.getRole().equals("admin"))
-				return "/admin/acceuil.jsp?faces-redirect=true";
-			return "acceuil.jsp?faces-redirect=true";
+				return "/admin/acceuil.xhtml?faces-redirect=true";
+			return "acceuil.xhtml?faces-redirect=true";
 		}else {
 			FacesContext.getCurrentInstance().addMessage(
 					null, 
@@ -69,7 +69,7 @@ public class LoginBean implements Serializable {
 		HttpSession session = SessionUtil.getSession();
 		session.invalidate();
 		
-		return "login.jsp?faces-redirect=true";
+		return "login.xhtml?faces-redirect=true";
 	}
 	
 	
