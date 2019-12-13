@@ -1,33 +1,34 @@
 <!DOCTYPE html>
-<html lang="en"
-	xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Bienvenue</title>
 </h:head>
 <h:body>
-	
-		<h:form>
-			<h:outputText value="Connectez-vous "></h:outputText>
-			<h:outputLabel value="Username: " />
-		
-				<h:inputText value="#{loginBean.userName}" required="true" requiredMessage="Nom d'utilisateur obligatoir" id="username" />
-				<br />
-				<h:message for="username" errorClass="error_message" ></h:message>
-				
-				<h:outputLabel value="Password: " />
-				<h:inputSecret value="#{loginBean.password}" required="true" requiredMessage="Mot de passe obligatoir" id="pass" />
-				<br />
-				<h:message for="pass" errorClass="error_message" ></h:message>
-				
-				
-				 
-				<h:commandButton value="Login" action="#{loginBean.login}" />
-		</h:form>
-	
+
+	<h:form>
+		<h:outputText value="Connectez-vous "></h:outputText>
+		<h:outputLabel value="Username: " />
+
+		<h:inputText value="#{loginBean.userName}" required="true"
+			requiredMessage="Nom d'utilisateur obligatoir" id="username" />
+		<br />
+		<h:message for="username" errorClass="error_message"></h:message>
+
+		<h:outputLabel value="Password: " />
+		<h:inputSecret value="#{loginBean.password}" required="true"
+			requiredMessage="Mot de passe obligatoir" id="pass" />
+		<br />
+		<h:message for="pass" errorClass="error_message"></h:message>
+
+
+
+		<h:commandButton value="Login" action="#{loginBean.login}" />
+	</h:form>
+
 </h:body>
 </html>

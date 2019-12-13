@@ -1,6 +1,7 @@
 package com.projet.pharmatech.presentation;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
@@ -23,7 +24,7 @@ public class MedicamentBean implements Serializable {
 	private int quantite_stock;
 	private String description;
 	private Date date_ajout;
-	private Date date_peremtion;
+	private LocalDateTime date_temps_peremtion;
 
 	public long getId() {
 		return id;
@@ -46,8 +47,8 @@ public class MedicamentBean implements Serializable {
 	public Date getDate_ajout() {
 		return date_ajout;
 	}
-	public Date getDate_peremtion() {
-		return date_peremtion;
+	public LocalDateTime getDate_temps_peremtion() {
+		return date_temps_peremtion;
 	}
 	public void setId(long id) {
 		this.id = id;
@@ -70,9 +71,14 @@ public class MedicamentBean implements Serializable {
 	public void setDate_ajout(Date date_ajout) {
 		this.date_ajout = date_ajout;
 	}
-	public void setDate_peremtion(Date date_peremtion) {
-		this.date_peremtion = date_peremtion;
+	public void setDate_temps_peremtion(LocalDateTime date_temps_peremtion) {
+		this.date_temps_peremtion = date_temps_peremtion;
 	}
+	
+	
+
+
+
 	
 	
 }

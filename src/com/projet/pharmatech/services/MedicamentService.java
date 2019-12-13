@@ -29,4 +29,10 @@ public class MedicamentService {
 	public Medicament findById(Long id) {
 		return medicamentDao.findById(id);
 	}
+
+	public List<Medicament> getAllMedicaments() {
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++ HERE IN MEDIC REPO");
+
+		return medicamentDao.findAll();
+	}
 }

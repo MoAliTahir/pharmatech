@@ -8,7 +8,7 @@ import org.hibernate.Session;
 
 import com.projet.pharmatech.utils.HibernateUtil;
 
-public class EntityDaoImpl<E> {
+public abstract class EntityDaoImpl<E> {
 	Session session = HibernateUtil.openSession();
 	private Class<E> type;
 	
@@ -44,10 +44,8 @@ public class EntityDaoImpl<E> {
 	}
 
 	
-	public List<E> findAll() {
-		return session.createQuery("select o from User o").list();
-	}
-
+	public abstract List<E> findAll();
+	
 	public E findById(Long id) {
 		return session.find(type, id);
 		//TODO: Check

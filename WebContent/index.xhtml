@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script type="text/javascript" src="module.js"></script>
-<head>
+<h:head>
 <meta charset="ISO-8859-1"></meta>
-<title>Bienvenue</title>
-</head>
-<body> 
-			<h1>Hello</h1>
+<title></title>
+<meta charset="UTF-8"></meta>
+</h:head>
+<body>
+	<!-- <h1>Hello</h1>
 			  	<p:spinner />
 			 
 			<p:link outcome="login" value="book">
@@ -20,7 +22,70 @@
 			
 			<p:button outcome="acceuil" value="Bookmark" icon="pi pi-star" style="margin-right:20px;"> 
 				<f:param name="productId" value="10" /> 
-			</p:button> 
-			
+			</p:button> -->
+
+<h:outputStylesheet library="css" name="style.css" />
+
+
+	<h:form>
+		<p:dataTable var="medicament"
+			value="#{MedicamentsViewBean.medicaments}"
+			widgetVar="medicamentsTable" emptyMessage="Aucun medicament!"
+			filteredValue="#{MedicamentsViewBean.filteredMedicaments}"
+			globalFilterFunction="#{MedicamentsViewBean.globalFilterFunction}">
+
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Chercher parmi tous les medicaments:  " />
+					<p:inputText id="globalFilter"
+						onkeyup="PF('medicamentsTable').filter()" style="width:150px"
+						placeholder="Taper un mot cle..." />
+				</p:outputPanel>
+			</f:facet>
+
+			<p:column headerText="Id">
+				<h:outputText value="#{medicament.id}" />
+			</p:column>
+
+			<p:column headerText="categorie">
+				<h:outputText value="#{medicament.categorie}" />
+			</p:column>
+
+			<p:column headerText="Date Ajout">
+				<h:outputText value="#{medicament.date_ajout}" />
+			</p:column>
+
+			<p:column headerText="Date Peremption">
+				<h:outputText value="#{medicaments.date_peremtion}" />
+			</p:column>
+
+			<p:column headerText="Description">
+				<h:outputText value="#{medicament.description}" />
+			</p:column>
+
+			<p:column headerText="libelle">
+				<h:outputText value="#{medicament.libelle}" />
+			</p:column>
+
+			<p:column headerText="prix">
+				<h:outputText value="#{medicament.prix}" />
+			</p:column>
+
+			<p:column headerText="Quantit� Stock">
+				<h:outputText value="#{medicament.quantite_stock}" />
+			</p:column>
+
+			<p:column headerText="Statut">
+				<h:outputText value="#{medicament.perime ? 'Perim�': 'Valable'}" />
+			</p:column>
+
+			<p:column headerText="Prix">
+				<h:outputText value="#{medicament.prix}">
+					<f:convertNumber currencySymbol="MAD" type="currency" />
+				</h:outputText>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
 </body>
 </html>
