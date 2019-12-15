@@ -25,7 +25,6 @@ public abstract class EntityDaoImpl<E> {
 		session.getTransaction().commit();
 		
 		String className = e.getClass().getSimpleName();
-		System.out.println("------------>"+className);
 		@SuppressWarnings("unchecked")
 		E u = (E) session.createQuery("select o from "+ className +" o where o.id = (select max(e.id) from "+ className + " e)").uniqueResult();
 		

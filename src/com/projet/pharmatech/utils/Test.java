@@ -46,31 +46,7 @@ public class Test {
 			
 		}
 		*/
-		/*UserDaoImpl userDao = new UserDaoImpl();
-		
-		User user = new User("Tahir", "Ali", "ali", "ali", "0681920973", "pharmacien");
-		
-		
-		userDao.add(user);*/
-		/*
-		CommandeDaoImpl comDao = new CommandeDaoImpl();
-		ArrayList<LigneCommande> lComm = new ArrayList<LigneCommande>();
-		Medicament medicament = new Medicament("Doliprane", "Comprimé", "Ahmed Fournisseur", 25, 50, "Description doli", null, null);
-		Commande commandSearch = comDao.findById(1);
-		LigneCommande ligneCommande = new LigneCommande(
-				medicament, 3, commandSearch
-				);
-		lComm.add(
-				ligneCommande
-				);
-		
-		//Commande cmdf = new Commande();
-		//comDao.add(cmdf);
-		Client client = new Client("Tb", "Amine", false);
-		ClientDaoImpl cd = new ClientDaoImpl();
-		cd.add(client);
-		Commande cmdUpdated = new Commande(lComm, client, 75);
-		Commande cm = comDao.update(cmdUpdated);*/
+			
 		
 		MedicamentDaoImpl medDao = new MedicamentDaoImpl();
 		//medDao.add(new Medicament("Doliprane", "comprimé", "Fournisseur 1", 25, 150, "Une description", LocalDate.now() , LocalDateTime.of(2022, 05, 22, 00, 00)));
