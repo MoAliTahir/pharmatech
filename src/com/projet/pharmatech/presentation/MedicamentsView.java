@@ -23,35 +23,34 @@ public class MedicamentsView implements Serializable {
 
 	private List<Medicament> medicaments;
  
-    private List<Medicament> filteredMedicaments=new ArrayList<>();
+    private List<Medicament> filteredMedicaments;
  
     private MedicamentService medicamentService;
  
     @PostConstruct
     public void init() {
+    	filteredMedicaments=new ArrayList<>();
     	medicamentService=new MedicamentService();
     	 medicaments = new ArrayList<>();
     	 try {
-    		 System.out.println("boooooooooooooooooooooooooooooooooo nigga0");
-    		 System.out.println((medicamentService.getAllMedicaments()==null)?"NULLLLLLLL":"NOONONONONONON");
-         medicaments.addAll(medicamentService.getAllMedicaments());
-         System.out.println("boooooooooooooooooooooooooooooooooo nigga1");
-    	 }catch(Exception e) {
-    		 System.out.println("boooooooooooooooooooooooooooooooooo nigga");
-    		 e.printStackTrace();
+           medicaments.addAll(medicamentService.getAllMedicaments());
+     	 }catch(Exception e) {
+     		 e.printStackTrace();
     	 }
     }
 
  
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        System.out.println("ffffffffffffffffffffffffffffffffffffffffffffffffffilter "+filterText);
+
         if (filterText == null || filterText.equals("")) {
             return true;
         }
         int filterInt = getInteger(filterText);
  
         Medicament Medicament = (Medicament) value;
-        return Medicament.getId()==filterInt
+        return 	   Medicament.getId()==filterInt
         		|| Medicament.getCategorie().toLowerCase().contains(filterText)
                 || Medicament.getDescription().toLowerCase().contains(filterText)
                 || (Medicament.getPerime() ? "Périmé" : "Valable").contains(filterText)
@@ -74,9 +73,10 @@ public class MedicamentsView implements Serializable {
         return filteredMedicaments;
     }
  
-    public void setFilteredCars2(List<Medicament> filteredMedicaments) {
-        this.filteredMedicaments.clear();
-        this.filteredMedicaments.addAll(filteredMedicaments);
+    public void setFilteredMedicaments(List<Medicament> filteredMedicaments) {
+       /* this.filteredMedicaments.clear();
+        this.filteredMedicaments.addAll(filteredMedicaments);*/
+    	this.filteredMedicaments=filteredMedicaments;
     }
  
     public void setService(MedicamentService service) {
@@ -104,15 +104,11 @@ public class MedicamentsView implements Serializable {
 	}
 
 
-	public void setFilteredMedicaments(List<Medicament> filteredMedicaments) {
-		this.filteredMedicaments = filteredMedicaments;
-	}
-
-
 	public void setMedicamentService(MedicamentService medicamentService) {
 		this.medicamentService = medicamentService;
 	}
     
+	
 	
     
 }

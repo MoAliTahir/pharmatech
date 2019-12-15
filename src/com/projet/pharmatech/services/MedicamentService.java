@@ -1,11 +1,16 @@
 package com.projet.pharmatech.services;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.projet.pharmatech.daoImpl.MedicamentDaoImpl;
 import com.projet.pharmatech.entities.Medicament;
 
-public class MedicamentService {
+public class MedicamentService implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	MedicamentDaoImpl medicamentDao = new MedicamentDaoImpl();
 	
 	Medicament add(Medicament u) {

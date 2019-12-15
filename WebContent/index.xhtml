@@ -43,43 +43,43 @@
 				</p:outputPanel>
 			</f:facet>
 
-			<p:column headerText="Id">
+			<p:column headerText="Id" filterBy="#{medicament.id}">
 				<h:outputText value="#{medicament.id}" />
 			</p:column>
 
-			<p:column headerText="categorie">
+			<p:column headerText="Categorie" filterBy="#{medicament.categorie}">
 				<h:outputText value="#{medicament.categorie}" />
 			</p:column>
 
-			<p:column headerText="Date Ajout">
+			<p:column headerText="Date Ajout" filterBy="#{medicament.date_ajout}">
 				<h:outputText value="#{medicament.date_ajout}" />
 			</p:column>
 
-			<p:column headerText="Date Peremption">
+			<p:column headerText="Date Peremption" filterBy="#{medicaments.date_peremtion}">
 				<h:outputText value="#{medicaments.date_peremtion}" />
 			</p:column>
 
-			<p:column headerText="Description">
+			<p:column headerText="Description" filterBy="#{medicament.description}">
 				<h:outputText value="#{medicament.description}" />
 			</p:column>
 
-			<p:column headerText="libelle">
+			<p:column headerText="libelle" filterBy="#{medicament.libelle}">
 				<h:outputText value="#{medicament.libelle}" />
 			</p:column>
 
-			<p:column headerText="prix">
+			<p:column headerText="prix" filterBy="#{medicament.prix}">
 				<h:outputText value="#{medicament.prix}" />
 			</p:column>
 
-			<p:column headerText="Quantit� Stock">
+			<p:column headerText="Quantite Stock" filterBy="#{medicament.quantite_stock}">
 				<h:outputText value="#{medicament.quantite_stock}" />
 			</p:column>
 
-			<p:column headerText="Statut">
-				<h:outputText value="#{medicament.perime ? 'Perim�': 'Valable'}" />
+			<p:column headerText="Statut" filterBy="#{medicament.perime}">
+				<h:outputText value="#{medicament.perime ? 'Perime': 'Valable'}" />
 			</p:column>
 
-			<p:column headerText="Prix">
+			<p:column headerText="Prix" filterBy="#{medicament.prix}">
 				<h:outputText value="#{medicament.prix}">
 					<f:convertNumber currencySymbol="MAD" type="currency" />
 				</h:outputText>
