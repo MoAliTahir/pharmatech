@@ -10,14 +10,14 @@ public class UserService {
 		
 		User add(User u) {
 			return userDao.add(u);
-		};
+		}
 		
 		public User update(User u) {
 			return userDao.update(u);
 		}
 
 
-		public void delete(Long id) {
+		public void delete(int id) {
 			userDao.delete(id);			
 		}
 
@@ -26,7 +26,7 @@ public class UserService {
 			return userDao.findAll();
 		}
 
-		public User findById(Long id) {
+		public User findById(int id) {
 			return userDao.findById(id);
 		}
 		

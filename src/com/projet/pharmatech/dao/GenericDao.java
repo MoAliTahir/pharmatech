@@ -8,10 +8,10 @@ public interface GenericDao<E> {
 		
 		public E update(E entity);
 		
-		public void delete(Long id);
+		public void delete(int id);
 		
 		public List<E> findAll();
 		
-		public E findById(Long id);
+		public E findById(int id);
 
 }

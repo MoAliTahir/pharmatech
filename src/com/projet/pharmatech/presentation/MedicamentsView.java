@@ -56,7 +56,7 @@ public class MedicamentsView implements Serializable {
                 || Medicament.getDescription().toLowerCase().contains(filterText)
                 || (Medicament.getPerime() ? "Périmé" : "Valable").contains(filterText)
                 || Medicament.getLibelle().toLowerCase().contains(filterText)
-                || Math.abs(Medicament.getQuantite_stock()-filterInt)<5
+                || Math.abs(Medicament.getQuantiteStock()-filterInt)<5
                 || Math.abs(Medicament.getPrix()-(double)filterInt)<5.0;
     }
  

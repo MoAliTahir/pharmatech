@@ -17,7 +17,7 @@ public class ClientService {
 	}
 
 
-	public void delete(Long id) {
+	public void delete(int id) {
 		clientDao.delete(id);			
 	}
 
@@ -26,7 +26,7 @@ public class ClientService {
 		return clientDao.findAll();
 	}
 
-	public Client findById(Long id) {
+	public Client findById(int id) {
 		return clientDao.findById(id);
 	}
 }

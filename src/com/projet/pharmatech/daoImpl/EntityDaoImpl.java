@@ -19,6 +19,7 @@ public abstract class EntityDaoImpl<E> {
 		type = (Class<E>) pt.getActualTypeArguments()[0];
 	}
 	
+	@SuppressWarnings("unchecked")
 	public E add(E e) {
 		session.beginTransaction();
 		E u = (E) session.save(e);
@@ -27,6 +28,7 @@ public abstract class EntityDaoImpl<E> {
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	public E update(E e) {
 		session.beginTransaction();
 		E u = (E) session.merge(e);
@@ -35,7 +37,7 @@ public abstract class EntityDaoImpl<E> {
 	}
 
 
-	public void delete(Long id) {
+	public void delete(int id) {
 		session.beginTransaction();
 		E u = findById(id);
 		session.delete(u);
@@ -46,7 +48,7 @@ public abstract class EntityDaoImpl<E> {
 	
 	public abstract List<E> findAll();
 	
-	public E findById(Long id) {
+	public E findById(int id) {
 		return session.find(type, id);
 		//TODO: Check
 	}
