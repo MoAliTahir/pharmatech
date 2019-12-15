@@ -11,21 +11,10 @@ public class UserDaoImpl extends EntityDaoImpl<User>  implements IUserDao {
 		return (User) this.session.createQuery("select u from User u where u.login='"+userName+"' and u.password='"+password+"'").uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAll() {
 		return session.createQuery("select u from User u").list();
-	}
-
-	@Override
-	public void delete(Long id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public User findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

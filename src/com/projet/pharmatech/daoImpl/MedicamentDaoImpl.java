@@ -8,6 +8,7 @@ import com.projet.pharmatech.entities.Medicament;
 public class MedicamentDaoImpl extends EntityDaoImpl<Medicament>  implements IMedicamentDao {
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Medicament> findAll() {
 		return session.createQuery("select o from Medicament o").list();

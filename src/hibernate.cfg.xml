@@ -10,7 +10,7 @@
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.url">jdbc:mysql://localhost:3306/pharmatech</property>
 		<property name="connection.username">root</property>
-		<property name="connection.password"></property>
+		<property name="connection.password">Alitahir681628..//</property>
 
 		<!-- JDBC connection pool (use the built-in) -->
 		<property name="connection.pool_size">1</property>
@@ -34,6 +34,9 @@
 		<!-- <mapping resource="dao/Categorie.hbm.xml"/> -->
 		<mapping class="com.projet.pharmatech.entities.User" />
 		<mapping class="com.projet.pharmatech.entities.Medicament" />
+		<mapping class="com.projet.pharmatech.entities.Commande"/>
+		<mapping class="com.projet.pharmatech.entities.LigneCommande"/>
+		<mapping class="com.projet.pharmatech.entities.Client"/>
 
 
 	</session-factory>

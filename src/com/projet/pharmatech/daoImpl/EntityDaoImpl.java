@@ -8,7 +8,7 @@ import org.hibernate.Session;
 
 import com.projet.pharmatech.utils.HibernateUtil;
 
-public abstract class EntityDaoImpl<E> {
+public abstract class EntityDaoImpl<E>  {
 	Session session = HibernateUtil.openSession();
 	private Class<E> type;
 	

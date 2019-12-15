@@ -69,7 +69,7 @@ public class MedicamentsView implements Serializable {
                 || Medicament.getDescription().toLowerCase().contains(filterText)
                 || (Medicament.getPerime() ? "Périmé" : "Valable").contains(filterText)
                 || Medicament.getLibelle().toLowerCase().contains(filterText)
-                || Math.abs(Medicament.getQuantite_stock()-filterInt)<5
+                || Math.abs(Medicament.getQuantiteStock()-filterInt)<5
                 || Math.abs(Medicament.getPrix()-(double)filterInt)<5.0;
     }
  
@@ -122,8 +122,8 @@ public class MedicamentsView implements Serializable {
 		this.medicamentService = medicamentService;
 	}
     
-	public void addLigneCommande() {
-		LigneCommande ligneCommande = new LigneCommande(this.commande);
+	public void addLigneCommande(Medicament m, int q) {
+		LigneCommande ligneCommande = new LigneCommande(m,q,this.commande);
 		this.panier.add(ligneCommande);
 	}
 	

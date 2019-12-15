@@ -1,7 +1,21 @@
 package com.projet.pharmatech.utils;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.hibernate.Session;
 
+import com.projet.pharmatech.daoImpl.ClientDaoImpl;
+import com.projet.pharmatech.daoImpl.CommandeDaoImpl;
+import com.projet.pharmatech.daoImpl.LigneCommandeDaoImpl;
+import com.projet.pharmatech.daoImpl.MedicamentDaoImpl;
+import com.projet.pharmatech.entities.Client;
+import com.projet.pharmatech.entities.Commande;
+import com.projet.pharmatech.entities.LigneCommande;
+import com.projet.pharmatech.entities.Medicament;
 import com.projet.pharmatech.entities.User;
 
 public class Test {
@@ -11,20 +25,48 @@ public class Test {
 	public static void main(String[] args) {
 		session.createQuery("select o from User o").list();
 		
-		session.createQuery("select o from Medicament o").list();
-
-		/*UserDAOImpl dao = new UserDAOImpl();*/
+		/*
 		
-		User user = new User();
-		user.setNom("Tahir");
-		user.setPrenom("Mohamed");
-		user.setLogin("aliTahir");
+		CommandeDaoImpl commDao = new CommandeDaoImpl();
+		List<Commande> commandes = commDao.findAll();
 		
-		//dao.add(user);
+		Iterator iterator = commandes.iterator();
 		
-		System.out.println("++++++++"+user.getNom());
+		while (iterator.hasNext()) {
+			Commande object = (Commande) iterator.next();
+			System.out.println("Commande: --> Prix: " + object.getPrixTotal());
+			
+			Iterator iterator2 = object.getLignesCommande().iterator();
+			
+			while (iterator2.hasNext()) {
+				LigneCommande object2 = (LigneCommande) iterator2.next();
+				
+				System.out.println("Ligne de commande : Quantite ++> " + object2.getQuantite());
+			}
+			
+		}
+		*/
+			
+		
+		MedicamentDaoImpl medDao = new MedicamentDaoImpl();
+		//medDao.add(new Medicament("Doliprane", "comprimé", "Fournisseur 1", 25, 150, "Une description", LocalDate.now() , LocalDateTime.of(2022, 05, 22, 00, 00)));
+		//medDao.add(new Medicament("Rinomicine", "sachet", "Fournisseur 2", 20, 100, "Une description", LocalDate.now() , LocalDateTime.of(2021, 07, 01, 23, 59)));
+		//medDao.add(new Medicament("Paracetamol", "comprimé", "Fournisseur 1", 15, 250, "Une description", LocalDate.now() , LocalDateTime.of(2022, 02, 28, 23, 59)));
+		CommandeDaoImpl commDaoImpl = new CommandeDaoImpl();
+		Commande co = commDaoImpl.add(new Commande());
+		LigneCommandeDaoImpl lignDao = new LigneCommandeDaoImpl();
+		lignDao.add(new LigneCommande(medDao.findById(1), 5, co));
+		lignDao.add(new LigneCommande(medDao.findById(3), 2, co));
+		lignDao.add(new LigneCommande(medDao.findById(4), 3, co));
 		
 		
+		ClientDaoImpl cd = new ClientDaoImpl();
+		
+		co.setLignesCommande(lignDao.findAll());
+		co.setClient(cd.findById(1));
+		co.setPrixTotal(5*25+2*20+3*15);
+		commDaoImpl.update(co);
+	
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.projet.pharmatech.services;
 
 import java.io.Serializable;
+
+
 import java.util.List;
 
 import com.projet.pharmatech.daoImpl.CommandeDaoImpl;
@@ -21,7 +23,6 @@ public class CommandeService implements Serializable{
 		return commandeDao.update(u);
 	}
 
-
 	public void delete(int id) {
 		commandeDao.delete(id);			
 	}
@@ -38,4 +39,5 @@ public class CommandeService implements Serializable{
 	public List<Commande> getAllMedicaments() {
 		return commandeDao.findAll();
 	}
+
 }

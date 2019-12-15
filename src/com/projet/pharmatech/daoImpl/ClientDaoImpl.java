@@ -4,24 +4,13 @@ import java.util.List;
 
 import com.projet.pharmatech.dao.IClientDao;
 import com.projet.pharmatech.entities.Client;
-import com.projet.pharmatech.entities.Medicament;
 
 public class ClientDaoImpl extends EntityDaoImpl<Client>  implements IClientDao {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Client> findAll() {
 			return session.createQuery("select o from Client o").list();
-	}
-
-	@Override
-	public void delete(Long id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Client findById(Long id) {
- 		return null;
 	}
 
 }

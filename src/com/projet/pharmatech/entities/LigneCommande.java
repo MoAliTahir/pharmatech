@@ -1,53 +1,65 @@
 package com.projet.pharmatech.entities;
 
-import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-@Entity
-@Table(name="commande")
-public class LigneCommande {
 	
-    public LigneCommande(Commande cmd) {
-    	dateAjout = new Date();
-    	setCommande(cmd);
-    }
-    
+	@Entity
+	@Table(name="ligne_commande")
+	public class LigneCommande {
+      
+	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "medicament")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "medicament_id")
 	private Medicament medicament;
-	@ManyToOne
-	private Commande commande;
 	private int quantite;
-	private Date dateAjout;
+	@ManyToOne
+	@JoinColumn(name = "commande_id")
+	private Commande commande;
 	
+	
+	
+	
+	public LigneCommande() {
+	   	super();
+	}
+	
+	
+	public LigneCommande(Medicament medicament, int quantite, Commande commande) {
+		super();
+		this.medicament = medicament;
+		this.quantite = quantite;
+		this.commande = commande;
+	}
+
+
+
+
+
 	public int getId() {
 		return id;
 	}
 	public int getQuantite() {
 		return quantite;
 	}
-	public Date getDateAjout() {
-		return dateAjout;
-	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
-	public void setDateAjout(Date dateAjout) {
-		this.dateAjout = dateAjout;
-	}
+	
 	public Medicament getMedicament() {
 		return medicament;
 	}

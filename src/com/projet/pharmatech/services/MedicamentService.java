@@ -22,7 +22,7 @@ public class MedicamentService implements Serializable{
 	}
 
 
-	public void delete(Long id) {
+	public void delete(int id) {
 		medicamentDao.delete(id);			
 	}
 
@@ -31,7 +31,7 @@ public class MedicamentService implements Serializable{
 		return medicamentDao.findAll();
 	}
 
-	public Medicament findById(Long id) {
+	public Medicament findById(int id) {
 		return medicamentDao.findById(id);
 	}
 

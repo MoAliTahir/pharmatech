@@ -3,16 +3,12 @@ package com.projet.pharmatech.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "medicament")
@@ -21,14 +17,15 @@ public class Medicament implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 	private String libelle;
 	private String categorie;
+	private String fournisseur;
 	private double prix;
-	private int quantite_stock;
+	private int quantiteStock;
 	private String description;
-	private LocalDate date_ajout;
-	private LocalDateTime date_temps_peremtion=null;
+	private LocalDate dateAjout;
+	private LocalDateTime datePeremtion=null;
 	
 	
 	public Medicament() {
@@ -37,10 +34,25 @@ public class Medicament implements Serializable{
 	
 	
 	
-	public long getId() {
+	public Medicament(String libelle, String categorie, String fournisseur, double prix, int quantiteStock,
+			String description, LocalDate dateAjout, LocalDateTime datePeremtion) {
+		super();
+		this.libelle = libelle;
+		this.categorie = categorie;
+		this.fournisseur = fournisseur;
+		this.prix = prix;
+		this.quantiteStock = quantiteStock;
+		this.description = description;
+		this.dateAjout = dateAjout;
+		this.datePeremtion = datePeremtion;
+	}
+
+
+
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getLibelle() {
@@ -61,11 +73,11 @@ public class Medicament implements Serializable{
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
-	public int getQuantite_stock() {
-		return quantite_stock;
+	public int getQuantiteStock() {
+		return quantiteStock;
 	}
-	public void setQuantite_stock(int quantite_stock) {
-		this.quantite_stock = quantite_stock;
+	public void setQuantite_stock(int quantiteStock) {
+		this.quantiteStock = quantiteStock;
 	}
 	public String getDescription() {
 		return description;
@@ -73,28 +85,38 @@ public class Medicament implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public LocalDate getDate_ajout() {
-		return date_ajout;
+	public LocalDate getDateAjout() {
+		return dateAjout;
 	}
-	public void setDate_ajout(LocalDate date_ajout) {
-		this.date_ajout = date_ajout;
+	public void setDateAjout(LocalDate dateAjout) {
+		this.dateAjout = dateAjout;
 	}
-	public LocalDateTime getDate_temps_peremtion() {
-		return date_temps_peremtion;
+	public LocalDateTime getDatePeremtion() {
+		return datePeremtion;
 	}
-	public void setDate_temps_peremtion(LocalDateTime date_temps_peremtion) {
-		this.date_temps_peremtion = date_temps_peremtion;
+	public void setDatePeremtion(LocalDateTime datePeremtion) {
+		this.datePeremtion = datePeremtion;
 	}
 
+	public String getFournisseur() {
+		return fournisseur;
+	}
 
+	public void setFournisseur(String fournisseur) {
+		this.fournisseur = fournisseur;
+	}
 
 	public boolean getPerime() {
 		LocalDateTime now = LocalDateTime.now();
-		if(date_temps_peremtion==null) {
+		if(datePeremtion==null) {
 			return false;
 		}
-		return now.compareTo(this.date_temps_peremtion)>0;
+		return now.compareTo(this.datePeremtion)>0;
 	}
+
+
+
+
 	
 	public void ajouterAuPanier() {
 		System.out.println("Ajouter au panier");
