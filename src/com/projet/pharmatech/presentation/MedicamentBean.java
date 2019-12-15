@@ -26,6 +26,13 @@ public class MedicamentBean implements Serializable {
 	private Date date_ajout;
 	private LocalDateTime date_temps_peremtion;
 
+	public void ajouterAuPanier() {
+		System.out.println("-----------------------");
+		System.out.println("-----------------------");
+		System.out.println("-- TIME TO CELEBRATE!--");
+		System.out.println("-----------------------");
+		System.out.println("-----------------------");
+	}
 	public long getId() {
 		return id;
 	}

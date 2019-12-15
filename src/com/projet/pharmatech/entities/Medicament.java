@@ -96,6 +96,9 @@ public class Medicament implements Serializable{
 		return now.compareTo(this.date_temps_peremtion)>0;
 	}
 	
+	public void ajouterAuPanier() {
+		System.out.println("Ajouter au panier");
+	}
 	
 	
 

@@ -13,4 +13,15 @@ public class ClientDaoImpl extends EntityDaoImpl<Client>  implements IClientDao 
 			return session.createQuery("select o from Client o").list();
 	}
 
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Client findById(Long id) {
+ 		return null;
+	}
+
 }

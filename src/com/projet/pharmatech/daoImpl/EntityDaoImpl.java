@@ -35,7 +35,7 @@ public abstract class EntityDaoImpl<E> {
 	}
 
 
-	public void delete(Long id) {
+	public void delete(int id) {
 		session.beginTransaction();
 		E u = findById(id);
 		session.delete(u);
@@ -46,7 +46,7 @@ public abstract class EntityDaoImpl<E> {
 	
 	public abstract List<E> findAll();
 	
-	public E findById(Long id) {
+	public E findById(int id) {
 		return session.find(type, id);
 		//TODO: Check
 	}

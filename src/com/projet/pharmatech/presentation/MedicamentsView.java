@@ -9,7 +9,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import com.projet.pharmatech.entities.Commande;
+import com.projet.pharmatech.entities.LigneCommande;
 import com.projet.pharmatech.entities.Medicament;
+import com.projet.pharmatech.services.CommandeService;
 import com.projet.pharmatech.services.MedicamentService;
 
 @ManagedBean(name="MedicamentsViewBean")
@@ -24,14 +27,26 @@ public class MedicamentsView implements Serializable {
 	private List<Medicament> medicaments;
  
     private List<Medicament> filteredMedicaments;
+    
+    private List<LigneCommande> panier;
  
     private MedicamentService medicamentService;
+    
+    private Commande commande;
+ 
+    private CommandeService commandeService;
+    
  
     @PostConstruct
     public void init() {
-    	filteredMedicaments=new ArrayList<>();
-    	medicamentService=new MedicamentService();
+    	 commandeService= new CommandeService();
+    	 filteredMedicaments=new ArrayList<>();
+    	 medicamentService=new MedicamentService();
     	 medicaments = new ArrayList<>();
+    	 panier= new ArrayList<>();
+    	 commande= new Commande();
+    	 
+    	 
     	 try {
            medicaments.addAll(medicamentService.getAllMedicaments());
      	 }catch(Exception e) {
@@ -42,7 +57,6 @@ public class MedicamentsView implements Serializable {
  
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
-        System.out.println("ffffffffffffffffffffffffffffffffffffffffffffffffffilter "+filterText);
 
         if (filterText == null || filterText.equals("")) {
             return true;
@@ -108,6 +122,20 @@ public class MedicamentsView implements Serializable {
 		this.medicamentService = medicamentService;
 	}
     
+	public void addLigneCommande() {
+		LigneCommande ligneCommande = new LigneCommande(this.commande);
+		this.panier.add(ligneCommande);
+	}
+	
+	public void validerCommande() {
+		this.commandeService.add(this.commande);
+	}
+	
+	public void annulerCommande() {
+		this.panier.clear();
+		this.commande= new Commande();
+	}
+	
 	
 	
     

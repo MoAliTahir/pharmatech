@@ -13,7 +13,7 @@ public class HibernateUtil {
  private static SessionFactory buildSessionFact() {
   try {
 
-   return new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Medicament.class).buildSessionFactory();
+   return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
     
   } catch (Throwable ex) {

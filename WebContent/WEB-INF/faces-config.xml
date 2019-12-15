@@ -16,5 +16,16 @@
 		</navigation-case>
 
 	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/acceuil.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{RouterBean.gotoIndex}</from-action>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
 
 </faces-config>

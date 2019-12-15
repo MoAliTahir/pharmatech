@@ -16,4 +16,16 @@ public class UserDaoImpl extends EntityDaoImpl<User>  implements IUserDao {
 		return session.createQuery("select u from User u").list();
 	}
 
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public User findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

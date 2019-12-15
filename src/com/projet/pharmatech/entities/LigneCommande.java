@@ -15,8 +15,9 @@ import javax.persistence.Table;
 @Table(name="commande")
 public class LigneCommande {
 	
-    public LigneCommande() {
+    public LigneCommande(Commande cmd) {
     	dateAjout = new Date();
+    	setCommande(cmd);
     }
     
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

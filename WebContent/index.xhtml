@@ -26,7 +26,7 @@
 
 <h:outputStylesheet library="css" name="style.css" />
 
-
+	<h1>Gestion de vente :</h1>
 	<h:form>
 		<p:dataTable var="medicament"
 			value="#{MedicamentsViewBean.medicaments}"
@@ -84,6 +84,12 @@
 					<f:convertNumber currencySymbol="MAD" type="currency" />
 				</h:outputText>
 			</p:column>
+			
+			<p:column headerText="">
+ 				
+ 				   <p:commandButton ajax="true" process="@form" update="@form"/>
+ 			</p:column>
+			
 		</p:dataTable>
 	</h:form>
 
