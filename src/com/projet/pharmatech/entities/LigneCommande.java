@@ -19,11 +19,11 @@ import javax.persistence.Table;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "medicament_id")
 	private Medicament medicament;
 	private int quantite;
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "commande_id")
 	private Commande commande;
 	

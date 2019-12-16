@@ -21,14 +21,20 @@ public abstract class EntityDaoImpl<E>  {
 	
 	public E add(E e) {
 		session.beginTransaction();
-		E u = (E) session.save(e);
+		session.save(e);
 		session.getTransaction().commit();
+		
+		String className = e.getClass().getSimpleName();
+		@SuppressWarnings("unchecked")
+		E u = (E) session.createQuery("select o from "+ className +" o where o.id = (select max(e.id) from "+ className + " e)").uniqueResult();
+		
 		return u;
 	}
 
 	
 	public E update(E e) {
 		session.beginTransaction();
+		@SuppressWarnings("unchecked")
 		E u = (E) session.merge(e);
 		session.getTransaction().commit();
 		return u;
