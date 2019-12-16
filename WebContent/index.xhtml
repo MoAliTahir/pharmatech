@@ -87,11 +87,7 @@
  	 				   <p:commandButton  action="#{MedicamentsViewBean.ajouterAuPanier}" update="panierForm:panier" value="oq"  >
 	 				   	<!-- <f:ajax render="panier"/> -->
 	 				   		<f:setPropertyActionListener target="#{MedicamentsBeanView.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
-	 				   <p:ajaxStatus>
-						    <f:facet name="start">Loading...</f:facet>
-						    <f:facet name="success"><h:outputText value="" /></f:facet>
-						    <f:facet name="error">error has occurred!</f:facet>
-						</p:ajaxStatus>
+	 				   
 	 				   </p:commandButton>
   			</p:column>
 			
