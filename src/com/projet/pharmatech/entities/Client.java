@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,8 @@ public class Client implements Serializable {
 	int id;
 	String nom;
 	String prenom;
-	boolean clientAbonne;
+	@Column(name = "client_abonne")
+	boolean clientAbonne = false;
 	
 	@OneToMany(targetEntity = Commande.class, mappedBy = "client", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	List<Commande> commandes;

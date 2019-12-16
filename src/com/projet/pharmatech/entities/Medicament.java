@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +23,13 @@ public class Medicament implements Serializable{
 	private String categorie;
 	private String fournisseur;
 	private double prix;
+	@Column(name = "quantite_stock")
 	private int quantiteStock;
 	private String description;
+	@Column(name = "date_ajout")
 	private LocalDate dateAjout;
-	private LocalDateTime datePeremtion=null;
+	@Column(name = "date_peremption")
+	private LocalDateTime datePeremtion;
 	
 	
 	public Medicament() {

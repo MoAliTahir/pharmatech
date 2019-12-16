@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,9 +27,11 @@ public class Commande implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@OneToMany(targetEntity = LigneCommande.class, fetch = FetchType.LAZY, mappedBy="commande", cascade = CascadeType.DETACH)
+	@OneToMany(targetEntity = LigneCommande.class, fetch = FetchType.EAGER, mappedBy="commande", cascade = CascadeType.ALL)
 	private List<LigneCommande> lignesCommande;
+	@Column(name = "date_ajout")
 	private Date dateAjout;
+	@Column(name = "prix_total")
 	private long prixTotal;
 	
 	@ManyToOne
@@ -62,10 +65,12 @@ public class Commande implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	
  	public void setLignesCommande(ArrayList<LigneCommande> lignesCommande) {
-		this.lignesCommande.clear();
-		this.lignesCommande.addAll(lignesCommande);
+ 		this.lignesCommande=lignesCommande;
 	}
+ 	//To be removed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	public void AddListToLignesCommande(ArrayList<LigneCommande> lignesCommande) {
 		this.lignesCommande.addAll(lignesCommande);
 	}
@@ -73,11 +78,9 @@ public class Commande implements Serializable{
 		this.lignesCommande.clear();
 		this.lignesCommande.add(lignesCommande);
 	}
- 
-	public void setLignesCommande(List<LigneCommande> lignesCommande) {
-		this.lignesCommande = lignesCommande;
-	}
 	
+	//Till here <<<<<<<<<<<<<<<<<<<<<<<<<<
+		
 	public Date getDateAjout() {
 		return dateAjout;
 	}
