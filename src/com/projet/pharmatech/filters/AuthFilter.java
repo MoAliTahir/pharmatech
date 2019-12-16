@@ -50,8 +50,7 @@ public class AuthFilter implements Filter {
 				|| (session != null && session.getAttribute("authUser")!=null) 
 				|| url.contains("javax.faces.resource"))
 		{
-			System.out.println("loggedIn");
-			chain.doFilter(request, response);
+ 			chain.doFilter(request, response);
 			
 		}else
 		{

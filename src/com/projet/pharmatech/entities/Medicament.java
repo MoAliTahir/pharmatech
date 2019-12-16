@@ -76,7 +76,7 @@ public class Medicament implements Serializable{
 	public int getQuantiteStock() {
 		return quantiteStock;
 	}
-	public void setQuantite_stock(int quantiteStock) {
+	public void setQuantiteStock(int quantiteStock) {
 		this.quantiteStock = quantiteStock;
 	}
 	public String getDescription() {

@@ -1,6 +1,8 @@
 package com.projet.pharmatech.entities;
 
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +16,7 @@ import javax.persistence.Table;
 	
 	@Entity
 	@Table(name="ligne_commande")
-	public class LigneCommande {
+	public class LigneCommande implements Serializable {
       
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

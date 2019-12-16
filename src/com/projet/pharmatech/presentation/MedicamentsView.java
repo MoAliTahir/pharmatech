@@ -36,6 +36,7 @@ public class MedicamentsView implements Serializable {
  
     private CommandeService commandeService;
     
+    private Medicament medicamentSelectionne;
  
     @PostConstruct
     public void init() {
@@ -45,8 +46,15 @@ public class MedicamentsView implements Serializable {
     	 medicaments = new ArrayList<>();
     	 panier= new ArrayList<>();
     	 commande= new Commande();
+    	 medicamentSelectionne= new Medicament();
     	 
+    	 Medicament m = new Medicament();
+    	 m.setLibelle("Ali zefi");
     	 
+    	 LigneCommande lc= new LigneCommande(m, 2, commande);
+    	 
+    	 panier.add(lc);
+    	 	
     	 try {
            medicaments.addAll(medicamentService.getAllMedicaments());
      	 }catch(Exception e) {
@@ -122,6 +130,48 @@ public class MedicamentsView implements Serializable {
 		this.medicamentService = medicamentService;
 	}
     
+	
+	public List<LigneCommande> getPanier() {
+		return panier;
+	}
+
+
+	public Commande getCommande() {
+		return commande;
+	}
+
+
+	public CommandeService getCommandeService() {
+		return commandeService;
+	}
+
+
+	public void setPanier(List<LigneCommande> panier) {
+		this.panier = panier;
+	}
+
+
+	public void setCommande(Commande commande) {
+		this.commande = commande;
+	}
+
+
+	public void setCommandeService(CommandeService commandeService) {
+		this.commandeService = commandeService;
+	}
+
+	
+
+	public Medicament getMedicamentSelectionne() {
+		return medicamentSelectionne;
+	}
+
+
+	public void setMedicamentSelectionne(Medicament medicamentSelectionne) {
+		this.medicamentSelectionne = medicamentSelectionne;
+	}
+
+
 	public void addLigneCommande(Medicament m, int q) {
 		LigneCommande ligneCommande = new LigneCommande(m,q,this.commande);
 		this.panier.add(ligneCommande);
@@ -136,7 +186,17 @@ public class MedicamentsView implements Serializable {
 		this.commande= new Commande();
 	}
 	
-	
+	public void ajouterAuPanier() {
+		System.out.println("AMINE THE GAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAY");
+		System.out.println("selectioné : "+this.medicamentSelectionne.getLibelle());
+		Medicament m = new Medicament();
+   	 	m.setLibelle("Ali zefi");
+   	 
+   	 	LigneCommande lc= new LigneCommande(this.medicamentSelectionne, 2, commande);
+   	 
+   	 	panier.add(lc);
+   	 	System.out.println("added----------------");
+ 	}
 	
     
 }
