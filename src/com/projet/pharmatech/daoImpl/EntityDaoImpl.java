@@ -8,7 +8,7 @@ import org.hibernate.Session;
 
 import com.projet.pharmatech.utils.HibernateUtil;
 
-public abstract class EntityDaoImpl<E> {
+public abstract class EntityDaoImpl<E>  {
 	Session session = HibernateUtil.openSession();
 	private Class<E> type;
 	
@@ -21,18 +21,12 @@ public abstract class EntityDaoImpl<E> {
 	
 	public E add(E e) {
 		session.beginTransaction();
-		session.save(e);
+		E u = (E) session.save(e);
 		session.getTransaction().commit();
-		
-		String className = e.getClass().getSimpleName();
-		@SuppressWarnings("unchecked")
-		E u = (E) session.createQuery("select o from "+ className +" o where o.id = (select max(e.id) from "+ className + " e)").uniqueResult();
-		
 		return u;
 	}
 
 	
-	@SuppressWarnings("unchecked")
 	public E update(E e) {
 		session.beginTransaction();
 		E u = (E) session.merge(e);

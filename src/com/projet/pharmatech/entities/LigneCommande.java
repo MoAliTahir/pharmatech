@@ -11,11 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-@Entity
-@Table(name="ligne_commande")
-public class LigneCommande {
 	
+	@Entity
+	@Table(name="ligne_commande")
+	public class LigneCommande {
+      
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;

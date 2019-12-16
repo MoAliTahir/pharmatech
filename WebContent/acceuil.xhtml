@@ -14,7 +14,8 @@
 			<h:outputText value="Welcome ... #{ loginBean.userName }"></h:outputText>
 			<br />
 
-			<h:commandLink action="#{loginBean.logout }" value="Logout"></h:commandLink>
+			<h:commandLink action="#{loginBean.logout }" value="Logout"></h:commandLink><br />
+			<h:commandLink action="#{RouterBean.gotoIndex }" value="index"></h:commandLink>
 		</h:form>
 	</f:view>
 

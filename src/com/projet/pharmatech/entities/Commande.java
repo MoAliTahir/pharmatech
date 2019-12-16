@@ -62,6 +62,18 @@ public class Commande implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
+ 	public void setLignesCommande(ArrayList<LigneCommande> lignesCommande) {
+		this.lignesCommande.clear();
+		this.lignesCommande.addAll(lignesCommande);
+	}
+	public void AddListToLignesCommande(ArrayList<LigneCommande> lignesCommande) {
+		this.lignesCommande.addAll(lignesCommande);
+	}
+	public void AddElementToLignesCommande(LigneCommande lignesCommande) {
+		this.lignesCommande.clear();
+		this.lignesCommande.add(lignesCommande);
+	}
+ 
 	public void setLignesCommande(List<LigneCommande> lignesCommande) {
 		this.lignesCommande = lignesCommande;
 	}

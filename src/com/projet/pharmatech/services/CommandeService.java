@@ -1,22 +1,28 @@
 package com.projet.pharmatech.services;
 
+import java.io.Serializable;
+
+
 import java.util.List;
 
 import com.projet.pharmatech.daoImpl.CommandeDaoImpl;
 import com.projet.pharmatech.entities.Commande;
 
-
-public class CommandeService {
-	
+public class CommandeService implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	CommandeDaoImpl commandeDao = new CommandeDaoImpl();
 	
-	Commande add(Commande c){
+	public Commande add(Commande c) {
 		return commandeDao.add(c);
-	}
+	};
 	
-	Commande update(Commande c) {
-		return commandeDao.update(c);
+	public Commande update(Commande u) {
+		return commandeDao.update(u);
 	}
+
 	public void delete(int id) {
 		commandeDao.delete(id);			
 	}
@@ -28,6 +34,10 @@ public class CommandeService {
 
 	public Commande findById(int id) {
 		return commandeDao.findById(id);
+	}
+
+	public List<Commande> getAllMedicaments() {
+		return commandeDao.findAll();
 	}
 
 }

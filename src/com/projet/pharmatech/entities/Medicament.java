@@ -118,6 +118,9 @@ public class Medicament implements Serializable{
 
 
 	
+	public void ajouterAuPanier() {
+		System.out.println("Ajouter au panier");
+	}
 	
 	
 

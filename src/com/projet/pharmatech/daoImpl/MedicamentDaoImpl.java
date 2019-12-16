@@ -14,4 +14,6 @@ public class MedicamentDaoImpl extends EntityDaoImpl<Medicament>  implements IMe
 		return session.createQuery("select o from Medicament o").list();
 	}
 
+
+
 }
