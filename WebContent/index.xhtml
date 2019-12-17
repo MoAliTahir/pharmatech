@@ -11,26 +11,15 @@
 <meta charset="UTF-8"></meta>
 </h:head>
 <body>
-	<!-- <h1>Hello</h1>
-			  	<p:spinner />
-			 
-			<p:link outcome="login" value="book">
-				<f:param name="productId" value="10"></f:param>
-			</p:link>
-			
-			<p:button outcome="acceuil" value="Bookmark" icon="pi pi-star" style="margin-right:20px;"> 
-				<f:param name="productId" value="10" /> 
-			</p:button> -->
-
-<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="style.css" />
 
 	<h1>Gestion de vente :</h1>
 	<h:form>
 		<p:dataTable var="medicament"
-			value="#{MedicamentsViewBean.medicaments}"
+			value="#{MedicamentsBean.medicaments}"
 			widgetVar="medicamentsTable" emptyMessage="Aucun medicament!"
-			filteredValue="#{MedicamentsViewBean.filteredMedicaments}"
-			globalFilterFunction="#{MedicamentsViewBean.globalFilterFunction}">
+			filteredValue="#{MedicamentsBean.filteredMedicaments}"
+			globalFilterFunction="#{MedicamentsBean.globalFilterFunction}">
 
 			<f:facet name="header">
 				<p:outputPanel>
@@ -84,10 +73,14 @@
 			</p:column>
 			
 			<p:column headerText="" >
-			     	<p:commandButton process="@this"  value="this" action="#{MedicamentsViewBean.ajouterAuPanier}" update="panierForm:panier"  >
- 				   		<f:setPropertyActionListener target="#{MedicamentsViewBean.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
+			     	<p:commandButton process="@parent"  value="this" action="#{MedicamentsBean.ajouterAuPanier}" update="panierForm:panier"  >
+ 				   		<f:setPropertyActionListener target="#{MedicamentsBean.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
 				   </p:commandButton>
 				   
+				   <span class="ui-float-label">
+				       <p:inputText id="float-input" value="#{MedicamentsBean.quantiteSelectionne}" />
+				       <p:outputLabel for="@previous" value="Quantite" />
+				   </span>
   			</p:column>
 			
 		</p:dataTable>
@@ -95,20 +88,17 @@
 	
 	<h1>Panier :</h1>
 	<h:form id="panierForm">
-	<p:dataGrid var="ligneCommande" value="#{MedicamentsViewBean.panier}" id="panier">
+	<p:dataGrid var="ligneCommande" value="#{MedicamentsBean.panier}" id="panier">
 		<p:panel header="#{ligneCommande.medicament.libelle} - #{ligneCommande.quantite}" style="width:20%;">
-			<h:outputLabel value="Quantite " />
-			<p:inputText value="#{ligneCommande.quantite}" />
-			<h:outputLabel value="libelle " />
-			<p:inputText value="#{ligneCommande.medicament.libelle}" />
-			
-			<button type="button" class="btn btn-primary">Retirer</button>
+	     	<p:commandButton process="@this" value="Retirer" action="#{MedicamentsBean.retirerDuPanier}" update="panier"  >
+			   		<f:setPropertyActionListener target="#{MedicamentsBean.medicamentARetirer}" value="#{ligneCommande.medicament}"></f:setPropertyActionListener>
+ 		    </p:commandButton>
 		
 		</p:panel>
 	</p:dataGrid>
 	</h:form>
 	
-	
+	 
 	<h1>Amine the gay test</h1>
 	<p:commandButton value="Print" type="button" icon="pi pi-print" style="display: block; bttom:20px;">
 		<p:printer target="image">

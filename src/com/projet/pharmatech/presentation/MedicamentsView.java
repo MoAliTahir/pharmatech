@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -15,7 +16,7 @@ import com.projet.pharmatech.entities.Medicament;
 import com.projet.pharmatech.services.CommandeService;
 import com.projet.pharmatech.services.MedicamentService;
 
-@ManagedBean(name="MedicamentsViewBean")
+@ManagedBean(name="MedicamentsBean")
 @SessionScoped
 public class MedicamentsView implements Serializable {
  
@@ -37,6 +38,11 @@ public class MedicamentsView implements Serializable {
     private CommandeService commandeService;
     
     private Medicament medicamentSelectionne;
+    
+    private int quantiteSelectionne;
+    
+    private Medicament medicamentARetirer;
+    
  
     @PostConstruct
     public void init() {
@@ -47,6 +53,7 @@ public class MedicamentsView implements Serializable {
     	 panier= new ArrayList<>();
     	 commande= new Commande();
     	 medicamentSelectionne= new Medicament();
+    	 medicamentARetirer=new Medicament();
     	 
     	 Medicament m = new Medicament();
     	 m.setLibelle("Ali zefi");
@@ -170,6 +177,17 @@ public class MedicamentsView implements Serializable {
 	public void setMedicamentSelectionne(Medicament medicamentSelectionne) {
 		this.medicamentSelectionne = medicamentSelectionne;
 	}
+	
+	
+
+	public int getQuantiteSelectionne() {
+		return quantiteSelectionne;
+	}
+
+
+	public void setQuantiteSelectionne(int quantiteSelectionne) {
+		this.quantiteSelectionne = quantiteSelectionne;
+	}
 
 
 	public void addLigneCommande(Medicament m, int q) {
@@ -177,6 +195,17 @@ public class MedicamentsView implements Serializable {
 		this.panier.add(ligneCommande);
 	}
 	
+	
+	public Medicament getMedicamentARetirer() {
+		return medicamentARetirer;
+	}
+
+
+	public void setMedicamentARetirer(Medicament medicamentARetirer) {
+		this.medicamentARetirer = medicamentARetirer;
+	}
+
+
 	public void validerCommande() {
 		this.commandeService.add(this.commande);
 	}
@@ -187,16 +216,17 @@ public class MedicamentsView implements Serializable {
 	}
 	
 	public void ajouterAuPanier() {
-		System.out.println("AMINE THE GAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAY");
-		System.out.println("selectioné : "+this.medicamentSelectionne.getLibelle());
-		Medicament m = new Medicament();
-   	 	m.setLibelle("Ali zefi");
-   	 
-   	 	LigneCommande lc= new LigneCommande(this.medicamentSelectionne, 2, commande);
+ 		System.out.println("selectioné : "+this.medicamentSelectionne.getLibelle());
+    	 
+   	 	LigneCommande lc= new LigneCommande(this.medicamentSelectionne, this.quantiteSelectionne, commande);
    	 
    	 	panier.add(lc);
    	 	System.out.println("added----------------");
  	}
+	
+	public void retirerDuPanier() {
+		panier=panier.stream().filter(t->t.getMedicament()!=medicamentARetirer).collect(Collectors.toList());
+	}
 	
     
 }
