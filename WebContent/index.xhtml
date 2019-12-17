@@ -84,11 +84,10 @@
 			</p:column>
 			
 			<p:column headerText="" >
- 	 				   <p:commandButton  action="#{MedicamentsViewBean.ajouterAuPanier}" update="panierForm:panier" value="oq"  >
-	 				   	<!-- <f:ajax render="panier"/> -->
-	 				   		<f:setPropertyActionListener target="#{MedicamentsBeanView.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
-	 				   
-	 				   </p:commandButton>
+			     	<p:commandButton process="@this"  value="this" action="#{MedicamentsViewBean.ajouterAuPanier}" update="panierForm:panier"  >
+ 				   		<f:setPropertyActionListener target="#{MedicamentsViewBean.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
+				   </p:commandButton>
+				   
   			</p:column>
 			
 		</p:dataTable>
@@ -108,5 +107,14 @@
 		</p:panel>
 	</p:dataGrid>
 	</h:form>
+	
+	
+	<h1>Amine the gay test</h1>
+	<p:commandButton value="Print" type="button" icon="pi pi-print" style="display: block; bttom:20px;">
+		<p:printer target="image">
+	</p:printer>
+	</p:commandButton>
+	
+ 	<p:commandButton value="test" id="image"></p:commandButton>
 </body>
 </html>
