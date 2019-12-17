@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<meta charset="utf-8"/>
+<title>Admin . Gestion des utilisateurs</title>
+<style>
+.main{
+	margin-left: 25%; 
+	margin-top: -100px; 
+	border: 1px solid red
+}
+</style>
+</h:head>
+<h:body>
+	<h:form>
+    	<p:growl>
+        	<p:autoUpdate />
+    	</p:growl>
+ 
+ 
+ 		<p:panelMenu style="width:300px">
+        	<p:submenu label="Menu" >
+        		<p:menuitem value="Gestion des utilisateurs" action="#{menuView.save}" icon="pi pi-save" />
+            	<p:menuitem value="Gestion des factures" action="#{menuView.update}"  icon="pi pi-refresh" />
+            	<p:submenu label="#{ loginBean.userName }" icon="pi pi-home">          		
+                	<p:menuitem value="Deconnexion" url ="#" ajax="false" icon="pi pi-home"/>
+            	</p:submenu>
+        	</p:submenu>
+    	</p:panelMenu>
+</h:form>
+	<div class="main">
+		<div>
+			<h2 style="text-align: center">Gestion des utilisateurs</h2>
+		</div>
+		<div style="display: flex">
+			<div style="width: 30%; height:500px; border: 1px solid green">
+				<h3 style="text-align: center;">Ajouter un nouveau pharmacien</h3>
+				
+				<h:form>
+					<h:panelGrid columns="2" cellpadding="10">
+						<h:outputLabel value="Nom : "></h:outputLabel>
+						<p:inputText value="#{ gestionUsers.nom }" required="true" placeholder="Dupon"></p:inputText>
+						
+						<h:outputLabel value="Prenom : "></h:outputLabel>
+						<p:inputText value="#{ gestionUsers.prenom }" required="true" placeholder="Jean"></p:inputText>
+						
+						<h:outputLabel value="Login : "></h:outputLabel>
+						<p:inputText value="#{ gestionUsers.login }" required="true" placeholder="jeanDupon"></p:inputText>
+						
+						<h:outputLabel value="Tétéphone : "></h:outputLabel>
+						<p:inputText value="#{ gestionUsers.tel }" required="true" placeholder="0681920973"></p:inputText>
+						
+						<h:outputLabel value="Role : "></h:outputLabel>
+						<p:inputText value="#{ gestionUsers.role }" required="true" placeholder="pharmacien"></p:inputText>
+						
+						<h:outputLabel value="Mot de passe : "></h:outputLabel>
+						<p:password value="#{ gestionUsers.pass1 }" id="pswd1" match="pswd2" required="true" feedback="true" placeholder="********"></p:password>
+						
+						<h:outputLabel value="Confirme Mot de passe : "></h:outputLabel>
+						<p:password value="#{ gestionUsers.pass2 }" id="pswd2" required="true" placeholder="********"></p:password>
+						
+						
+						
+						<p:commandButton value="Submit" update="display" action="#{ gestionUsers.addUser }"/>
+						
+					</h:panelGrid>
+				</h:form>
+			</div>
+			<div style="text-align: center; width: 70%; height:500px; border: 1px solid gray">
+				<h3>Liste des utilisateurs</h3>
+				
+				<p:dataTable id="display" var="user" value="#{gestionUsers.users}">
+				    <p:column headerText="Username">
+				        <h:outputText value="#{user.login}" />
+				    </p:column>
+				 
+				    <p:column headerText="Firt Name">
+				        <h:outputText value="#{user.nom}" />
+				    </p:column>
+				 
+				    <p:column headerText="Last Name">
+				        <h:outputText value="#{user.prenom}" />
+				    </p:column>
+				 
+				    <p:column headerText="Role">
+				        <h:outputText value="#{user.role}" />
+				    </p:column>
+				    
+				    <p:column headerText="Phone">
+				        <h:outputText value="#{user.tel}" />
+				    </p:column>
+				</p:dataTable>
+				
+				
+			</div>
+		</div>
+		
+	</div>
+		
+		
+</h:body>
+</html>

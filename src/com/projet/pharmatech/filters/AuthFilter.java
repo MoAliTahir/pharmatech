@@ -1,6 +1,9 @@
 package com.projet.pharmatech.filters;
 
 import java.io.IOException;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -17,7 +20,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class AuthFilter
  */
-@WebFilter("/*")
+//@WebFilter("/*")
 public class AuthFilter implements Filter {
 
     /**
@@ -44,27 +47,30 @@ public class AuthFilter implements Filter {
 		
 		HttpSession session = req.getSession(false);
 		String url = req.getRequestURI();
-		System.out.println(session);
-		System.out.println(req.getContextPath());
-		if(url.indexOf("/login.xhtml")>=0 
-				|| (session != null && session.getAttribute("authUser")!=null) 
-				|| url.contains("javax.faces.resource"))
+		boolean connected = session != null && session.getAttribute("authUser") != null;
+		
+		if(connected && url.indexOf("/login.xhtml")>=0)
 		{
-			System.out.println("loggedIn");
-			chain.doFilter(request, response);
+			if(session.getAttribute("userRole").equals("admin"))
+			{
+				resp.sendRedirect(req.getContextPath() + "/faces/admin/acceuil.xhtml");
+			}else
+				resp.sendRedirect(req.getContextPath() + "/faces/acceuil.xhtml");
+		}else if(connected || url.contains("javax.faces.resource") || url.indexOf("/login.xhtml")>=0)
+		{
+			if(connected && session.getAttribute("userRole").equals("admin") && url.indexOf("/admin") < 0)
+			{
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Not authorized", "Espace uniquement Pharmaciens");
+		        FacesContext.getCurrentInstance().addMessage(null, message);
+				resp.sendRedirect(req.getContextPath() + "/faces/admin/acceuil.xhtml");
+			}else
+				chain.doFilter(request, response);
 			
-		}else
+		}else if(!connected)
 		{
 			resp.sendRedirect(req.getContextPath() + "/faces/login.xhtml");
-		}
-			/*if(url.indexOf("/logout.jsp")>=0)
-			{
-				req.getSession().removeAttribute("loginBean");
-				req.getSession().invalidate();
-				resp.sendRedirect(req.getContextPath() + "/faces/login.jsp");
-			}else
-				resp.sendRedirect(req.getContextPath() + "/faces/login.jsp");
-		}*/
+		}else
+			chain.doFilter(request, response);
 	}
 
 	/**
