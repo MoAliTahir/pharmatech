@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -37,8 +38,39 @@ public class MedicamentsView implements Serializable {
     private CommandeService commandeService;
     
     private Medicament medicamentSelectionne;
+    
+    private LigneCommande ligneARetirer;
  
-    @PostConstruct
+    private int quantite;
+    
+    
+    public int getQuantite() {
+		return quantite;
+	}
+
+
+	public void setQuantite(int quantite) {
+		System.out.println(quantite);
+		this.quantite = quantite;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+	public LigneCommande getLigneARetirer() {
+		return ligneARetirer;
+	}
+
+
+	public void setLigneARetirer(LigneCommande ligneARetirer) {
+		this.ligneARetirer = ligneARetirer;
+	}
+
+
+	@PostConstruct
     public void init() {
     	 commandeService= new CommandeService();
     	 filteredMedicaments=new ArrayList<>();
@@ -147,7 +179,8 @@ public class MedicamentsView implements Serializable {
 
 
 	public void setPanier(List<LigneCommande> panier) {
-		this.panier = panier;
+		this.panier.clear();
+		this.panier.addAll(panier==null?(new ArrayList<LigneCommande>()):(panier));
 	}
 
 
@@ -185,18 +218,26 @@ public class MedicamentsView implements Serializable {
 		this.panier.clear();
 		this.commande= new Commande();
 	}
-	
+	public void retirerDuPanier() {
+		panier.remove(this.ligneARetirer);
+	}
 	public void ajouterAuPanier() {
-		System.out.println("AMINE THE GAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAY");
-		System.out.println("selectioné : "+this.medicamentSelectionne.getLibelle());
-		Medicament m = new Medicament();
-   	 	m.setLibelle("Ali zefi");
-   	 
-   	 	LigneCommande lc= new LigneCommande(this.medicamentSelectionne, 2, commande);
-   	 
-   	 	panier.add(lc);
-   	 	System.out.println("added----------------");
- 	}
+			if(!(medicamentSelectionne.getQuantiteStock()<quantite) && quantite>0) {
+				
+				final int q = panier.stream().filter(l->l.getMedicament()==medicamentSelectionne).mapToInt(l->l.getQuantite()).sum();
+				if(q==0) {
+					LigneCommande lc= new LigneCommande(this.medicamentSelectionne, quantite, commande);
+					panier.add(lc);
+				}else {
+					
+					System.out.println(q+quantite);
+					panier.stream().filter(t->t.getMedicament()==medicamentSelectionne).forEach(t->t.setQuantite(q+quantite));
+					
+				}
+				
+				
+			}
+  	}
 	
-    
+	
 }

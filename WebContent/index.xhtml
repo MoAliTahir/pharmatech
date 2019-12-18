@@ -11,16 +11,7 @@
 <meta charset="UTF-8"></meta>
 </h:head>
 <body>
-	<!-- <h1>Hello</h1>
-			  	<p:spinner />
-			 
-			<p:link outcome="login" value="book">
-				<f:param name="productId" value="10"></f:param>
-			</p:link>
-			
-			<p:button outcome="acceuil" value="Bookmark" icon="pi pi-star" style="margin-right:20px;"> 
-				<f:param name="productId" value="10" /> 
-			</p:button> -->
+	
 
 <h:outputStylesheet library="css" name="style.css" />
 
@@ -84,31 +75,38 @@
 			</p:column>
 			
 			<p:column headerText="" >
-			     	<p:commandButton process="@this"  value="this" action="#{MedicamentsViewBean.ajouterAuPanier}" update="panierForm:panier"  >
+					
+					<h:inputText  value="#{MedicamentsViewBean.quantite}">
+						<f:ajax />
+					</h:inputText>
+					
+			     	<p:commandButton process="@this"  value="Ajouter" action="#{MedicamentsViewBean.ajouterAuPanier}" update="panierForm:panier"  >
  				   		<f:setPropertyActionListener target="#{MedicamentsViewBean.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
-				   </p:commandButton>
+ 				   </p:commandButton>
 				   
   			</p:column>
 			
 		</p:dataTable>
 	</h:form>
 	
-	<h1>Panier :</h1>
-	<h:form id="panierForm">
-	<p:dataGrid var="ligneCommande" value="#{MedicamentsViewBean.panier}" id="panier">
-		<p:panel header="#{ligneCommande.medicament.libelle} - #{ligneCommande.quantite}" style="width:20%;">
-			<h:outputLabel value="Quantite " />
-			<p:inputText value="#{ligneCommande.quantite}" />
-			<h:outputLabel value="libelle " />
-			<p:inputText value="#{ligneCommande.medicament.libelle}" />
+	
+		<h:form id="panierForm" >
+		<h1>Panier :</h1>
+		<p:dataGrid var="ligneCommande" value="#{MedicamentsViewBean.panier}" id="panier" >
+			<p:panel header="#{ligneCommande.medicament.libelle} - #{ligneCommande.quantite}" style="width:33.33%;">
+				
+				<p:commandButton process="@this"  value="Retirer" action="#{MedicamentsViewBean.retirerDuPanier}" update="panier"  >
+				   		<f:setPropertyActionListener target="#{MedicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
+			   </p:commandButton>
 			
-			<button type="button" class="btn btn-primary">Retirer</button>
-		
-		</p:panel>
-	</p:dataGrid>
-	</h:form>
 	
-	
+			</p:panel>
+		</p:dataGrid>
+				<p:commandButton process="@this"  value="Annuler la commande" action="#{MedicamentsViewBean.setPanier(null)}" update="panier"  >
+				   		<f:setPropertyActionListener target="#{MedicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
+			   </p:commandButton>
+		</h:form>
+ 	
 	<h1>Amine the gay test</h1>
 	<p:commandButton value="Print" type="button" icon="pi pi-print" style="display: block; bttom:20px;">
 		<p:printer target="image">
