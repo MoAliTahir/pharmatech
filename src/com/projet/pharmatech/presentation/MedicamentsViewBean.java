@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -23,11 +24,10 @@ public class MedicamentsViewBean implements Serializable {
 	
     public MedicamentsViewBean() {
 		super();
-    	System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
-    	medicamentService=new MedicamentService();
+		invalidLignesCommandes= new ArrayList<LigneCommande>();
+     	medicamentService=new MedicamentService();
     	medicamentSelectionne = new Medicament();
     	ligneARetirer = new LigneCommande();
-
 	}
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class MedicamentsViewBean implements Serializable {
  
     private List<Medicament> filteredMedicaments;
     
-    private List<LigneCommande> panier;
+    private ArrayList<LigneCommande> panier;
  
     private MedicamentService medicamentService; 
     
@@ -53,8 +53,39 @@ public class MedicamentsViewBean implements Serializable {
  
     private int quantite;
     
+    private double prixTotal;
     
-    public int getQuantite() {
+    //will contain eventual invalid lignesCommandes(the ones in Panier which were taken by an other pharmacist before validating Panier)
+	//will be used to show which medicaments quantities to reduce
+    private List<LigneCommande> invalidLignesCommandes;
+    
+    
+    public double getPrixTotal() {
+		return prixTotal;
+	}
+
+
+	public void setPrixTotal(double prixTotal) {
+		this.prixTotal = prixTotal;
+	}
+
+
+	public List<LigneCommande> getInvalidLignesCommandes() {
+		return invalidLignesCommandes;
+	}
+
+
+	public void setInvalidLignesCommandes(List<LigneCommande> invalidLignesCommandes) {
+		this.invalidLignesCommandes = invalidLignesCommandes;
+	}
+
+
+	public void setPanier(ArrayList<LigneCommande> panier) {
+		this.panier = panier;
+	}
+
+
+	public int getQuantite() {
 		return quantite;
 	}
 
@@ -82,8 +113,6 @@ public class MedicamentsViewBean implements Serializable {
 
 	@PostConstruct
     public void init() {
-    	System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
-
     	 commandeService= new CommandeService();
     	 filteredMedicaments=new ArrayList<>();
     	 medicamentService=new MedicamentService();
@@ -91,14 +120,7 @@ public class MedicamentsViewBean implements Serializable {
     	 panier= new ArrayList<>();
     	 commande= new Commande();
     	 medicamentSelectionne= new Medicament();
-    	 
-    	 Medicament m = new Medicament();
-    	 m.setLibelle("Ali zefi");
-    	 
-    	 LigneCommande lc= new LigneCommande(m, 2, commande);
-    	 
-    	 panier.add(lc);
-    	 	
+    	     	 	
     	 try {
            medicaments.addAll(medicamentService.getAllMedicaments());
      	 }catch(Exception e) {
@@ -193,6 +215,7 @@ public class MedicamentsViewBean implements Serializable {
 	public void setPanier(List<LigneCommande> panier) {
 		this.panier.clear();
 		this.panier.addAll(panier==null?(new ArrayList<LigneCommande>()):(panier));
+		updatePrixTotal();
 	}
 
 
@@ -220,14 +243,17 @@ public class MedicamentsViewBean implements Serializable {
 	public void addLigneCommande(Medicament m, int q) {
 		LigneCommande ligneCommande = new LigneCommande(m,q,this.commande);
 		this.panier.add(ligneCommande);
+		updatePrixTotal();
 	}
 	
 	public void validerCommande() {
+		commande.setPrixTotal(prixTotal);
 		this.commandeService.add(this.commande);
 	}
 	
 	public void annulerCommande() {
 		this.panier.clear();
+		prixTotal=0.0;
 		this.commande= new Commande();
 	}
 	public void supprimerMedicament() {
@@ -235,6 +261,7 @@ public class MedicamentsViewBean implements Serializable {
 	}
 	public void retirerDuPanier() {
 		panier.remove(this.ligneARetirer);
+		updatePrixTotal();
 	}
 	public void ajouterAuPanier() {
 			if(!(medicamentSelectionne.getQuantiteStock()<quantite) && quantite>0) {
@@ -244,14 +271,45 @@ public class MedicamentsViewBean implements Serializable {
 					LigneCommande lc= new LigneCommande(this.medicamentSelectionne, quantite, commande);
 					panier.add(lc);
 				}else if(!( (quantite+q)>medicamentSelectionne.getQuantiteStock() )) {
-					
  					panier.stream().filter(t->t.getMedicament()==medicamentSelectionne).forEach(t->t.setQuantite(q+quantite));
-					
 				}
-				
-				
+				updatePrixTotal();
 			}
   	}
+	
+	public void validerPanier() {
+		if(isCommandeValid()) {
+			//to let hibernate do nested persistance.
+			this.commande.setLignesCommande(panier);
+			this.commande.setPrixTotal(prixTotal);
+			this.panier.stream().forEach(l->l.setCommande(commande));
+			//adding to db
+			commandeService.add(this.commande);
+			panier.clear();
+			updatePrixTotal();
+		}
+	}
+	
+	public boolean isCommandeValid() {
+		
+		List<LigneCommande> invalidLignesCommandes= this.panier.stream().
+				filter(l->!(l.getQuantite()<=medicamentService.findById(l.getMedicament().getId()).getQuantiteStock())).
+				collect(Collectors.toList());
+		
+		if(invalidLignesCommandes.isEmpty()) {
+			return true;
+		}else {
+			this.invalidLignesCommandes.clear();
+			this.invalidLignesCommandes.addAll(invalidLignesCommandes);
+			return false;
+		}
+	}
+	
+	
+	private void updatePrixTotal() {
+		prixTotal=panier.stream().mapToDouble(l->l.getMedicament().getPrix()*l.getQuantite()).sum();
+		System.out.println(prixTotal);
+	}
 	
 	
 }
