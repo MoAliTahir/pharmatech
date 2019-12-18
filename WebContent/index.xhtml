@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
- <h:title></h:title>
+  <h:title></h:title>
 <meta charset="UTF-8"></meta>
 </h:head>
 <h:body>
@@ -14,13 +14,15 @@
 
 <h:outputStylesheet library="css" name="style.css" />
 
+
 	<h1>Gestion de vente :</h1>
 	<h:form>
 		<p:dataTable var="medicament"
-			value="#{medicamentsViewBean.medicaments}"
+ 			value="#{medicamentsViewBean.medicaments}"
 			widgetVar="medicamentsTable" emptyMessage="Aucun medicament!"
 			filteredValue="#{medicamentsViewBean.filteredMedicaments}"
 			globalFilterFunction="#{medicamentsViewBean.globalFilterFunction}">
+
 
 			<f:facet name="header">
 				<p:outputPanel>
@@ -74,7 +76,7 @@
 			</p:column>
 			
 			<p:column headerText="" >
-					
+ 					
 					<h:inputText  value="#{medicamentsViewBean.quantite}">
 						<f:ajax />
 					</h:inputText>
@@ -87,7 +89,7 @@
 		</p:dataTable>
 	</h:form>
 	
-	
+ 	
 		<h:form id="panierForm" >
 		<h1>Panier :</h1>
 		<p:dataGrid var="ligneCommande" value="#{medicamentsViewBean.panier}" id="panier">
@@ -105,6 +107,7 @@
 			   </p:commandButton>
 		</h:form>
  	
+
 	<h1>Amine the gay test</h1>
 	<p:commandButton value="Print" type="button" icon="pi pi-print" style="display: block; bttom:20px;">
 		<p:printer target="image">
