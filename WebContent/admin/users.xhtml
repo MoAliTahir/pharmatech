@@ -2,35 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-<meta charset="utf-8"/>
-<title>Admin . Gestion des utilisateurs</title>
-<style>
-.main{
-	margin-left: 25%; 
-	margin-top: -100px; 
-	border: 1px solid red
-}
-</style>
-</h:head>
-<h:body>
-	<h:form>
-    	<p:growl>
-        	<p:autoUpdate />
-    	</p:growl>
- 
- 
- 		<p:panelMenu style="width:300px">
-        	<p:submenu label="Menu" >
-        		<p:menuitem value="Gestion des utilisateurs" action="#{menuView.save}" icon="pi pi-save" />
-            	<p:menuitem value="Gestion des factures" action="#{menuView.update}"  icon="pi pi-refresh" />
-            	<p:submenu label="#{ loginBean.userName }" icon="pi pi-home">          		
-                	<p:menuitem value="Deconnexion" url ="#" ajax="false" icon="pi pi-home"/>
-            	</p:submenu>
-        	</p:submenu>
-    	</p:panelMenu>
-</h:form>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	
+<ui:composition template="../resources/template/layout.xhtml">
+	<ui:define name="head">
+		<title>Admin . Gestion des utilisateurs</title>
+		<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
+	</ui:define>
+
+	<ui:define name="body">
+	
+		<h:form>
+	    	<p:growl style="z-index:20;">
+	        	<p:autoUpdate />
+	    	</p:growl>
+		</h:form>
 	<div class="main">
 		<div>
 			<h2 style="text-align: center">Gestion des utilisateurs</h2>
@@ -39,7 +27,7 @@
 			<div style="width: 30%; height:500px; border: 1px solid green">
 				<h3 style="text-align: center;">Ajouter un nouveau pharmacien</h3>
 				
-				<h:form>
+				<h:form id="form">
 					<h:panelGrid columns="2" cellpadding="10">
 						<h:outputLabel value="Nom : "></h:outputLabel>
 						<p:inputText value="#{ gestionUsers.nom }" required="true" placeholder="Dupon"></p:inputText>
@@ -92,6 +80,13 @@
 				    <p:column headerText="Phone">
 				        <h:outputText value="#{user.tel}" />
 				    </p:column>
+				    
+				    <p:column headerText="Action">		
+				    	<h:form>
+				    		<p:commandButton value="U" action="#{ gestionUsers.getUserInfo(user) }" update="form"></p:commandButton>
+				    		<h:commandButton value="D"></h:commandButton>
+				    	</h:form>
+				    </p:column>
 				</p:dataTable>
 				
 				
@@ -99,7 +94,21 @@
 		</div>
 		
 	</div>
-		
-		
-</h:body>
+	
+	<div class="h1">teste</div>
+	
+	
+	<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
+	</ui:define>
+
+
+
+
+
+
+
+
+
+</ui:composition>
+
 </html>
