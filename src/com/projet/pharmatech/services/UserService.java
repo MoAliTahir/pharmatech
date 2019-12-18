@@ -8,7 +8,7 @@ import com.projet.pharmatech.entities.User;
 public class UserService {
 		UserDaoImpl userDao = new UserDaoImpl();
 		
-		User add(User u) {
+		public User add(User u) {
 			return userDao.add(u);
 		}
 		
