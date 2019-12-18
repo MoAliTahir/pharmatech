@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -16,11 +15,7 @@ import com.projet.pharmatech.entities.Medicament;
 import com.projet.pharmatech.services.CommandeService;
 import com.projet.pharmatech.services.MedicamentService;
 
-<<<<<<< HEAD:src/com/projet/pharmatech/presentation/MedicamentsViewBean.java
 @ManagedBean(name="medicamentsViewBean")
-=======
-@ManagedBean(name="MedicamentsBean")
->>>>>>> b31f81e0a406e1237befc52158b31ae0ad777d23:src/com/projet/pharmatech/presentation/MedicamentsView.java
 @SessionScoped
 public class MedicamentsViewBean implements Serializable {
  
@@ -30,7 +25,8 @@ public class MedicamentsViewBean implements Serializable {
 		super();
     	System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
     	medicamentService=new MedicamentService();
-     	ligneARetirer = new LigneCommande();
+    	medicamentSelectionne = new Medicament();
+    	ligneARetirer = new LigneCommande();
 
 	}
 	/**
@@ -53,14 +49,7 @@ public class MedicamentsViewBean implements Serializable {
     
     private Medicament medicamentSelectionne;
     
-<<<<<<< HEAD:src/com/projet/pharmatech/presentation/MedicamentsViewBean.java
     private LigneCommande ligneARetirer;
-=======
-    private int quantiteSelectionne;
-    
-    private Medicament medicamentARetirer;
-    
->>>>>>> b31f81e0a406e1237befc52158b31ae0ad777d23:src/com/projet/pharmatech/presentation/MedicamentsView.java
  
     private int quantite;
     
@@ -102,7 +91,6 @@ public class MedicamentsViewBean implements Serializable {
     	 panier= new ArrayList<>();
     	 commande= new Commande();
     	 medicamentSelectionne= new Medicament();
-    	 medicamentARetirer=new Medicament();
     	 
     	 Medicament m = new Medicament();
     	 m.setLibelle("Ali zefi");
@@ -227,17 +215,6 @@ public class MedicamentsViewBean implements Serializable {
 	public void setMedicamentSelectionne(Medicament medicamentSelectionne) {
 		this.medicamentSelectionne = medicamentSelectionne;
 	}
-	
-	
-
-	public int getQuantiteSelectionne() {
-		return quantiteSelectionne;
-	}
-
-
-	public void setQuantiteSelectionne(int quantiteSelectionne) {
-		this.quantiteSelectionne = quantiteSelectionne;
-	}
 
 
 	public void addLigneCommande(Medicament m, int q) {
@@ -245,17 +222,6 @@ public class MedicamentsViewBean implements Serializable {
 		this.panier.add(ligneCommande);
 	}
 	
-	
-	public Medicament getMedicamentARetirer() {
-		return medicamentARetirer;
-	}
-
-
-	public void setMedicamentARetirer(Medicament medicamentARetirer) {
-		this.medicamentARetirer = medicamentARetirer;
-	}
-
-
 	public void validerCommande() {
 		this.commandeService.add(this.commande);
 	}
@@ -271,7 +237,6 @@ public class MedicamentsViewBean implements Serializable {
 		panier.remove(this.ligneARetirer);
 	}
 	public void ajouterAuPanier() {
-<<<<<<< HEAD:src/com/projet/pharmatech/presentation/MedicamentsViewBean.java
 			if(!(medicamentSelectionne.getQuantiteStock()<quantite) && quantite>0) {
 				
 				final int q = panier.stream().filter(l->l.getMedicament()==medicamentSelectionne).mapToInt(l->l.getQuantite()).sum();
@@ -289,19 +254,4 @@ public class MedicamentsViewBean implements Serializable {
   	}
 	
 	
-=======
- 		System.out.println("selectioné : "+this.medicamentSelectionne.getLibelle());
-    	 
-   	 	LigneCommande lc= new LigneCommande(this.medicamentSelectionne, this.quantiteSelectionne, commande);
-   	 
-   	 	panier.add(lc);
-   	 	System.out.println("added----------------");
- 	}
-	
-	public void retirerDuPanier() {
-		panier=panier.stream().filter(t->t.getMedicament()!=medicamentARetirer).collect(Collectors.toList());
-	}
-	
-    
->>>>>>> b31f81e0a406e1237befc52158b31ae0ad777d23:src/com/projet/pharmatech/presentation/MedicamentsView.java
 }
