@@ -23,10 +23,16 @@
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
+		<url-pattern>/javax.faces.resource/*</url-pattern>
 	</servlet-mapping>
 
 	<session-config>
-		<session-timeout>1</session-timeout>
+		<session-timeout>30</session-timeout>
 	</session-config>
+	
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>afterdark</param-value>
+	</context-param>
 
 </web-app>

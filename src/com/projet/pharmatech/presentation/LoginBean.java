@@ -47,7 +47,7 @@ public class LoginBean implements Serializable {
 			System.out.println("Logging In...");
 			HttpSession session = SessionUtil.getSession();
 			session.setAttribute("authUser", user);
-			session.setAttribute("isAdmin", user.getRole().equals("admin"));
+			session.setAttribute("userRole", user.getRole());
 			if(user.getRole().equals("admin"))
 				return "/admin/acceuil.xhtml?faces-redirect=true";
 			return "acceuil.xhtml?faces-redirect=true";

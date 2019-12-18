@@ -1,6 +1,9 @@
 package com.projet.pharmatech.filters;
 
 import java.io.IOException;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -15,7 +18,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class admin
  */
-@WebFilter("/faces/admin/*")
+//@WebFilter("/faces/admin/*")
 public class AdminFilter implements Filter{
 
     /**
@@ -41,19 +44,22 @@ public class AdminFilter implements Filter{
 		
 		HttpSession session = req.getSession(false);
 		String url = req.getRequestURI();
-		if(url.indexOf("/admin")>=0 && session != null)
+		boolean connected = session != null && session.getAttribute("authUser") != null;
+
+
+		if(connected)
 		{
-			//Si l'admin est connect�
-			if(session.getAttribute("isAdmin") != null && session.getAttribute("isAdmin").equals(true))
+			if(session.getAttribute("userRole").equals("admin"))
 				chain.doFilter(request, response);
 			else
-				//si la session est expir�e et l'utilisateur reessaye de recharger les pages
+			{
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Not authorized", "Espace Administrateur");
+		        FacesContext.getCurrentInstance().addMessage(null, message);
 				resp.sendRedirect(req.getContextPath() + "/faces/acceuil.xhtml");
-		}	
-		else
-			resp.sendRedirect(req.getContextPath() + "/faces/acceuil.xhtml");
-		// pass the request along the filter chain
-		
+			}
+
+		}else
+			resp.sendRedirect(req.getContextPath() + "/faces/login.xhtml");
 	}
 
 	/**

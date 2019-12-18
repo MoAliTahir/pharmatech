@@ -1,41 +1,114 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-<head>
-  <title><ui:insert name="title">Default title</ui:insert></title>
-</head>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	
+<ui:composition template="../resources/template/layout.xhtml">
+	<ui:define name="head">
+		<title>Admin . Gestion des utilisateurs</title>
+		<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
+	</ui:define>
 
-<body>
-<ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}"/>
+	<ui:define name="body">
+	
+		<h:form>
+	    	<p:growl style="z-index:20;">
+	        	<p:autoUpdate />
+	    	</p:growl>
+		</h:form>
+	<div class="main">
+		<div>
+			<h2 style="text-align: center">Gestion des utilisateurs</h2>
+		</div>
+		<div style="display: flex">
+			<div style="width: 30%; height:500px; border: 1px solid green">
+				<h3 style="text-align: center;">Ajouter un nouveau pharmacien</h3>
+				
+				<h:form id="form">
+					<h:panelGrid columns="2" cellpadding="10">
+						<h:outputLabel value="Nom : "></h:outputLabel>
+						<p:inputText value="#{ gestionUsers.nom }" required="true" placeholder="Dupon"></p:inputText>
+						
+						<h:outputLabel value="Prenom : "></h:outputLabel>
+						<p:inputText value="#{ gestionUsers.prenom }" required="true" placeholder="Jean"></p:inputText>
+						
+						<h:outputLabel value="Login : "></h:outputLabel>
+						<p:inputText value="#{ gestionUsers.login }" required="true" placeholder="jeanDupon"></p:inputText>
+						
+						<h:outputLabel value="Tétéphone : "></h:outputLabel>
+						<p:inputText value="#{ gestionUsers.tel }" required="true" placeholder="0681920973"></p:inputText>
+						
+						<h:outputLabel value="Role : "></h:outputLabel>
+						<p:inputText value="#{ gestionUsers.role }" required="true" placeholder="pharmacien"></p:inputText>
+						
+						<h:outputLabel value="Mot de passe : "></h:outputLabel>
+						<p:password value="#{ gestionUsers.pass1 }" id="pswd1" match="pswd2" required="true" feedback="true" placeholder="********"></p:password>
+						
+						<h:outputLabel value="Confirme Mot de passe : "></h:outputLabel>
+						<p:password value="#{ gestionUsers.pass2 }" id="pswd2" required="true" placeholder="********"></p:password>
+						
+						
+						
+						<p:commandButton value="Submit" update="display" action="#{ gestionUsers.addUser }"/>
+						
+					</h:panelGrid>
+				</h:form>
+			</div>
+			<div style="text-align: center; width: 70%; height:500px; border: 1px solid gray">
+				<h3>Liste des utilisateurs</h3>
+				
+				<p:dataTable id="display" var="user" value="#{gestionUsers.users}">
+				    <p:column headerText="Username">
+				        <h:outputText value="#{user.login}" />
+				    </p:column>
+				 
+				    <p:column headerText="Firt Name">
+				        <h:outputText value="#{user.nom}" />
+				    </p:column>
+				 
+				    <p:column headerText="Last Name">
+				        <h:outputText value="#{user.prenom}" />
+				    </p:column>
+				 
+				    <p:column headerText="Role">
+				        <h:outputText value="#{user.role}" />
+				    </p:column>
+				    
+				    <p:column headerText="Phone">
+				        <h:outputText value="#{user.tel}" />
+				    </p:column>
+				    
+				    <p:column headerText="Action">		
+				    	<h:form>
+				    		<p:commandButton value="U" action="#{ gestionUsers.getUserInfo(user) }" update="form"></p:commandButton>
+				    		<h:commandButton value="D"></h:commandButton>
+				    	</h:form>
+				    </p:column>
+				</p:dataTable>
+				
+				
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="h1">teste</div>
+	
+	
+	<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
+	</ui:define>
 
-<div id="header">
-    <ui:insert name="header">
-    	Header area.  See comments below this line in the source.
-    	<!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
-    	<!-- <ui:include src="header.xhtml"/> -->
-    </ui:insert>
-</div>
 
 
-<div id="content">
-  <ui:insert name="content">
-    	Content area.  See comments below this line in the source.
-    	<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
-	  	<!-- <div> -->
-    	<!-- <ui:include src="content.xhtml"/> -->  
-    	<!-- </div> -->
-  </ui:insert>
-</div>
 
-<div id="footer">
-  <ui:insert name="footer">
-    	Footer area.  See comments below this line in the source.
-    	<!--  include your header file or uncomment the include below and create footer.xhtml in this directory -->
-		<!--<ui:include src="footer.xhtml"/>  -->
-  </ui:insert>
-</div>
 
-</body>
+
+
+
+
+</ui:composition>
 
 </html>

@@ -3,18 +3,29 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<head>
-<meta charset="ISO-8859-1">
+<h:head>
+<meta charset="utf-8"/>
 <title>Acceuil Administrateur</title>
-</head>
-<body>
-	<f:view>
-		<h1>Page d'acceuil</h1>
-		<h:form>
-			<h:outputText value="Welcome Admin... #{ loginBean.userName }"></h:outputText>
-			<br>
-			<h:commandLink action="#{loginBean.logout }" value="Logout"></h:commandLink>
-		</h:form>
-	</f:view>
-</body>
+</h:head>
+<h:body>
+	<h:form>
+    	<p:growl>
+        	<p:autoUpdate />
+    	</p:growl>
+ 
+ 
+ 		<p:panelMenu style="width:300px">
+        	<p:submenu label="Menu" >
+        		<p:menuitem value="Gestion des utilisateurs" url="users.xhtml" icon="pi pi-save" />
+            	<p:menuitem value="Gestion des factures" action="#{menuView.update}"  icon="pi pi-refresh" />
+            	<p:submenu label="#{ loginBean.userName }" icon="pi pi-home">          		
+                	
+            	</p:submenu>
+        	</p:submenu>
+    	</p:panelMenu>
+      <h:outputText value="Welcome Admin... #{ loginBean.userName }"></h:outputText>
+      <p>Maecenas mauris, condimentum quis risus scelerisque, ultricies commodo leo. Mauris vitae varius purus, eget convallis diam. Morbi aliquam, nibh at semper pharetra, neque sem luctus justo, vel ultrices leo augue nec felis. Nam eget ipsum rhoncus, gravida tortor sed, porttitor leo. Donec ut rutrum risus. Aliquam accumsan lectus sit amet sapien convallis, eget pharetra est posuere. Sed nulla nisi, elementum vel lectus ut, ornare cursus magna. Aenean venenatis dapibus malesuada. Nullam dignissim malesuada nulla, sit amet varius sapien rutrum vel. Vestibulum viverra porta purus ut iaculis. Sed vitae porttitor ipsum. Fusce venenatis quam non volutpat scelerisque. Maecenas pretium ac velit in ullamcorper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in sem ut tortor interdum placerat. </p>
+
+	</h:form>		
+</h:body>
 </html>
