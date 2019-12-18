@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -16,13 +15,23 @@ import com.projet.pharmatech.entities.Medicament;
 import com.projet.pharmatech.services.CommandeService;
 import com.projet.pharmatech.services.MedicamentService;
 
-@ManagedBean(name="MedicamentsViewBean")
+@ManagedBean(name="medicamentsViewBean")
 @SessionScoped
-public class MedicamentsView implements Serializable {
+public class MedicamentsViewBean implements Serializable {
  
-    /**
+	
+	
+    public MedicamentsViewBean() {
+		super();
+    	System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+    	medicamentService=new MedicamentService();
+     	ligneARetirer = new LigneCommande();
+
+	}
+	/**
 	 * 
 	 */
+    
 	private static final long serialVersionUID = 1L;
 
 	private List<Medicament> medicaments;
@@ -31,7 +40,7 @@ public class MedicamentsView implements Serializable {
     
     private List<LigneCommande> panier;
  
-    private MedicamentService medicamentService;
+    private MedicamentService medicamentService; 
     
     private Commande commande;
  
@@ -72,6 +81,8 @@ public class MedicamentsView implements Serializable {
 
 	@PostConstruct
     public void init() {
+    	System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+
     	 commandeService= new CommandeService();
     	 filteredMedicaments=new ArrayList<>();
     	 medicamentService=new MedicamentService();
@@ -218,6 +229,9 @@ public class MedicamentsView implements Serializable {
 		this.panier.clear();
 		this.commande= new Commande();
 	}
+	public void supprimerMedicament() {
+		medicamentService.delete(medicamentSelectionne.getId());
+	}
 	public void retirerDuPanier() {
 		panier.remove(this.ligneARetirer);
 	}
@@ -228,10 +242,9 @@ public class MedicamentsView implements Serializable {
 				if(q==0) {
 					LigneCommande lc= new LigneCommande(this.medicamentSelectionne, quantite, commande);
 					panier.add(lc);
-				}else {
+				}else if(!( (quantite+q)>medicamentSelectionne.getQuantiteStock() )) {
 					
-					System.out.println(q+quantite);
-					panier.stream().filter(t->t.getMedicament()==medicamentSelectionne).forEach(t->t.setQuantite(q+quantite));
+ 					panier.stream().filter(t->t.getMedicament()==medicamentSelectionne).forEach(t->t.setQuantite(q+quantite));
 					
 				}
 				

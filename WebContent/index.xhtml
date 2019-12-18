@@ -6,11 +6,10 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<meta charset="ISO-8859-1"></meta>
-<title></title>
+ <h:title></h:title>
 <meta charset="UTF-8"></meta>
 </h:head>
-<body>
+<h:body>
 	
 
 <h:outputStylesheet library="css" name="style.css" />
@@ -18,10 +17,10 @@
 	<h1>Gestion de vente :</h1>
 	<h:form>
 		<p:dataTable var="medicament"
-			value="#{MedicamentsViewBean.medicaments}"
+			value="#{medicamentsViewBean.medicaments}"
 			widgetVar="medicamentsTable" emptyMessage="Aucun medicament!"
-			filteredValue="#{MedicamentsViewBean.filteredMedicaments}"
-			globalFilterFunction="#{MedicamentsViewBean.globalFilterFunction}">
+			filteredValue="#{medicamentsViewBean.filteredMedicaments}"
+			globalFilterFunction="#{medicamentsViewBean.globalFilterFunction}">
 
 			<f:facet name="header">
 				<p:outputPanel>
@@ -76,14 +75,13 @@
 			
 			<p:column headerText="" >
 					
-					<h:inputText  value="#{MedicamentsViewBean.quantite}">
+					<h:inputText  value="#{medicamentsViewBean.quantite}">
 						<f:ajax />
 					</h:inputText>
 					
-			     	<p:commandButton process="@this"  value="Ajouter" action="#{MedicamentsViewBean.ajouterAuPanier}" update="panierForm:panier"  >
- 				   		<f:setPropertyActionListener target="#{MedicamentsViewBean.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
+			     	<p:commandButton process="@this"  value="Ajouter" action="#{medicamentsViewBean.ajouterAuPanier}" update="panierForm:panier"  >
+ 				   		<f:setPropertyActionListener target="#{medicamentsViewBean.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
  				   </p:commandButton>
-				   
   			</p:column>
 			
 		</p:dataTable>
@@ -92,18 +90,18 @@
 	
 		<h:form id="panierForm" >
 		<h1>Panier :</h1>
-		<p:dataGrid var="ligneCommande" value="#{MedicamentsViewBean.panier}" id="panier" >
+		<p:dataGrid var="ligneCommande" value="#{medicamentsViewBean.panier}" id="panier">
 			<p:panel header="#{ligneCommande.medicament.libelle} - #{ligneCommande.quantite}" style="width:33.33%;">
 				
-				<p:commandButton process="@this"  value="Retirer" action="#{MedicamentsViewBean.retirerDuPanier}" update="panier"  >
-				   		<f:setPropertyActionListener target="#{MedicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
+				<p:commandButton process="@this"  value="Retirer" action="#{medicamentsViewBean.retirerDuPanier}" update="panier"  >
+				   		<f:setPropertyActionListener target="#{medicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
 			   </p:commandButton>
 			
 	
 			</p:panel>
 		</p:dataGrid>
-				<p:commandButton process="@this"  value="Annuler la commande" action="#{MedicamentsViewBean.setPanier(null)}" update="panier"  >
-				   		<f:setPropertyActionListener target="#{MedicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
+				<p:commandButton process="@this"  value="Annuler la commande" action="#{medicamentsViewBean.setPanier(null)}" update="panier"  >
+				   		<f:setPropertyActionListener target="#{medicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
 			   </p:commandButton>
 		</h:form>
  	
@@ -114,5 +112,5 @@
 	</p:commandButton>
 	
  	<p:commandButton value="test" id="image"></p:commandButton>
-</body>
+</h:body>
 </html>
