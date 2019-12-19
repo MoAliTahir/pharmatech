@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.projet.pharmatech.services.MedicamentService;
+
 @Entity
 @Table(name="commande")
 public class Commande implements Serializable{
@@ -32,12 +34,12 @@ public class Commande implements Serializable{
 	@Column(name = "date_ajout")
 	private Date dateAjout;
 	@Column(name = "prix_total")
-	private long prixTotal;
+	private double prixTotal;
 	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
-
+	
 	
 	
 	public Commande() {
@@ -47,7 +49,7 @@ public class Commande implements Serializable{
 	}
 	
 	
-	public Commande(List<LigneCommande> lignesCommande, Client client, long prixTotal) {
+	public Commande(List<LigneCommande> lignesCommande, Client client, double prixTotal) {
 		super();
 		this.lignesCommande = lignesCommande;
 		this.dateAjout = new Date();
@@ -97,12 +99,13 @@ public class Commande implements Serializable{
 	}
 
 
-	public long getPrixTotal() {
+	public double getPrixTotal() {
 		return prixTotal;
 	}
 
 
-	public void setPrixTotal(long prixTotal) {
+	public void setPrixTotal(double prixTotal) {
 		this.prixTotal = prixTotal;
 	}
+	
 }

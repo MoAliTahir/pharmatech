@@ -57,10 +57,6 @@
 				<h:outputText value="#{medicament.libelle}" />
 			</p:column>
 
-			<p:column headerText="prix" filterBy="#{medicament.prix}">
-				<h:outputText value="#{medicament.prix}" />
-			</p:column>
-
 			<p:column headerText="Quantite Stock" filterBy="#{medicament.quantiteStock}">
 				<h:outputText value="#{medicament.quantiteStock}" />
 			</p:column>
@@ -81,7 +77,14 @@
 						<f:ajax />
 					</h:inputText>
 					
-			     	<p:commandButton process="@this"  value="Ajouter" action="#{medicamentsViewBean.ajouterAuPanier}" update="panierForm:panier"  >
+					<!-- testing this -->
+					<p:selectOneMenu id="client" value="#{medicamentsViewBean.clientSelectionne}" style="width:150px">
+		                <p:ajax listener="#{medicamentsViewBean.updateClientSelectionne" itemValue="#{medicamentsViewBean.clientSelectionne}" noSelectionOption="true" />
+		                <f:selectItems value="#{medicamentsViewBean.clients}" />
+		            </p:selectOneMenu>
+					<!--  -->
+					
+			     	<p:commandButton process="@this"  value="Ajouter" action="#{medicamentsViewBean.ajouterAuPanier}" update="panierForm"  >
  				   		<f:setPropertyActionListener target="#{medicamentsViewBean.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
  				   </p:commandButton>
   			</p:column>
@@ -91,6 +94,7 @@
 	
  	
 		<h:form id="panierForm" >
+		<div>
 		<h1>Panier :</h1>
 		<p:dataGrid var="ligneCommande" value="#{medicamentsViewBean.panier}" id="panier">
 			<p:panel header="#{ligneCommande.medicament.libelle} - #{ligneCommande.quantite}" style="width:33.33%;">
@@ -101,19 +105,27 @@
 			
 	
 			</p:panel>
-		</p:dataGrid>
-				<p:commandButton process="@this"  value="Annuler la commande" action="#{medicamentsViewBean.setPanier(null)}" update="panier"  >
+			
+				
+		</p:dataGrid> 
+		</div>	
+				<h:inputText value="#{medicamentsViewBean.prixTotal}">
+ 				</h:inputText>
+		
+				<p:commandButton process="@this"  value="Annuler la commande" action="#{medicamentsViewBean.setPanier(null)}" update="@form"  >
 				   		<f:setPropertyActionListener target="#{medicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
+			    </p:commandButton>
+
+			   <p:commandButton process="@this"  value="Valider la commande" action="#{medicamentsViewBean.validerPanier()}" update="@form"  >
 			   </p:commandButton>
 		</h:form>
  	
 
-	<h1>Amine the gay test</h1>
+	<h1>Imprimer la commande : </h1>
 	<p:commandButton value="Print" type="button" icon="pi pi-print" style="display: block; bttom:20px;">
-		<p:printer target="image">
+		<p:printer target="panierForm">
 	</p:printer>
 	</p:commandButton>
 	
- 	<p:commandButton value="test" id="image"></p:commandButton>
-</h:body>
+ </h:body>
 </html>
