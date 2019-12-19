@@ -77,6 +77,13 @@
 						<f:ajax />
 					</h:inputText>
 					
+					<!-- testing this -->
+					<p:selectOneMenu id="client" value="#{medicamentsViewBean.clientSelectionne}" style="width:150px">
+		                <p:ajax listener="#{medicamentsViewBean.updateClientSelectionne" itemValue="#{medicamentsViewBean.clientSelectionne}" noSelectionOption="true" />
+		                <f:selectItems value="#{medicamentsViewBean.clients}" />
+		            </p:selectOneMenu>
+					<!--  -->
+					
 			     	<p:commandButton process="@this"  value="Ajouter" action="#{medicamentsViewBean.ajouterAuPanier}" update="panierForm"  >
  				   		<f:setPropertyActionListener target="#{medicamentsViewBean.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
  				   </p:commandButton>
@@ -114,12 +121,11 @@
 		</h:form>
  	
 
-	<h1>Amine the gay test</h1>
+	<h1>Imprimer la commande : </h1>
 	<p:commandButton value="Print" type="button" icon="pi pi-print" style="display: block; bttom:20px;">
-		<p:printer target="image">
+		<p:printer target="panierForm">
 	</p:printer>
 	</p:commandButton>
 	
- 	<p:commandButton value="test" id="image"></p:commandButton>
-</h:body>
+ </h:body>
 </html>

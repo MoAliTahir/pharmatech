@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import com.projet.pharmatech.entities.Client;
 import com.projet.pharmatech.entities.Commande;
 import com.projet.pharmatech.entities.LigneCommande;
 import com.projet.pharmatech.entities.Medicament;
@@ -55,6 +56,11 @@ public class MedicamentsViewBean implements Serializable {
     
     private double prixTotal;
     
+    private Client clientSelectionne;
+    
+    private ArrayList<Client> clients;
+    
+    
     //will contain eventual invalid lignesCommandes(the ones in Panier which were taken by an other pharmacist before validating Panier)
 	//will be used to show which medicaments quantities to reduce
     private List<LigneCommande> invalidLignesCommandes;
@@ -69,7 +75,7 @@ public class MedicamentsViewBean implements Serializable {
 		this.prixTotal = prixTotal;
 	}
 
-
+	
 	public List<LigneCommande> getInvalidLignesCommandes() {
 		return invalidLignesCommandes;
 	}
@@ -91,8 +97,7 @@ public class MedicamentsViewBean implements Serializable {
 
 
 	public void setQuantite(int quantite) {
-		System.out.println(quantite);
-		this.quantite = quantite;
+ 		this.quantite = quantite;
 	}
 
 
@@ -211,6 +216,28 @@ public class MedicamentsViewBean implements Serializable {
 		return commandeService;
 	}
 
+	
+
+	public Client getClientSelectionne() {
+		return clientSelectionne;
+	}
+
+
+	public void setClientSelectionne(Client clientSelectionne) {
+		this.clientSelectionne = clientSelectionne;
+	}
+
+
+	public ArrayList<Client> getClients() {
+		return clients;
+	}
+
+
+	public void setClients(ArrayList<Client> clients) {
+		this.clients.clear();
+		this.clients.addAll(clients);
+	}
+
 
 	public void setPanier(List<LigneCommande> panier) {
 		this.panier.clear();
@@ -248,6 +275,7 @@ public class MedicamentsViewBean implements Serializable {
 	
 	public void validerCommande() {
 		commande.setPrixTotal(prixTotal);
+		commande.setClient(clientSelectionne);
 		this.commandeService.add(this.commande);
 	}
 	
@@ -305,6 +333,8 @@ public class MedicamentsViewBean implements Serializable {
 		}
 	}
 	
+	public void updateClientSelectionne(){
+ 	}
 	
 	private void updatePrixTotal() {
 		prixTotal=panier.stream().mapToDouble(l->l.getMedicament().getPrix()*l.getQuantite()).sum();
