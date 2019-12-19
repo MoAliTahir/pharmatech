@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
   <h:head>
     <meta charset="utf-8"/>
@@ -28,17 +29,15 @@
           font-size: 3.5rem;
         }
       }
-      body {
+body {
   padding-top: 3.5rem;
 }
-	.b:hover{
-    	color: white;
-    }
+	   
+
     </style>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
-    
     <ui:insert name="head">
     	<title>Pharmatech</title>
     </ui:insert>
@@ -49,7 +48,7 @@
   
   
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">Administration</a>
+  <a class="navbar-brand" href="../../faces/admin/acceuil.xhtml">Administration</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -58,9 +57,9 @@
     <ul class="navbar-nav mr-auto">
     </ul>
       <div class="nav-item dropdown" >
-        <a class="nav-link dropdown-toggle" style="text-decoration: none; padding-right: 50px" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <a class="nav-link dropdown-toggle" style="text-decoration: none; padding-right: 50px" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#{loginBean.userName}</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#">Deconnection</a>
+          <a class="dropdown-item" href="#"><h:form><p:commandButton value="Deconnection" action="#{ loginBean.logout }" onclick="deconnecter"/></h:form></a>
         </div>
       </div>
   </div>
@@ -71,10 +70,10 @@
   <div class="row" style="position: fixed;">
   	<div class="col-md-2 menu bg-dark" style="padding: 0;">
   		<div class="btn-group-vertical" style="width: 100%;">
-  			<a type="button" class="btn btn-outline-danger text-left b b1" href="../../faces/admin/users.xhtml">Gestion Utilisateurs</a>
-		    <a type="button" class="btn btn-outline-danger text-left b text-danger b2" href="../../faces/admin/factures.xhtml">Gestion Factures</a>
-		    <a type="button" class="btn btn-outline-danger text-left b text-danger b3">Statistiques</a>
-		    <a type="button" class="btn btn-outline-danger text-left b text-danger b4">button 4</a>
+  			<a type="button" class="btn btn-outline-danger text-left lien b1" href="../../faces/admin/users.xhtml">Gestion Utilisateurs</a>
+		    <a type="button" style="" class="btn btn-outline-danger text-left lien b2" href="../../faces/admin/factures.xhtml">Gestion Factures</a>
+		    <a type="button" class="btn btn-outline-danger text-left lien b3" href="#">Statistiques</a>
+		    <a type="button" class="btn btn-outline-danger text-left lien b4" href="#">button 4</a>
 		</div>
   		
   	</div>

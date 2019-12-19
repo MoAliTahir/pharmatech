@@ -2,30 +2,47 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-<meta charset="utf-8"/>
-<title>Acceuil Administrateur</title>
-</h:head>
-<h:body>
-	<h:form>
-    	<p:growl>
-        	<p:autoUpdate />
-    	</p:growl>
- 
- 
- 		<p:panelMenu style="width:300px">
-        	<p:submenu label="Menu" >
-        		<p:menuitem value="Gestion des utilisateurs" url="users.xhtml" icon="pi pi-save" />
-            	<p:menuitem value="Gestion des factures" action="#{menuView.update}"  icon="pi pi-refresh" />
-            	<p:submenu label="#{ loginBean.userName }" icon="pi pi-home">          		
-                	
-            	</p:submenu>
-        	</p:submenu>
-    	</p:panelMenu>
-      <h:outputText value="Welcome Admin... #{ loginBean.userName }"></h:outputText>
-      <p>Maecenas mauris, condimentum quis risus scelerisque, ultricies commodo leo. Mauris vitae varius purus, eget convallis diam. Morbi aliquam, nibh at semper pharetra, neque sem luctus justo, vel ultrices leo augue nec felis. Nam eget ipsum rhoncus, gravida tortor sed, porttitor leo. Donec ut rutrum risus. Aliquam accumsan lectus sit amet sapien convallis, eget pharetra est posuere. Sed nulla nisi, elementum vel lectus ut, ornare cursus magna. Aenean venenatis dapibus malesuada. Nullam dignissim malesuada nulla, sit amet varius sapien rutrum vel. Vestibulum viverra porta purus ut iaculis. Sed vitae porttitor ipsum. Fusce venenatis quam non volutpat scelerisque. Maecenas pretium ac velit in ullamcorper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in sem ut tortor interdum placerat. </p>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	
+<ui:composition template="../resources/template/layout.xhtml">
+	<ui:define name="head">
+		<title>Admin . Gestion des utilisateurs</title>
+		<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
+		<style>
+			
+		</style>
+	</ui:define>
 
-	</h:form>		
-</h:body>
+	<ui:define name="body">
+	
+		<h:form>
+	    	<p:growl showDetail="true" life="5000">
+	        	<p:autoUpdate />
+	    	</p:growl>
+		</h:form>
+		
+		<div class="container-fluid">
+			<h2 class="h2 text-center">Page D'acceuil Administrateur</h2>
+			
+			<div class="row">
+				<div class="col-md-12">
+					
+					<h:outputText value="Welcome Admin... #{ loginBean.userName }"></h:outputText>
+      				<p>Maecenas mauris, condimentum quis risus scelerisque, ultricies commodo leo. Mauris vitae varius purus, eget convallis diam. Morbi aliquam, nibh at semper pharetra, neque sem luctus justo, vel ultrices leo augue nec felis. Nam eget ipsum rhoncus, gravida tortor sed, porttitor leo. Donec ut rutrum risus. Aliquam accumsan lectus sit amet sapien convallis, eget pharetra est posuere. Sed nulla nisi, elementum vel lectus ut, ornare cursus magna. Aenean venenatis dapibus malesuada. Nullam dignissim malesuada nulla, sit amet varius sapien rutrum vel. Vestibulum viverra porta purus ut iaculis. Sed vitae porttitor ipsum. Fusce venenatis quam non volutpat scelerisque. Maecenas pretium ac velit in ullamcorper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in sem ut tortor interdum placerat. </p>
+					
+					
+				</div>
+			</div>
+			
+		</div>
+	
+	
+	<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
+	</ui:define>
+
+
+</ui:composition>
+
 </html>

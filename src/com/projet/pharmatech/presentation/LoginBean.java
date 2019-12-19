@@ -67,7 +67,11 @@ public class LoginBean implements Serializable {
 	public String logout() {
 		System.out.println("Logging out...");
 		HttpSession session = SessionUtil.getSession();
+		String role = (String) session.getAttribute("userRole");
 		session.invalidate();
+		
+		if(role.equals("admin"))
+			return "../login.xhtml?faces-redirect=true";
 		
 		return "login.xhtml?faces-redirect=true";
 	}

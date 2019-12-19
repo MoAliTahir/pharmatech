@@ -77,13 +77,7 @@
 						<f:ajax />
 					</h:inputText>
 					
-					<!-- testing this -->
-					<p:selectOneMenu id="client" value="#{medicamentsViewBean.clientSelectionne}" style="width:150px">
-		                <p:ajax listener="#{medicamentsViewBean.updateClientSelectionne" itemValue="#{medicamentsViewBean.clientSelectionne}" noSelectionOption="true" />
-		                <f:selectItems value="#{medicamentsViewBean.clients}" />
-		            </p:selectOneMenu>
-					<!--  -->
-					
+								
 			     	<p:commandButton process="@this"  value="Ajouter" action="#{medicamentsViewBean.ajouterAuPanier}" update="panierForm"  >
  				   		<f:setPropertyActionListener target="#{medicamentsViewBean.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
  				   </p:commandButton>
@@ -112,12 +106,19 @@
 				<h:inputText value="#{medicamentsViewBean.prixTotal}">
  				</h:inputText>
 		
-				<p:commandButton process="@this"  value="Annuler la commande" action="#{medicamentsViewBean.setPanier(null)}" update="@form"  >
+				<p:commandButton process="@this"  value="Annuler la commande" action="#{medicamentsViewBean.annulerCommande}" update="@form"  >
 				   		<f:setPropertyActionListener target="#{medicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
 			    </p:commandButton>
 
 			   <p:commandButton process="@this"  value="Valider la commande" action="#{medicamentsViewBean.validerPanier()}" update="@form"  >
 			   </p:commandButton>
+			   
+			   <!-- testing this -->
+				<p:selectOneMenu id="client" value="#{medicamentsViewBean.clientSelectionne}" style="width:150px">
+	                <p:ajax listener="#{medicamentsViewBean.updateClientSelectionne}" itemValue="#{medicamentsViewBean.clientSelectionne}" noSelectionOption="true" />
+	                <f:selectItems value="#{medicamentsViewBean.clients}" />
+	            </p:selectOneMenu>
+				<!--  -->
 		</h:form>
  	
 
