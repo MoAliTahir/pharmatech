@@ -10,103 +10,118 @@
 	<ui:define name="head">
 		<title>Admin . Gestion des utilisateurs</title>
 		<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
+		<style>
+			.b1{
+			background-color: #e62e4f;
+			color: white;
+			}
+			a.b1{
+			color: white;
+			}
+			.ui-growl {
+    		top:56px;
+			}
+		</style>
 	</ui:define>
 
 	<ui:define name="body">
 	
 		<h:form>
-	    	<p:growl style="z-index:20;">
+	    	<p:growl showDetail="true" life="5000">
 	        	<p:autoUpdate />
 	    	</p:growl>
 		</h:form>
-	<div class="main">
-		<div>
-			<h2 style="text-align: center">Gestion des utilisateurs</h2>
-		</div>
-		<div style="display: flex">
-			<div style="width: 30%; height:500px; border: 1px solid green">
-				<h3 style="text-align: center;">Ajouter un nouveau pharmacien</h3>
-				
-				<h:form id="form">
-					<h:panelGrid columns="2" cellpadding="10">
-						<h:outputLabel value="Nom : "></h:outputLabel>
-						<p:inputText value="#{ gestionUsers.nom }" required="true" placeholder="Dupon"></p:inputText>
-						
-						<h:outputLabel value="Prenom : "></h:outputLabel>
-						<p:inputText value="#{ gestionUsers.prenom }" required="true" placeholder="Jean"></p:inputText>
-						
-						<h:outputLabel value="Login : "></h:outputLabel>
-						<p:inputText value="#{ gestionUsers.login }" required="true" placeholder="jeanDupon"></p:inputText>
-						
-						<h:outputLabel value="Tétéphone : "></h:outputLabel>
-						<p:inputText value="#{ gestionUsers.tel }" required="true" placeholder="0681920973"></p:inputText>
-						
-						<h:outputLabel value="Role : "></h:outputLabel>
-						<p:inputText value="#{ gestionUsers.role }" required="true" placeholder="pharmacien"></p:inputText>
-						
-						<h:outputLabel value="Mot de passe : "></h:outputLabel>
-						<p:password value="#{ gestionUsers.pass1 }" id="pswd1" match="pswd2" required="true" feedback="true" placeholder="********"></p:password>
-						
-						<h:outputLabel value="Confirme Mot de passe : "></h:outputLabel>
-						<p:password value="#{ gestionUsers.pass2 }" id="pswd2" required="true" placeholder="********"></p:password>
-						
-						
-						
-						<p:commandButton value="Submit" update="display" action="#{ gestionUsers.addUser }"/>
-						
-					</h:panelGrid>
-				</h:form>
-			</div>
-			<div style="text-align: center; width: 70%; height:500px; border: 1px solid gray">
-				<h3>Liste des utilisateurs</h3>
-				
-				<p:dataTable id="display" var="user" value="#{gestionUsers.users}">
-				    <p:column headerText="Username">
-				        <h:outputText value="#{user.login}" />
-				    </p:column>
-				 
-				    <p:column headerText="Firt Name">
-				        <h:outputText value="#{user.nom}" />
-				    </p:column>
-				 
-				    <p:column headerText="Last Name">
-				        <h:outputText value="#{user.prenom}" />
-				    </p:column>
-				 
-				    <p:column headerText="Role">
-				        <h:outputText value="#{user.role}" />
-				    </p:column>
-				    
-				    <p:column headerText="Phone">
-				        <h:outputText value="#{user.tel}" />
-				    </p:column>
-				    
-				    <p:column headerText="Action">		
-				    	<h:form>
-				    		<p:commandButton value="U" action="#{ gestionUsers.getUserInfo(user) }" update="form"></p:commandButton>
-				    		<h:commandButton value="D"></h:commandButton>
-				    	</h:form>
-				    </p:column>
-				</p:dataTable>
-				
-				
-			</div>
-		</div>
 		
-	</div>
-	
-	<div class="h1">teste</div>
+		<div class="container-fluid">
+			<h2 class="h2 text-center">Gestion des utilisateurs</h2>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<h4>Ajouter un nouveau utilisateur</h4>
+					<h:form id="form">
+						<h:panelGrid id="form1" style="margin-top:-20px" columns="6" cellpadding="5" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="ui-fluid" >
+							
+							<p:outputLabel value="Nom : "></p:outputLabel>
+							<p:inputText value="#{ gestionUsers.nom }" size="30" required="true" placeholder="Dupon"></p:inputText>
+							
+							<p:outputLabel value="Prenom : "></p:outputLabel>
+							<p:inputText value="#{ gestionUsers.prenom }" size="30" required="true" placeholder="Jean"></p:inputText>
+							
+							<p:outputLabel value="Login : "></p:outputLabel>
+							<p:inputText value="#{ gestionUsers.login }" size="30" required="true" placeholder="jeanDupon"></p:inputText>
+							
+							<p:outputLabel value="Tétéphone : "></p:outputLabel>
+							<p:inputText value="#{ gestionUsers.tel }" size="30" required="true" placeholder="0681920973"></p:inputText>
+							
+							<p:outputLabel for="role" value="Role:" />
+					        <p:selectOneListbox id="role" value="#{gestionUsers.role}">
+					            <f:selectItem itemLabel="Administrateur" itemValue="admin" />
+					            <f:selectItem itemLabel="Pharmacien" itemValue="pharmacien" />
+					        </p:selectOneListbox>
+							
+							<h:outputLabel value="Mot de passe : "></h:outputLabel>
+							<p:password value="#{ gestionUsers.pass1 }" size="30" required="true" strongLabel="true" feedback="true" weakLabel="true" placeholder="********"></p:password>
+							
+							
+							<h:inputHidden value="#{ gestionUsers.id }"></h:inputHidden>
+							<p:commandButton value="Submit" style="margin-top:-20px" class="btn btn-danger" update="@form list" action="#{ gestionUsers.addUser }"/>
+							
+						</h:panelGrid>
+					</h:form>
+				
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				
+					<h4 class="h4">Liste des utilisateurs</h4>
+					
+					<p:dataTable var="user" id="list" value="#{gestionUsers.users}" rows="5" paginator="true" 
+                 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 		rowsPerPageTemplate="5,10,15">
+					    <p:column headerText="iD">
+					        <h:outputText value="#{user.id}" />
+					    </p:column>
+					    
+					    <p:column headerText="Username">
+					        <h:outputText value="#{user.login}" />
+					    </p:column>
+				 
+					    <p:column headerText="Firt Name">
+					        <h:outputText value="#{user.nom}" />
+					    </p:column>
+				 
+					    <p:column headerText="Last Name">
+					        <h:outputText value="#{user.prenom}" />
+					    </p:column>
+				 
+					    <p:column headerText="Role">
+					        <h:outputText value="#{user.role}" />
+					    </p:column>
+				    
+					    <p:column headerText="Phone">
+					        <h:outputText value="#{user.tel}" />
+					    </p:column>
+					    
+					    <p:column headerText="Mot de passe">
+					        <h:outputText value="#{user.password}" />
+					    </p:column>
+				    
+				    	<p:column headerText="Action">		
+					    	<h:form>
+					    		<p:commandButton value="U" action="#{ gestionUsers.getUserInfo(user) }" update=":form:form1"></p:commandButton>
+					    		<h:commandButton value="D"></h:commandButton>
+					    	</h:form>
+				    	</p:column>
+				</p:dataTable>
+					
+				</div>
+			</div>
+		</div>
 	
 	
 	<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
 	</ui:define>
-
-
-
-
-
-
-
 
 
 </ui:composition>

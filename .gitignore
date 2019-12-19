@@ -2,7 +2,7 @@ HELP.md
 /target/
 
 ### Hibernate ###
-hibernate.cfg.xml
+/src/hibernate.cfg.xml
 
 ### Eclipse ###
 /build/

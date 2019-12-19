@@ -1,16 +1,20 @@
 package com.projet.pharmatech.presentation;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import com.projet.pharmatech.entities.User;
 import com.projet.pharmatech.services.UserService;
 
 @ManagedBean(name = "gestionUsers")
+@RequestScoped
 public class GestionUsers implements Serializable{
 	
 	/**
@@ -91,14 +95,53 @@ public class GestionUsers implements Serializable{
 	}
 	
 	public void addUser() {
-		User u = userService.add(new User(nom, prenom, login, pass1, tel, role));
-		this.users.add(u);
-		this.nom = null;
-		this.prenom = null;
-		this.login = null;
-		this.pass1 = null;
-		this.pass2 = null;
-		this.tel = null;
+		if (this.id == 0) {
+			
+			Iterator iterator = this.users.iterator();
+			boolean loginExists = false;
+			while (iterator.hasNext()) {
+				User user = (User) iterator.next();
+				if(user.getLogin().equalsIgnoreCase(this.login))
+				{
+					loginExists = true;
+					break;
+				}
+			}
+			
+			if(loginExists)
+			{
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Nom d'utilisateur existe déjà.");
+		        FacesContext.getCurrentInstance().addMessage(null, message);
+			}else
+			{
+				User u = userService.add(new User(nom, prenom, login, pass1, tel, role));
+				this.users.add(u);
+
+				setToNull();
+				
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Utilisateur ajouté avec sussès");
+		        FacesContext.getCurrentInstance().addMessage(null, message);
+			}
+			
+		}else
+		{
+			User u = userService.findById(this.getId());
+			
+			u.setLogin(this.getLogin());
+			u.setNom(this.getNom());
+			u.setPrenom(this.getNom());
+			u.setPassword(this.getPass1());
+			u.setRole(this.getRole());
+			u.setTel(this.getTel());
+			userService.update(u);
+			
+			this.init();
+			setToNull();
+			
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Utilisateur modifié avec sussès");
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		
 	}
 
 
@@ -112,6 +155,17 @@ public class GestionUsers implements Serializable{
 		this.setPass1(u.getPassword());
 		this.setPass2(u.getPassword());
 		this.setTel(u.getTel());
+	}
+	
+	public void setToNull() {
+		this.setId(0);
+		this.setNom(null);
+		this.setPrenom(null);
+		this.setLogin(null);
+		this.setRole(null);
+		this.setPass1(null);
+		this.setPass2(null);
+		this.setTel(null);
 	}
 
 
