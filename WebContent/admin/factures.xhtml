@@ -12,9 +12,17 @@
 		<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
 		<style>
 			.b2{
-			background-color: #e62e4f;
+			background-color: #6c757d;
 			color: white;
 			}
+			
+	.ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+     
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        display: none;
+    }
 		</style>
 	</ui:define>
 
@@ -31,20 +39,25 @@
 			
 			<div class="row">
 				<div class="col-md-12">
-					<p>Nulla quis velit sed neque elementum accumsan. Nulla sit amet pulvinar ante. Proin semper at odio vel efficitur. Aliquam sit amet nunc finibus, tincidunt eros eget, tristique tellus. Donec consequat nibh vitae congue mollis. Maecenas tincidunt tincidunt nunc nec dapibus. Duis nulla purus, dapibus eget consequat sit amet, dignissim id dolor. In massa nibh, viverra at est ac, consectetur condimentum massa. Suspendisse eu dolor nibh. Fusce quis lacus id felis pulvinar eleifend. Etiam libero est, pretium et porttitor vel, molestie nec ante. Nunc a aliquet magna. Suspendisse suscipit neque sit amet neque porta, non egestas sem imperdiet. Vivamus aliquet mollis feugiat. Morbi fermentum arcu in felis placerat mattis. Integer in dignissim sem, ut laoreet turpis. </p>
-					
-					<h:form>
-					    <p:dataTable var="comm" value="#{facturesBean.commandes}" sortBy="#{comm.dateAjout.getDay()}">
-					        <p:column headerText="Id" sortBy="#{comm.id}">
+					<br/>					
+					<h:form id="form">
+					    <p:dataTable var="comm" value="#{facturesBean.commandes}" sortBy="#{comm.dateAjout.getDay()}" rows="8" 
+                 paginator="true" selectionMode="single" selection="#{facturesBean.selectedCommande}" rowKey="#{comm.id}"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="8,16,24">
+                 	
+                 			<p:ajax event="rowSelect" update=":form:commDetail" oncomplete="PF('commDialog').show();" />
+                 			
+					        <p:column headerText="Id">
 					            <h:outputText value="#{comm.id}" />
 					        </p:column>
-					        <p:column headerText="Nbre Medicaments" sortBy="#{comm.lignesCommande.size()}">
+					        <p:column headerText="Nbre Medicaments">
 					            <h:outputText value="#{comm.lignesCommande.size()}" />
 					        </p:column>
-					        <p:column headerText="Date" sortBy="#{comm.dateAjout}">
+					        <p:column headerText="Date">
 					            <h:outputText value="#{comm.dateAjout}" />
 					        </p:column>
-					        <p:column headerText="Client" sortBy="#{comm.client.nom}">
+					        <p:column headerText="Client">
 					            <h:outputText value="#{comm.client.nom}" />
 					        </p:column>
 					        <p:column headerText="Prix" sortBy="#{comm.prixTotal}">
@@ -61,6 +74,31 @@
 					            </p:column>
 					        </p:summaryRow>
 					    </p:dataTable>
+					    
+					    
+					    <p:dialog header="Commande Info" widgetVar="commDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
+					        <p:outputPanel id="commDetail" style="text-align:center;">
+					            <p:panelGrid  columns="2" rendered="#{not empty facturesBean.selectedCommande}" columnClasses="label,value">
+					                <f:facet name="header">
+					                    <p:outputLabel value="Commande Selectionnée"></p:outputLabel> 
+					                </f:facet>
+					                 
+					                <h:outputText value="Id:" />
+					                <h:outputText value="#{facturesBean.selectedCommande.id}" />
+					 
+					                <h:outputText value="Nom" />
+					                <h:outputText value="#{facturesBean.selectedCommande.client.nom}" />
+					                 
+					                <h:outputText value="Prenom" />
+					                <h:outputText value="#{facturesBean.selectedCommande.client.prenom}" />
+					 
+					                <h:outputText value="Prix :" />
+					                <h:outputText value="#{facturesBean.selectedCommande.prixTotal}"/>
+					            </p:panelGrid>
+					        </p:outputPanel>
+					    </p:dialog>
+					    
+					    
 					</h:form>
 					
 				</div>
@@ -68,7 +106,6 @@
 		</div>
 	
 	
-	<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
 	</ui:define>
 
 
