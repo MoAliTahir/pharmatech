@@ -10,4 +10,9 @@ public class RouterBean {
 	public String gotoIndex(){
   			return "index";
  	}
+	
+	public String gotoClients(){
+			return "clients";
+	}
+	
 }

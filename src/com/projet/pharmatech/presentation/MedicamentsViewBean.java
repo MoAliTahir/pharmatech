@@ -14,6 +14,7 @@ import com.projet.pharmatech.entities.Client;
 import com.projet.pharmatech.entities.Commande;
 import com.projet.pharmatech.entities.LigneCommande;
 import com.projet.pharmatech.entities.Medicament;
+import com.projet.pharmatech.services.ClientService;
 import com.projet.pharmatech.services.CommandeService;
 import com.projet.pharmatech.services.MedicamentService;
 
@@ -25,10 +26,7 @@ public class MedicamentsViewBean implements Serializable {
 	
     public MedicamentsViewBean() {
 		super();
-		invalidLignesCommandes= new ArrayList<LigneCommande>();
-     	medicamentService=new MedicamentService();
-    	medicamentSelectionne = new Medicament();
-    	ligneARetirer = new LigneCommande();
+		
 	}
 	/**
 	 * 
@@ -60,13 +58,26 @@ public class MedicamentsViewBean implements Serializable {
     
     private ArrayList<Client> clients;
     
+    private ClientService clientService;
+    
+    private int clientId;
     
     //will contain eventual invalid lignesCommandes(the ones in Panier which were taken by an other pharmacist before validating Panier)
 	//will be used to show which medicaments quantities to reduce
     private List<LigneCommande> invalidLignesCommandes;
     
     
-    public double getPrixTotal() {
+    public int getClientId() {
+		return clientId;
+	}
+
+
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
+	}
+
+
+	public double getPrixTotal() {
 		return prixTotal;
 	}
 
@@ -120,13 +131,17 @@ public class MedicamentsViewBean implements Serializable {
     public void init() {
     	 commandeService= new CommandeService();
     	 filteredMedicaments=new ArrayList<>();
-    	 medicamentService=new MedicamentService();
     	 medicaments = new ArrayList<>();
     	 panier= new ArrayList<>();
     	 commande= new Commande();
-    	 medicamentSelectionne= new Medicament();
-    	     	 	
+    	 invalidLignesCommandes= new ArrayList<LigneCommande>();
+      	medicamentService=new MedicamentService();
+     	medicamentSelectionne = new Medicament();
+     	ligneARetirer = new LigneCommande();
+     	clients= new ArrayList<Client>();
+     	clientService= new ClientService();
     	 try {
+    		 clients.addAll(clientService.findAll());
            medicaments.addAll(medicamentService.getAllMedicaments());
      	 }catch(Exception e) {
      		 e.printStackTrace();
@@ -281,16 +296,17 @@ public class MedicamentsViewBean implements Serializable {
 	
 	public void annulerCommande() {
 		this.panier.clear();
-		prixTotal=0.0;
-		this.commande= new Commande();
+ 		this.commande= new Commande();
+		updatePrixTotal();
+
 	}
 	public void supprimerMedicament() {
 		medicamentService.delete(medicamentSelectionne.getId());
 	}
-	public void retirerDuPanier() {
-		panier.remove(this.ligneARetirer);
-		updatePrixTotal();
-	}
+	public void retirerElementDuPanier() {
+  		panier.remove(this.ligneARetirer);
+ 		updatePrixTotal();
+ 	}
 	public void ajouterAuPanier() {
 			if(!(medicamentSelectionne.getQuantiteStock()<quantite) && quantite>0) {
 				
@@ -306,11 +322,14 @@ public class MedicamentsViewBean implements Serializable {
   	}
 	
 	public void validerPanier() {
-		if(isCommandeValid()) {
+		
+ 		if(isCommandeValid()) {
 			//to let hibernate do nested persistance.
 			this.commande.setLignesCommande(panier);
 			this.commande.setPrixTotal(prixTotal);
 			this.panier.stream().forEach(l->l.setCommande(commande));
+			if(clientId>0)
+			this.commande.setClient(clientService.findById(clientId));
 			//adding to db
 			commandeService.add(this.commande);
 			panier.clear();

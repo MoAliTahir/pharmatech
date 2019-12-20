@@ -27,11 +27,10 @@ public class Client implements Serializable {
 	int id;
 	String nom;
 	String prenom;
-	@Column(name = "client_abonne")
-	boolean clientAbonne = false;
-	
+		
 	@OneToMany(targetEntity = Commande.class, mappedBy = "client", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	List<Commande> commandes;
+	private String CNE;
 	
 	
 	
@@ -42,23 +41,23 @@ public class Client implements Serializable {
 	}
 	
 	
-	public Client(String nom, String prenom, boolean clientAbonne) {
+	public Client(String nom, String prenom, String CNE) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
-		this.clientAbonne = clientAbonne;
-		this.commandes = new ArrayList<Commande>();
+		this.CNE=CNE;
+ 		this.commandes = new ArrayList<Commande>();
 	}
 
 
 
 
-	public Client(String nom, String prenom, boolean clientAbonne, List<Commande> commandes) {
+	public Client(String nom, String prenom, List<Commande> commandes, String CNE) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
-		this.clientAbonne = clientAbonne;
-		this.commandes = commandes;
+ 		this.commandes = commandes;
+ 		this.CNE=CNE;
 	}
 
 
@@ -82,12 +81,15 @@ public class Client implements Serializable {
 		this.prenom = prenom;
 	}
 
-	public boolean isClientAbonne() {
-		return clientAbonne;
+	public String getCNE() {
+		return CNE;
 	}
-	public void setClientAbonne(boolean clientAbonne) {
-		this.clientAbonne = clientAbonne;
+
+
+	public void setCNE(String cNE) {
+		CNE = cNE;
 	}
+
 	public List<Commande> getCommandes() {
 		return commandes;
 	}
