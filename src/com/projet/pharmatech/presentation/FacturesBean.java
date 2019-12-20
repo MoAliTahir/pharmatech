@@ -1,6 +1,7 @@
 package com.projet.pharmatech.presentation;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -39,7 +40,17 @@ public class FacturesBean implements Serializable{
 			this.commandes = commandes;
 		}
 		
-		public int getRandomPrice() {
-	        return (int) (Math.random() * 100000);
+		@SuppressWarnings("deprecation")
+		public double getTotalPrice(Integer day) {
+			double result =0;
+			Iterator iterator = this.getCommandes().iterator();
+			
+			while (iterator.hasNext()) {
+				Commande commande = (Commande) iterator.next();
+				if(commande.getDateAjout().getDay() == day)
+					result += commande.getPrixTotal();
+			}
+			
+	        return result;
 	    }
 }

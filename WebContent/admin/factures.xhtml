@@ -55,8 +55,8 @@
 					                <h:outputText value="Total:" />
 					            </p:column>
 					            <p:column>
-					                <h:outputText value="#{facturesBean.randomPrice}">
-					                    <f:convertNumber type="currency" currencySymbol="$" />
+					                <h:outputText value="#{ facturesBean.getTotalPrice(comm.dateAjout.getDay()) }">
+					                    <f:convertNumber type="currency" currencySymbol="MAD" />
 					                </h:outputText>
 					            </p:column>
 					        </p:summaryRow>
