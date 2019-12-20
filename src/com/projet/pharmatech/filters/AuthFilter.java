@@ -3,6 +3,7 @@ package com.projet.pharmatech.filters;
 import java.io.IOException;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class AuthFilter
  */
-//@WebFilter("/*")
+@WebFilter("/*")
 public class AuthFilter implements Filter {
 
     /**
@@ -41,29 +42,35 @@ public class AuthFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse resp = (HttpServletResponse) response;
-		//LoginBean session = (LoginBean) req.getSession().getAttribute("loginBean");
-		
-		HttpSession session = req.getSession(false);
-		String url = req.getRequestURI();
-		boolean connected = session != null && session.getAttribute("authUser") != null;
-		
-		if(connected && url.indexOf("/login.xhtml")>=0)
-		{
-			if(connected && session.getAttribute("userRole").equals("admin") && url.indexOf("/admin") < 0)
-			{
-				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Not authorized", "Espace uniquement Pharmaciens");
-		        FacesContext.getCurrentInstance().addMessage(null, message);
-				resp.sendRedirect(req.getContextPath() + "/faces/admin/acceuil.xhtml");
-			}else
-				chain.doFilter(request, response);
+			HttpServletRequest reqt = (HttpServletRequest) request;
+			HttpServletResponse resp = (HttpServletResponse) response;
+			HttpSession ses = reqt.getSession(false);
+	
+			String reqURI = reqt.getRequestURI();
+			boolean loggedIn= ses!=null && ses.getAttribute("authUser")!=null;
+			boolean loginRequest= reqt.getRequestURI().contentEquals(reqt.getContextPath() + "/faces/login.xhtml");
+			boolean resourceRequest = reqt.getRequestURI().startsWith(reqt.getContextPath()+ ResourceHandler.RESOURCE_IDENTIFIER);
 			
-		}else if(!connected)
+			
+			
+			System.out.println(reqt.getContextPath());
+		if(loggedIn && loginRequest)
 		{
-			resp.sendRedirect(req.getContextPath() + "/faces/login.xhtml");
-		}else
+			if(((String) ses.getAttribute("userRole")).equals("admin"))
+				resp.sendRedirect(reqt.getContextPath() + "/faces/admin/acceuil.xhtml");
+			else
+				resp.sendRedirect(reqt.getContextPath() + "/faces/acceuil.xhtml");
+		}else if(loggedIn)
+		{
+			if(((String) ses.getAttribute("userRole")).equals("admin") && reqURI.indexOf("/admin") < 0)
+				resp.sendRedirect(reqt.getContextPath() + "/faces/admin/acceuil.xhtml");
+			else
+				chain.doFilter(request, response);
+		}
+		else if(loggedIn || resourceRequest || loginRequest)
 			chain.doFilter(request, response);
+		else
+			resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
 	}
 
 	/**
