@@ -8,7 +8,7 @@
 	
 <ui:composition template="../resources/template/layout.xhtml">
 	<ui:define name="head">
-		<title>Admin . Gestion des utilisateurs</title>
+		<title>Admin . Gestion Utilisateurs</title>
 		<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
 		<style>
 			.b1{
@@ -27,7 +27,7 @@
 		</h:form>
 		
 		<div class="container-fluid">
-			<h2 class="h2 text-center">Gestion des utilisateurs</h2>
+			<h2 class="h2 text-center">Gestion Des Utilisateurs</h2>
 			
 			<div class="row">
 				<div class="col-md-12">
@@ -62,11 +62,11 @@
 			<div class="row">
 				<div class="col-md-12">
 				
-					<h4 class="h4">Liste des utilisateurs</h4>
+					<h4 class="h4">Liste Des Utilisateurs</h4>
 					
-					<p:dataTable var="user" id="list" value="#{gestionUsers.users}" rows="4" paginator="true" 
+					<p:dataTable var="user" id="list" value="#{gestionUsers.users}" rows="5" paginator="true" 
                  		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 		rowsPerPageTemplate="4,8,12">
+                 		>
 					    <p:column headerText="iD">
 					        <h:outputText value="#{user.id}" />
 					    </p:column>
@@ -98,7 +98,7 @@
 				    	<p:column headerText="Action">		
 					    	<h:form>
 					    		<p:commandButton value="U" action="#{ gestionUsers.getUserInfo(user) }" update=":form:form1"></p:commandButton>
-					    		<h:commandButton value="D"></h:commandButton>
+					    		<p:commandButton value="D" action="#{ gestionUsers.deleteUser(user) }" update="list"></p:commandButton>
 					    	</h:form>
 				    	</p:column>
 				</p:dataTable>

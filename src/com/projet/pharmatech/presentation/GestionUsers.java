@@ -157,6 +157,13 @@ public class GestionUsers implements Serializable{
 		this.setTel(u.getTel());
 	}
 	
+	
+	public void deleteUser(User u) {
+		userService.delete(u.getId());
+		this.users.remove(u);
+		
+	}
+	
 	public void setToNull() {
 		this.setId(0);
 		this.setNom(null);
