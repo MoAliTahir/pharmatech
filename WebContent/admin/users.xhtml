@@ -15,6 +15,9 @@
 			background-color: #6c757d;
 			color: white;
 			}
+			.ui-growl{
+			padding-top: 50px;
+			}
 		</style>
 	</ui:define>
 
@@ -67,7 +70,7 @@
 					<p:dataTable var="user" id="list" value="#{gestionUsers.users}" rows="5" paginator="true" 
                  		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                  		>
-					    <p:column headerText="iD">
+					    <p:column headerText="ID">
 					        <h:outputText value="#{user.id}" />
 					    </p:column>
 					    
@@ -75,11 +78,11 @@
 					        <h:outputText value="#{user.login}" />
 					    </p:column>
 				 
-					    <p:column headerText="Firt Name">
+					    <p:column headerText="Nom">
 					        <h:outputText value="#{user.nom}" />
 					    </p:column>
 				 
-					    <p:column headerText="Last Name">
+					    <p:column headerText="Prénom">
 					        <h:outputText value="#{user.prenom}" />
 					    </p:column>
 				 
