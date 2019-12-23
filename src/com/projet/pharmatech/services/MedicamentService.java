@@ -36,8 +36,6 @@ public class MedicamentService implements Serializable{
 	}
 
 	public List<Medicament> getAllMedicaments() {
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++ HERE IN MEDIC REPO");
-
 		return medicamentDao.findAll();
 	}
 }

@@ -8,7 +8,7 @@ import com.projet.pharmatech.entities.Client;
 public class ClientService {
 	ClientDaoImpl clientDao = new ClientDaoImpl();
 	
-	Client add(Client u) {
+	public Client add(Client u) {
 		return clientDao.add(u);
 	};
 	

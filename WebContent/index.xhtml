@@ -93,7 +93,7 @@
 		<p:dataGrid var="ligneCommande" value="#{medicamentsViewBean.panier}" id="panier">
 			<p:panel header="#{ligneCommande.medicament.libelle} - #{ligneCommande.quantite}" style="width:33.33%;">
 				
-				<p:commandButton process="@this"  value="Retirer" action="#{medicamentsViewBean.retirerDuPanier}" update="panier"  >
+				<p:commandButton process="@this"  value="Retirer" action="#{medicamentsViewBean.retirerElementDuPanier}" update="panier"  >
 				   		<f:setPropertyActionListener target="#{medicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
 			   </p:commandButton>
 			
@@ -104,21 +104,26 @@
 		</p:dataGrid> 
 		</div>	
 				<h:inputText value="#{medicamentsViewBean.prixTotal}">
+					<f:ajax />
  				</h:inputText>
-		
+				<!-- testing this -->
+		      		<p:selectOneListbox id="client" value="" >
+		   				<f:selectItems value="#{medicamentsViewBean.clients}" var="c" itemLabel="#{c.id} - #{c.nom} #{c.prenom}" itemValue="" />
+			        </p:selectOneListbox >		
+				<!--  -->
+				Veuillez choisir un client : 
+				<h:inputText value="#{medicamentsViewBean.clientId}">
+					<f:ajax />
+ 				</h:inputText>
 				<p:commandButton process="@this"  value="Annuler la commande" action="#{medicamentsViewBean.annulerCommande}" update="@form"  >
 				   		<f:setPropertyActionListener target="#{medicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
 			    </p:commandButton>
 
-			   <p:commandButton process="@this"  value="Valider la commande" action="#{medicamentsViewBean.validerPanier()}" update="@form"  >
+			   <p:commandButton process="@this"  value="Valider la commande" action="#{medicamentsViewBean.validerPanier}" update="@form"  >
 			   </p:commandButton>
 			   
-			   <!-- testing this -->
-				<p:selectOneMenu id="client" value="#{medicamentsViewBean.clientSelectionne}" style="width:150px">
-	                <p:ajax listener="#{medicamentsViewBean.updateClientSelectionne}" itemValue="#{medicamentsViewBean.clientSelectionne}" noSelectionOption="true" />
-	                <f:selectItems value="#{medicamentsViewBean.clients}" />
-	            </p:selectOneMenu>
-				<!--  -->
+			   	<a href="clients.xhtml">Ajouter Client</a>
+			    
 		</h:form>
  	
 

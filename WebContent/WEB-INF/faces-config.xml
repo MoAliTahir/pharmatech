@@ -14,7 +14,6 @@
 			<to-view-id>/index.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-
 	</navigation-rule>
 	
 	<navigation-rule>
@@ -25,7 +24,16 @@
 			<to-view-id>/index.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{RouterBean.gotoClients}</from-action>
+			<from-outcome>clients</from-outcome>
+			<to-view-id>/clients.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 	</navigation-rule>
 
 </faces-config>
