@@ -60,7 +60,10 @@ body {
       <div class="nav-item dropdown" >
         <a class="nav-link dropdown-toggle" style="text-decoration: none; padding-right: 50px" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#{loginBean.userName}</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#"><h:form><p:commandButton value="Deconnection" action="#{ loginBean.logout }" onclick="deconnecter"/></h:form></a>
+        	<h:form>
+        		<p:commandLink class="dropdown-item" actionListener ="#{loginBean.logout}"  value="Deconnection"></p:commandLink>
+        	</h:form>
+        	
         </div>
       </div>
   </div>
