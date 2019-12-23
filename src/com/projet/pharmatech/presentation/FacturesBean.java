@@ -8,8 +8,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-
+import com.projet.pharmatech.entities.Client;
 import com.projet.pharmatech.entities.Commande;
+import com.projet.pharmatech.services.ClientService;
 import com.projet.pharmatech.services.CommandeService;
 
 @ManagedBean(name = "facturesBean")
@@ -22,15 +23,23 @@ public class FacturesBean implements Serializable{
 
 
 		private List<Commande> commandes;
+		private Commande selectedCommande;
+		
+		private List<Client> options;
+		private int option;
 
 		
 		private CommandeService commandeService = new CommandeService();
+		
+		private ClientService clientService = new ClientService();
 		
 		
 		
 		@PostConstruct
 		public void init() {
 			commandes = commandeService.findAll();
+			
+			options = clientService.findAll();
 		}
 		public List<Commande> getCommandes() {
 			return commandes;
@@ -40,6 +49,24 @@ public class FacturesBean implements Serializable{
 			this.commandes = commandes;
 		}
 		
+		public Commande getSelectedCommande() {
+			return selectedCommande;
+		}
+		public void setSelectedCommande(Commande selectedCommande) {
+			this.selectedCommande = selectedCommande;
+		}
+		public List<Client> getOptions() {
+			return options;
+		}
+		public void setOptions(List<Client> options) {
+			this.options = options;
+		}
+		public int getOption() {
+			return option;
+		}
+		public void setOption(int option) {
+			this.option = option;
+		}
 		@SuppressWarnings("deprecation")
 		public double getTotalPrice(Integer day) {
 			double result =0;
@@ -53,4 +80,8 @@ public class FacturesBean implements Serializable{
 			
 	        return result;
 	    }
+		
+		public void action() {
+			System.out.println("------------->"+this.option);
+		}
 }

@@ -8,12 +8,15 @@
 	
 <ui:composition template="../resources/template/layout.xhtml">
 	<ui:define name="head">
-		<title>Admin . Gestion des utilisateurs</title>
+		<title>Admin . Gestion Utilisateurs</title>
 		<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
 		<style>
 			.b1{
-			background-color: #e62e4f;
+			background-color: #6c757d;
 			color: white;
+			}
+			.ui-growl{
+			padding-top: 50px;
 			}
 		</style>
 	</ui:define>
@@ -27,39 +30,33 @@
 		</h:form>
 		
 		<div class="container-fluid">
-			<h2 class="h2 text-center">Gestion des utilisateurs</h2>
+			<h2 class="h2 text-center">Gestion Des Utilisateurs</h2>
 			
 			<div class="row">
 				<div class="col-md-12">
 					<h4>Ajouter un nouveau utilisateur</h4>
 					<h:form id="form">
-						<h:panelGrid id="form1" style="margin-top:-20px" columns="6" cellpadding="5" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="ui-fluid" >
+						<h:panelGrid id="form1" style="margin-top:-20px" columns="4" cellpadding="5" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="ui-fluid" >
 							
-							<p:outputLabel value="Nom : "></p:outputLabel>
-							<p:inputText value="#{ gestionUsers.nom }" size="30" required="true" placeholder="Dupon"></p:inputText>
+							<p:inputText value="#{ gestionUsers.nom }" size="25" required="true" placeholder="Nom"></p:inputText>
 							
-							<p:outputLabel value="Prenom : "></p:outputLabel>
-							<p:inputText value="#{ gestionUsers.prenom }" size="30" required="true" placeholder="Jean"></p:inputText>
+							<p:inputText value="#{ gestionUsers.prenom }" size="25" required="true" placeholder="Prenom"></p:inputText>
 							
-							<p:outputLabel value="Login : "></p:outputLabel>
-							<p:inputText value="#{ gestionUsers.login }" size="30" required="true" placeholder="jeanDupon"></p:inputText>
+							<p:inputText value="#{ gestionUsers.login }" size="25" required="true" placeholder="Login"></p:inputText>
 							
-							<p:outputLabel value="Tétéphone : "></p:outputLabel>
-							<p:inputText value="#{ gestionUsers.tel }" size="30" required="true" placeholder="0681920973"></p:inputText>
+							<p:inputText value="#{ gestionUsers.tel }" size="25" required="true" placeholder="Téléphone"></p:inputText>
 							
-							<p:outputLabel for="role" value="Role:" />
 					        <p:selectOneListbox id="role" value="#{gestionUsers.role}">
 					            <f:selectItem itemLabel="Administrateur" itemValue="admin" />
 					            <f:selectItem itemLabel="Pharmacien" itemValue="pharmacien" />
 					        </p:selectOneListbox>
 							
-							<h:outputLabel value="Mot de passe : "></h:outputLabel>
-							<p:password value="#{ gestionUsers.pass1 }" size="30" required="true" strongLabel="true" feedback="true" weakLabel="true" placeholder="********"></p:password>
+							<p:password value="#{ gestionUsers.pass1 }" size="25" required="true" strongLabel="true" feedback="true" weakLabel="true" placeholder="Mot de passe"></p:password>
 							
-							
+							<p:commandButton value="Submit" class="btn btn-secondary" update="@form list" action="#{ gestionUsers.addUser }"/>
 							<h:inputHidden value="#{ gestionUsers.id }"></h:inputHidden>
-							<p:commandButton value="Submit" style="margin-top:-20px" class="btn btn-danger" update="@form list" action="#{ gestionUsers.addUser }"/>
 							
+							<p:separator></p:separator>
 						</h:panelGrid>
 					</h:form>
 				
@@ -68,12 +65,12 @@
 			<div class="row">
 				<div class="col-md-12">
 				
-					<h4 class="h4">Liste des utilisateurs</h4>
+					<h4 class="h4">Liste Des Utilisateurs</h4>
 					
 					<p:dataTable var="user" id="list" value="#{gestionUsers.users}" rows="5" paginator="true" 
                  		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 		rowsPerPageTemplate="5,10,15">
-					    <p:column headerText="iD">
+                 		>
+					    <p:column headerText="ID">
 					        <h:outputText value="#{user.id}" />
 					    </p:column>
 					    
@@ -81,11 +78,11 @@
 					        <h:outputText value="#{user.login}" />
 					    </p:column>
 				 
-					    <p:column headerText="Firt Name">
+					    <p:column headerText="Nom">
 					        <h:outputText value="#{user.nom}" />
 					    </p:column>
 				 
-					    <p:column headerText="Last Name">
+					    <p:column headerText="Prénom">
 					        <h:outputText value="#{user.prenom}" />
 					    </p:column>
 				 
@@ -104,7 +101,7 @@
 				    	<p:column headerText="Action">		
 					    	<h:form>
 					    		<p:commandButton value="U" action="#{ gestionUsers.getUserInfo(user) }" update=":form:form1"></p:commandButton>
-					    		<h:commandButton value="D"></h:commandButton>
+					    		<p:commandButton value="D" action="#{ gestionUsers.deleteUser(user) }" update="list"></p:commandButton>
 					    	</h:form>
 				    	</p:column>
 				</p:dataTable>

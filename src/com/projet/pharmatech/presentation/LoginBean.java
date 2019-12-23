@@ -46,11 +46,11 @@ public class LoginBean implements Serializable {
   		if (user != null) {
 			System.out.println("Logging In...");
 			HttpSession session = SessionUtil.getSession();
-			session.setAttribute("authUser", user);
+			session.setAttribute("authUser", user.getLogin());
 			session.setAttribute("userRole", user.getRole());
 			if(user.getRole().equals("admin"))
-				return "/admin/acceuil.xhtml?faces-redirect=true";
-			return "acceuil.xhtml?faces-redirect=true";
+				return "faces/admin/acceuil.xhtml?faces-redirect=true";
+			return "faces/acceuil.xhtml?faces-redirect=true";
 		}else {
 			FacesContext.getCurrentInstance().addMessage(
 					null, 

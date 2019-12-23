@@ -12,7 +12,8 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js"/>
     <style>
     
       .bd-placeholder-img {
@@ -70,14 +71,14 @@ body {
   <div class="row" style="position: fixed;">
   	<div class="col-md-2 menu bg-dark" style="padding: 0;">
   		<div class="btn-group-vertical" style="width: 100%;">
-  			<a type="button" class="btn btn-outline-danger text-left lien b1" href="../../faces/admin/users.xhtml">Gestion Utilisateurs</a>
-		    <a type="button" style="" class="btn btn-outline-danger text-left lien b2" href="../../faces/admin/factures.xhtml">Gestion Factures</a>
-		    <a type="button" class="btn btn-outline-danger text-left lien b3" href="#">Statistiques</a>
-		    <a type="button" class="btn btn-outline-danger text-left lien b4" href="#">button 4</a>
+  			<a type="button" class="btn btn-outline-secondary text-left lien b1" href="../../faces/admin/users.xhtml">Gestion Utilisateurs</a>
+		    <a type="button" style="" class="btn btn-outline-secondary text-left lien b2" href="../../faces/admin/factures.xhtml">Gestion Factures</a>
+		    <a type="button" class="btn btn-outline-secondary text-left lien b3" href="../../faces/admin/stats.xhtml">Statistiques</a>
+		    <a type="button" class="btn btn-outline-secondary text-left lien b4" href="#">button 4</a>
 		</div>
   		
   	</div>
-  	<div class="col-md-10" style="background-color: green; display: auto">
+  	<div class="col-md-10" style="display: auto">
   		<ui:insert name="body"/>
   	</div>
   	
@@ -93,7 +94,7 @@ body {
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
     <script>
     $(function() {
 		"use strict";
@@ -105,6 +106,5 @@ body {
     console.log($(window).height());
     </script>
     
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
   </h:body>
 </html>

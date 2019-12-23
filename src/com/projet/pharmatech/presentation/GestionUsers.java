@@ -129,7 +129,7 @@ public class GestionUsers implements Serializable{
 			
 			u.setLogin(this.getLogin());
 			u.setNom(this.getNom());
-			u.setPrenom(this.getNom());
+			u.setPrenom(this.getPrenom());
 			u.setPassword(this.getPass1());
 			u.setRole(this.getRole());
 			u.setTel(this.getTel());
@@ -155,6 +155,16 @@ public class GestionUsers implements Serializable{
 		this.setPass1(u.getPassword());
 		this.setPass2(u.getPassword());
 		this.setTel(u.getTel());
+	}
+	
+	
+	public void deleteUser(User u) {
+		userService.delete(u.getId());
+		this.users.remove(u);
+		
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Utilisateur supprimé avec sussès");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+		
 	}
 	
 	public void setToNull() {
