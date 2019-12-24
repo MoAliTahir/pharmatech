@@ -6,36 +6,29 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+<meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
 	<title>Bienvenue</title>
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js"/>
+	<link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.min.css" />
 </h:head>
-<h:body>
-	
-	<p:tabView style="heignt=500px">
-		<p:tab title="My Teb">
-		</p:tab>
-		<p:tab title="Another Teb">
-		</p:tab>
-	</p:tabView>
-
+<h:body>	
+		
+	<h4>Ajouter un nouveau utilisateur</h4>
 	<h:form>
-		<h:outputText value="Connectez-vous "></h:outputText>
-		<h:outputLabel value="Username: " />
-
-		<h:inputText value="#{loginBean.userName}" required="true"
-			requiredMessage="Nom d'utilisateur obligatoir" id="username" />
-		<br />
-		<h:message for="username" errorClass="error_message"></h:message>
-
-		<h:outputLabel value="Password: " />
-		<h:inputSecret value="#{loginBean.password}" required="true"
-			requiredMessage="Mot de passe obligatoir" id="pass" />
-		<br />
-		<h:message for="pass" errorClass="error_message"></h:message>
-
-
-
-		<h:commandButton value="Login" action="#{loginBean.login}" />
-	</h:form>
+		<h:panelGrid style="padding:15%; padding-left:40%" columns="1" cellpadding="5" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="ui-fluid" >	
+			<p:inputText value="#{loginBean.userName}" size="25" required="true" placeholder="Login"></p:inputText>									
+			<p:password value="#{loginBean.password}" size="25" required="true" placeholder="Mot de passe"></p:password>
+			<p:commandButton value="Login" class="btn btn-lg btn-primary btn-block" action="#{loginBean.login}"/>							
+			<p:separator></p:separator>
+		</h:panelGrid>
+	</h:form>	
+	
 
 </h:body>
 </html>
