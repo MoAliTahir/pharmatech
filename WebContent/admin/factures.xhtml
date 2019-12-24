@@ -103,15 +103,18 @@
 					            		</div>
 					            		<div class="row">
 					            			<div class="col-md-6">
-					            			<h:outputText value="Date : #{facturesBean.selectedCommande.dateAjout}" />
-					            		</div>
-					            		<div class="col-md-6">
-					            			<h:outputText value="Prix Total :  #{facturesBean.selectedCommande.prixTotal}" />
-					            		</div>
+					            				<h:outputText value="Date : #{facturesBean.selectedCommande.dateAjout}" />
+					            			</div>
+					            			<div class="col-md-6">
+					            				<h:outputText value="Prix Total :  #{facturesBean.selectedCommande.prixTotal}" />
+					            			</div>
 					            		</div>
 					            	</div>								
 					            </p:panelGrid>
 					        </p:outputPanel>
+					        <p:commandButton value="Imprimer" type="button" icon="pi pi-print" style="display:block;margin-bottom: 20px">
+							    <p:printer target="commDetail" />
+							</p:commandButton>
 					    </p:dialog>
 					    
 					 
