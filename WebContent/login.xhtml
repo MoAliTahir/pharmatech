@@ -15,8 +15,53 @@
 	<title>Bienvenue</title>
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js"/>
-	<h:outputStylesheet name="resources/bootstrap/css/bootstrap.min.css"></h:outputStylesheet>
-	<link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" />
+	<style>
+	html,body {
+		  height: 100%;
+		}
+		
+		body {
+		  display: -ms-flexbox;
+		  display: flex;
+		  -ms-flex-align: center;
+		  align-items: center;
+		  padding-top: 40px;
+		  padding-bottom: 40px;
+		  background-color: #f5f5f5;
+		}
+		
+		.form-signin {
+		  width: 100%;
+		  max-width: 330px;
+		  padding: 15px;
+		  margin: auto;
+		}
+		.form-signin .checkbox {
+		  font-weight: 400;
+		}
+		.form-signin .form-control {
+		  position: relative;
+		  box-sizing: border-box;
+		  height: auto;
+		  padding: 10px;
+		  font-size: 16px;
+		}
+		.form-signin .form-control:focus {
+		  z-index: 2;
+		}
+		.form-signin input[type="text"] {
+		  margin-bottom: -1px;
+		  border-bottom-right-radius: 0;
+		  border-bottom-left-radius: 0;
+		}
+		.form-signin input[type="password"] {
+		  margin-bottom: 10px;
+		  border-top-left-radius: 0;
+		  border-top-right-radius: 0;
+		}
+	
+	</style>
 </h:head>
 <h:body>	
 	<h:form>
@@ -24,17 +69,22 @@
 	        	<p:autoUpdate />
 	    	</p:growl>
 		</h:form>
-	<p:panel id="basic" header="Login" style="padding-bottom:25px; margin-top:-5px">
-		<h:form>
-	    	<h:panelGrid style="padding:15%; padding-left:40%" columns="1" cellpadding="10" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="ui-fluid">
-	            <p:inputText value="#{loginBean.userName}" size="25" required="true" placeholder="Login"></p:inputText>									
-				<p:password value="#{loginBean.password}" size="25" required="true" placeholder="Mot de passe"></p:password>
-				<p:commandButton value="Login" action="#{loginBean.login}"/>							
+	<p:panel id="basic" header="Login" style="padding-bottom:25px; margin-left:36%; margin-top:-5px">
+		<h:form class="form-signin">
+	    	<h:panelGrid columns="1" cellpadding="10" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="ui-fluid">
+	            <p:inputText value="#{loginBean.userName}" class="form-control" size="25" required="true" placeholder="Login"></p:inputText>									
+				<p:password value="#{loginBean.password}" class="form-control" size="25" required="true" placeholder="Mot de passe"></p:password>
+				<p:commandButton value="Login" action="#{loginBean.login}" onclick="PF('dlg1').show();"/>							
 				<p:separator></p:separator>
 	        </h:panelGrid>
         </h:form>
+        <p:dialog widgetVar="dlg1" minHeight="40" modal="true" showHeader="false" resizable="false" closeOnEscape="true">
+		    <div class="spinner-border" role="status">
+			  <span class="sr-only">Loading...</span>
+			</div>
+		</p:dialog>
     </p:panel>	
 	
-
+<script src="resources/bootstrap/js/bootstrap.min.js"></script>
 </h:body>
 </html>
