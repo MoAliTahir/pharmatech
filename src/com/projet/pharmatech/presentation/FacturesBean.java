@@ -12,6 +12,7 @@ import com.projet.pharmatech.entities.Client;
 import com.projet.pharmatech.entities.Commande;
 import com.projet.pharmatech.services.ClientService;
 import com.projet.pharmatech.services.CommandeService;
+import com.projet.pharmatech.services.MedicamentService;
 
 @ManagedBean(name = "facturesBean")
 @RequestScoped
@@ -25,21 +26,17 @@ public class FacturesBean implements Serializable{
 		private List<Commande> commandes;
 		private Commande selectedCommande;
 		
-		private List<Client> options;
-		private int option;
 
 		
 		private CommandeService commandeService = new CommandeService();
-		
-		private ClientService clientService = new ClientService();
+		private MedicamentService medService = new MedicamentService();
 		
 		
 		
 		@PostConstruct
 		public void init() {
 			commandes = commandeService.findAll();
-			
-			options = clientService.findAll();
+		
 		}
 		public List<Commande> getCommandes() {
 			return commandes;
@@ -55,18 +52,8 @@ public class FacturesBean implements Serializable{
 		public void setSelectedCommande(Commande selectedCommande) {
 			this.selectedCommande = selectedCommande;
 		}
-		public List<Client> getOptions() {
-			return options;
-		}
-		public void setOptions(List<Client> options) {
-			this.options = options;
-		}
-		public int getOption() {
-			return option;
-		}
-		public void setOption(int option) {
-			this.option = option;
-		}
+		
+		
 		@SuppressWarnings("deprecation")
 		public double getTotalPrice(Integer day) {
 			double result =0;
@@ -81,7 +68,8 @@ public class FacturesBean implements Serializable{
 	        return result;
 	    }
 		
-		public void action() {
-			System.out.println("------------->"+this.option);
+		
+		public String getMedName(int id) {
+			return medService.findById(id).getLibelle();
 		}
 }

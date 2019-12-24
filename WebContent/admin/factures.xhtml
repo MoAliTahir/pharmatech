@@ -24,6 +24,7 @@
         display: none;
     }
 		</style>
+		
 	</ui:define>
 
 	<ui:define name="body">
@@ -54,13 +55,13 @@
 					        <p:column headerText="Nbre Medicaments">
 					            <h:outputText value="#{comm.lignesCommande.size()}" />
 					        </p:column>
-					        <p:column headerText="Date">
+					        <p:column headerText="Date" sortBy="#{comm.dateAjout.getDay()}">
 					            <h:outputText value="#{comm.dateAjout}" />
 					        </p:column>
 					        <p:column headerText="Client">
 					            <h:outputText value="#{comm.client.nom}" />
 					        </p:column>
-					        <p:column headerText="Prix" sortBy="#{comm.prixTotal}">
+					        <p:column headerText="Prix">
 					            <h:outputText value="#{comm.prixTotal}" />
 					        </p:column>
 					        <p:summaryRow>
@@ -77,27 +78,48 @@
 					    
 					    
 					    <p:dialog header="Commande Info" widgetVar="commDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
-					        <p:outputPanel id="commDetail" style="text-align:center;">
-					            <p:panelGrid  columns="2" rendered="#{not empty facturesBean.selectedCommande}" columnClasses="label,value">
-					                <f:facet name="header">
-					                    <p:outputLabel value="Commande Selectionnée"></p:outputLabel> 
-					                </f:facet>
-					                 
-					                <h:outputText value="Id:" />
-					                <h:outputText value="#{facturesBean.selectedCommande.id}" />
-					 
-					                <h:outputText value="Nom" />
-					                <h:outputText value="#{facturesBean.selectedCommande.client.nom}" />
-					                 
-					                <h:outputText value="Prenom" />
-					                <h:outputText value="#{facturesBean.selectedCommande.client.prenom}" />
-					 
-					                <h:outputText value="Prix :" />
-					                <h:outputText value="#{facturesBean.selectedCommande.prixTotal}"/>
+					        <p:outputPanel id="commDetail">
+					            <p:panelGrid  columns="1" rendered="#{not empty facturesBean.selectedCommande}" columnClasses="label,value" style="max-width:500px">
+					            	
+					            	<div class="row">
+					            		<div class="col-md-12">
+					            			<h:outputText value="Id: #{facturesBean.selectedCommande.id}" />
+					            		</div>
+					            		<div class="col-md-12">
+					            			<h:outputText value="Nom et Prénom : #{facturesBean.selectedCommande.client.nom} - #{facturesBean.selectedCommande.client.prenom}  " />
+					            		</div>
+					            		<div class="col-md-12">
+					            			<p:dataTable id="meds" var="ln" value="#{facturesBean.selectedCommande.lignesCommande}" resizableColumns="true" style="width:400px" >
+											        <p:column headerText="Libelle">
+											            <h:outputText value="#{ln.medicament.libelle}" />
+											        </p:column>
+											        <p:column headerText="Quantité">
+											            <h:outputText value="#{ln.quantite}" />
+											        </p:column>
+											        <p:column headerText="Prix unitaire">
+											            <h:outputText value="#{ln.medicament.prix}" />
+											        </p:column>
+											    </p:dataTable>
+					            		</div>
+					            		<div class="row">
+					            			<div class="col-md-6">
+					            			<h:outputText value="Date : #{facturesBean.selectedCommande.dateAjout}" />
+					            		</div>
+					            		<div class="col-md-6">
+					            			<h:outputText value="Prix Total :  #{facturesBean.selectedCommande.prixTotal}" />
+					            		</div>
+					            		</div>
+					            	</div>								
 					            </p:panelGrid>
 					        </p:outputPanel>
 					    </p:dialog>
 					    
+					 
+					                
+					                 
+					                
+					 
+					                
 					    
 					</h:form>
 					

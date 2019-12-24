@@ -53,8 +53,18 @@ public class AuthFilter implements Filter {
 		
 		
 		
-		System.out.println(reqt.getContextPath());
-	if(loggedIn && loginRequest)
+		System.out.println(reqURI);
+		if(loginRequest || loggedIn || reqURI.contains("javax.faces.resource"))
+		{
+			chain.doFilter(request, response);
+			
+		}else
+		{
+			resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
+		}
+		
+		
+	/*if(loggedIn && loginRequest)
 	{
 		if(((String) ses.getAttribute("userRole")).equals("admin"))
 			resp.sendRedirect(reqt.getContextPath() + "/faces/admin/acceuil.xhtml");
@@ -63,14 +73,17 @@ public class AuthFilter implements Filter {
 	}else if(loggedIn)
 	{
 		if(((String) ses.getAttribute("userRole")).equals("admin") && reqURI.indexOf("/admin") < 0)
-			resp.sendRedirect(reqt.getContextPath() + "/faces/admin/acceuil.xhtml");
+			resp.sendRedirect(reqt.getContextPath() + "/admin/acceuil.xhtml");
+		else if(!((String) ses.getAttribute("userRole")).equals("admin") && reqURI.indexOf("/admin") >= 0)
+			resp.sendRedirect(reqt.getContextPath() + "/acceuil.xhtml");
 		else
 			chain.doFilter(request, response);
+		
 	}
 	else if(loggedIn || resourceRequest || loginRequest)
 		chain.doFilter(request, response);
 	else
-		resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
+		resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");*/
 }
 	/**
 	 * @see Filter#init(FilterConfig)

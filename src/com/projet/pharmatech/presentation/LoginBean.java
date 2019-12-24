@@ -53,14 +53,8 @@ public class LoginBean implements Serializable {
 				return "faces/admin/acceuil.xhtml?faces-redirect=true";
 			return "faces/acceuil.xhtml?faces-redirect=true";
 		}else {
-			FacesContext.getCurrentInstance().addMessage(
-					null, 
-					new FacesMessage(
-							FacesMessage.SEVERITY_WARN, 
-							"Incorrect Username and Passowrd", 
-							"Please enter correct username and Password"
-							)
-					);
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login et/ou mot de passe incorrect", "Veuillez entrer un login et un mot de passe correct");
+	        FacesContext.getCurrentInstance().addMessage(null, message);
 			return "login.jsp?faces-redirect=true";
 		}
 	}
@@ -70,7 +64,7 @@ public class LoginBean implements Serializable {
 		HttpSession session = SessionUtil.getSession();
 		String role = (String) session.getAttribute("userRole");
 		session.invalidate();
-		
+
 		if(role.equals("admin"))
 			FacesContext.getCurrentInstance().getExternalContext().redirect("../login.xhtml?faces-redirect=true");
 		else

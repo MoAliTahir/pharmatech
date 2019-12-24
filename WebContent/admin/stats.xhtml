@@ -28,72 +28,30 @@
 		
 		<div class="container-fluid">
 			<h2 class="h2 text-center">Statistiques</h2>
+		<p style="visibility: hidden" >Maecenas mauris, condimentum quis risus scelerisque, ultricies commodo leo. Mauris vitae varius purus, eget convallis diam. Morbi aliquam, nibh at semper pharetra, neque sem luctus justo, vel ultrices leo augue nec felis. Nam eget ipsum rhoncus, gravida tortor sed, porttitor leo. Donec ut rutrum risus. Aliquam accumsan lectus sit amet sapien convallis, eget pharetra est posuere. Sed nulla nisi, elementum vel lectus ut, ornare cursus magna. Aenean venenatis dapibus malesuada. Nullam dignissim malesuada nulla, sit amet varius sapien rutrum vel. Vestibulum viverra porta purus ut iaculis. Sed vitae porttitor ipsum. Fusce venenatis quam non volutpat scelerisque. Maecenas pretium ac velit in ullamcorper. </p>
 			
 			<div class="row">
-				<div class="col-md-12">
-					<br/>					
-					<h:form id="form">
-					    <p:dataTable var="comm" value="#{facturesBean.commandes}" sortBy="#{comm.dateAjout.getDay()}" rows="8" 
-                 paginator="true" selectionMode="single" selection="#{facturesBean.selectedCommande}" rowKey="#{comm.id}"
-                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 rowsPerPageTemplate="8,16,24">
-                 	
-                 			<p:ajax event="rowSelect" update=":form:commDetail" oncomplete="PF('commDialog').show();" />
-                 			
-					        <p:column headerText="Id">
-					            <h:outputText value="#{comm.id}" />
-					        </p:column>
-					        <p:column headerText="Nbre Medicaments">
-					            <h:outputText value="#{comm.lignesCommande.size()}" />
-					        </p:column>
-					        <p:column headerText="Date">
-					            <h:outputText value="#{comm.dateAjout}" />
-					        </p:column>
-					        <p:column headerText="Client">
-					            <h:outputText value="#{comm.client.nom}" />
-					        </p:column>
-					        <p:column headerText="Prix" sortBy="#{comm.prixTotal}">
-					            <h:outputText value="#{comm.prixTotal}" />
-					        </p:column>
-					        <p:summaryRow>
-					            <p:column colspan="4" style="text-align:right">
-					                <h:outputText value="Total:" />
-					            </p:column>
-					            <p:column>
-					                <h:outputText value="#{ facturesBean.getTotalPrice(comm.dateAjout.getDay()) }">
-					                    <f:convertNumber type="currency" currencySymbol="MAD" />
-					                </h:outputText>
-					            </p:column>
-					        </p:summaryRow>
-					    </p:dataTable>
-					    
-					    
-					    <p:dialog header="Commande Info" widgetVar="commDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
-					        <p:outputPanel id="commDetail" style="text-align:center;">
-					            <p:panelGrid  columns="2" rendered="#{not empty facturesBean.selectedCommande}" columnClasses="label,value">
-					                <f:facet name="header">
-					                    <p:outputLabel value="Commande Selectionnée"></p:outputLabel> 
-					                </f:facet>
-					                 
-					                <h:outputText value="Id:" />
-					                <h:outputText value="#{facturesBean.selectedCommande.id}" />
-					 
-					                <h:outputText value="Nom" />
-					                <h:outputText value="#{facturesBean.selectedCommande.client.nom}" />
-					                 
-					                <h:outputText value="Prenom" />
-					                <h:outputText value="#{facturesBean.selectedCommande.client.prenom}" />
-					 
-					                <h:outputText value="Prix :" />
-					                <h:outputText value="#{facturesBean.selectedCommande.prixTotal}"/>
-					            </p:panelGrid>
-					        </p:outputPanel>
-					    </p:dialog>
-					    
-					    
-					</h:form>
-					
+				<div class="col-md-6">
+					<div class="card" style="width: 100%;">
+					  <div class="card-header">
+					    Nombre des utilisateurs
+					  </div>
+					  <div class="card-body">
+					  	<p:chart type="pie" model="#{chartView.pieModel1}" style="width:25rem;height:300px" />
+					  </div>
+					</div>
 				</div>
+				<div class="col-md-6">
+					<div class="card" style="width: 100%;">
+					  <div class="card-header">
+					    Featured
+					  </div>
+					  <div class="card-body">
+					  	<p:chart type="pie" model="#{chartView.pieModel2}" style="width:400px;height:300px" />
+					  </div>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	
