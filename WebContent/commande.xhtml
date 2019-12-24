@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	
+<ui:composition template="./resources/template/layout2.xhtml">
+	<ui:define name="head">
+		<title>Clients</title>
+		<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
+		<style>
+			.b1{
+			background-color: #6c757d;
+			color: white;
+			}
+			.content{
+			padding-top:0;
+			margin-top:0;
+			height: 600px;
+			overflow-y: scroll;
+			}
+		</style>
+	</ui:define>
+
+	<ui:define name="body">
+	
+		<h:form>
+	    	<p:growl showDetail="true" life="5000">
+	        	<p:autoUpdate />
+	    	</p:growl>
+		</h:form>
+		
+		<div class="container-fluid">
+			<div class="content">
+				<h2 class="h2 text-center">Gestion des Clients</h2>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Gestion de vente :</h1>
+					<h:form>
+						<p:dataTable var="medicament"
+				 			value="#{medicamentsViewBean.medicaments}"
+							widgetVar="medicamentsTable" emptyMessage="Aucun medicament!"
+							filteredValue="#{medicamentsViewBean.filteredMedicaments}"
+							globalFilterFunction="#{medicamentsViewBean.globalFilterFunction}">
+				
+				
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Chercher parmi tous les medicaments:  " />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('medicamentsTable').filter()" style="width:150px"
+										placeholder="Taper un mot cle..." />
+								</p:outputPanel>
+							</f:facet>
+				
+							<p:column headerText="Id" filterBy="#{medicament.id}">
+								<h:outputText value="#{medicament.id}" />
+							</p:column>
+				
+							<p:column headerText="Categorie" filterBy="#{medicament.categorie}">
+								<h:outputText value="#{medicament.categorie}" />
+							</p:column>
+				
+							<p:column headerText="Date Ajout" filterBy="#{medicament.dateAjout}">
+								<h:outputText value="#{medicament.dateAjout}" />
+							</p:column>
+				
+							<p:column headerText="Date Peremption" filterBy="#{medicaments.datePeremtion}">
+								<h:outputText value="#{medicaments.datePeremtion}" />
+							</p:column>
+				
+							<p:column headerText="Description" filterBy="#{medicament.description}">
+								<h:outputText value="#{medicament.description}" />
+							</p:column>
+				
+							<p:column headerText="libelle" filterBy="#{medicament.libelle}">
+								<h:outputText value="#{medicament.libelle}" />
+							</p:column>
+				
+							<p:column headerText="Quantite Stock" filterBy="#{medicament.quantiteStock}">
+								<h:outputText value="#{medicament.quantiteStock}" />
+							</p:column>
+				
+							<p:column headerText="Statut" filterBy="#{medicament.perime}">
+								<h:outputText value="#{medicament.perime ? 'Perime': 'Valable'}" />
+							</p:column>
+				
+							<p:column headerText="Prix" filterBy="#{medicament.prix}">
+								<h:outputText value="#{medicament.prix}">
+									<f:convertNumber currencySymbol="MAD" type="currency" />
+								</h:outputText>
+							</p:column>
+							
+							<p:column headerText="" >
+				 					
+									<h:inputText  value="#{medicamentsViewBean.quantite}">
+										<f:ajax />
+									</h:inputText>
+									
+												
+							     	<p:commandButton process="@this"  value="Ajouter" action="#{medicamentsViewBean.ajouterAuPanier}" update="panierForm"  >
+				 				   		<f:setPropertyActionListener target="#{medicamentsViewBean.medicamentSelectionne}" value="#{medicament}"></f:setPropertyActionListener>
+				 				   </p:commandButton>
+				  			</p:column>
+							
+						</p:dataTable>
+					</h:form>
+					
+				 	
+						<h:form id="panierForm" >
+						<div>
+						<h1>Panier :</h1>
+						<p:dataGrid var="ligneCommande" value="#{medicamentsViewBean.panier}" id="panier">
+							<p:panel header="#{ligneCommande.medicament.libelle} - #{ligneCommande.quantite}" style="width:33.33%;">
+								
+								<p:commandButton process="@this"  value="Retirer" action="#{medicamentsViewBean.retirerElementDuPanier}" update="panier"  >
+								   		<f:setPropertyActionListener target="#{medicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
+							   </p:commandButton>
+							
+					
+							</p:panel>
+							
+								
+						</p:dataGrid> 
+						</div>	
+								<h:inputText value="#{medicamentsViewBean.prixTotal}">
+									<f:ajax />
+				 				</h:inputText>
+								<!-- testing this -->
+						      		<p:selectOneListbox id="client" value="" >
+						   				<f:selectItems value="#{medicamentsViewBean.clients}" var="c" itemLabel="#{c.id} - #{c.nom} #{c.prenom}" itemValue="" />
+							        </p:selectOneListbox >		
+								<!--  -->
+								Veuillez choisir un client : 
+								<h:inputText value="#{medicamentsViewBean.clientId}">
+									<f:ajax />
+				 				</h:inputText>
+								<p:commandButton process="@this"  value="Annuler la commande" action="#{medicamentsViewBean.annulerCommande}" update="@form"  >
+								   		<f:setPropertyActionListener target="#{medicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
+							    </p:commandButton>
+				
+							   <p:commandButton process="@this"  value="Valider la commande" action="#{medicamentsViewBean.validerPanier}" update="@form"  >
+							   </p:commandButton>
+							   
+							   	<a href="clients.xhtml">Ajouter Client</a>
+							    
+						</h:form>
+				 	
+				
+					<h1>Imprimer la commande : </h1>
+					<p:commandButton value="Print" type="button" icon="pi pi-print" style="display: block; bttom:20px;">
+						<p:printer target="panierForm">
+					</p:printer>
+					</p:commandButton>
+				</div>
+			</div>
+				
+			</div>
+		</div>
+	
+	
+	<script src="/resources/bootstrap/js/bootstrap.min.js"></script>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>
