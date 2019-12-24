@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
+import org.hibernate.sql.Update;
+
 import com.projet.pharmatech.entities.Client;
 import com.projet.pharmatech.services.ClientService;
 
@@ -52,7 +54,13 @@ public class ClientsBean implements Serializable {
 	}
 	
 	public void addClient() {
-		this.clientService.add(this.client);
+		if(clientService.findById(client.getId())!=null) {
+		   this.clientService.update(this.client);
+		}
+		else {
+			   this.clientService.update(this.client);
+		}
+		client= new Client();
 	}
 
 	public ArrayList<Client> getClients() {
@@ -63,5 +71,15 @@ public class ClientsBean implements Serializable {
 		this.clients = clients;
 	}
 	
+	public void update(Client c) {
+		this.client=c;
+	}
 	
+	public void delete(Client c) {
+		clientService.delete(c.getId());
+	}
+	
+	public void reset() {
+		client=new Client();
+	}
 }

@@ -29,7 +29,7 @@ public class Medicament implements Serializable{
 	@Column(name = "date_ajout")
 	private LocalDate dateAjout;
 	@Column(name = "date_peremption")
-	private LocalDateTime datePeremtion;
+	private LocalDate datePeremtion;
 	
 	
 	public Medicament() {
@@ -39,7 +39,7 @@ public class Medicament implements Serializable{
 	
 	
 	public Medicament(String libelle, String categorie, String fournisseur, double prix, int quantiteStock,
-			String description, LocalDate dateAjout, LocalDateTime datePeremtion) {
+			String description, LocalDate dateAjout, LocalDate datePeremtion) {
 		super();
 		this.libelle = libelle;
 		this.categorie = categorie;
@@ -95,10 +95,10 @@ public class Medicament implements Serializable{
 	public void setDateAjout(LocalDate dateAjout) {
 		this.dateAjout = dateAjout;
 	}
-	public LocalDateTime getDatePeremtion() {
+	public LocalDate getDatePeremtion() {
 		return datePeremtion;
 	}
-	public void setDatePeremtion(LocalDateTime datePeremtion) {
+	public void setDatePeremtion(LocalDate datePeremtion) {
 		this.datePeremtion = datePeremtion;
 	}
 
@@ -111,7 +111,7 @@ public class Medicament implements Serializable{
 	}
 
 	public boolean getPerime() {
-		LocalDateTime now = LocalDateTime.now();
+		LocalDate now = LocalDate.now();
 		if(datePeremtion==null) {
 			return false;
 		}

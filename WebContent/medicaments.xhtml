@@ -35,20 +35,45 @@
 					<h:form id="form">
 						<h:panelGrid id="form1" style="margin-top:-20px" columns="6" cellpadding="5" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="ui-fluid" >
 							
-							<p:outputLabel value="Nom : "></p:outputLabel>
-							<p:inputText value="#{clientsBean.client.nom }" size="30" required="true" placeholder="Dupon">
+							<p:outputLabel value="Catégorie : "></p:outputLabel>
+							<p:inputText value="#{gestionMedicamentBean.medicament.categorie }" size="30" required="true" placeholder="Dupon">
 								<f:ajax />
 							</p:inputText>
 							
-							<p:outputLabel value="Prenom : "></p:outputLabel>
-							<p:inputText value="#{clientsBean.client.prenom }" size="30" required="true" placeholder="Jean">
+							
+							<p:outputLabel value="Libellé : "></p:outputLabel>
+							<p:inputText value="#{gestionMedicamentBean.medicament.libelle }" size="30" required="true" placeholder="Dupon">
 								<f:ajax />
 							</p:inputText>
 							
-							<p:outputLabel value="CIN : "></p:outputLabel>
-							<p:inputText value="#{clientsBean.client.CIN }" size="30" required="true" placeholder="CD2020">
+							
+						
+							<p:outputLabel value="prix : "></p:outputLabel>
+							<p:inputText value="#{gestionMedicamentBean.medicament.prix }" size="30" required="true" placeholder="Dupon">
 								<f:ajax />
 							</p:inputText>
+							
+							
+							
+							<p:outputLabel value="Fournisseur : "></p:outputLabel>
+							<p:inputText value="#{clientsBean.medicament.fournisseur }" size="30" required="true" placeholder="Dupon">
+								<f:ajax />
+							</p:inputText>
+							
+							
+							
+							<p:outputLabel value="Description : "></p:outputLabel>
+							<p:inputText value="#{clientsBean.medicament.description }" size="30" required="true" placeholder="Dupon">
+								<f:ajax />
+							</p:inputText>
+							
+							
+							<p:outputLabel value="quantité stock : "></p:outputLabel>
+							<p:inputText value="#{clientsBean.medicament.quantiteStock }" size="30" required="true" placeholder="Dupon">
+								<f:ajax />
+							</p:inputText>
+							
+							
 							
 							
 							<h:inputHidden value="#{clientsBean.client.id }"></h:inputHidden>
