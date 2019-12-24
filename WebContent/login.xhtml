@@ -19,7 +19,11 @@
 	<link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.min.css" />
 </h:head>
 <h:body>	
-	
+	<h:form>
+	    	<p:growl showDetail="true" life="5000">
+	        	<p:autoUpdate />
+	    	</p:growl>
+		</h:form>
 	<p:panel id="basic" header="Login" style="padding-bottom:25px; margin-top:-5px">
 		<h:form>
 	    	<h:panelGrid style="padding:15%; padding-left:40%" columns="1" cellpadding="10" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="ui-fluid">
