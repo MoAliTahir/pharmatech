@@ -9,7 +9,7 @@
 <ui:composition template="./resources/template/layout2.xhtml">
 	<ui:define name="head">
 		<title>Clients</title>
-		<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" />
 		<style>
 			.b3{
 			background-color: #6c757d;
@@ -30,7 +30,7 @@
 	    	</p:growl>
 		</h:form>
 		
-		<div class="container-fluid">
+		<div class="container-fluid" style="padding-right:0;">
 			<div class="content">
 			<div class="container-fluid">
 			<h2 class="h2 text-center">Gestion des medicaments aj</h2>
@@ -41,53 +41,53 @@
  					<h:form id="form">
  						<h:panelGrid id="form1" style="margin-top:-20px" columns="6" cellpadding="5" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="ui-fluid" >
 							
-							<p:outputLabel value="Catégorie : "></p:outputLabel>
-							<p:inputText value="#{gestionMedicamentBean.medicament.categorie }" size="20" required="true" placeholder="Comprimé">
+							<p:outputLabel value="Catégorie:"></p:outputLabel>
+							<p:inputText value="#{gestionMedicamentBean.medicament.categorie }" size="18" required="true" placeholder="Comprimé">
  								<f:ajax />
  							</p:inputText>
 							
 							
-							<p:outputLabel value="Libellé : "></p:outputLabel>
-							<p:inputText value="#{gestionMedicamentBean.medicament.libelle }" size="20" required="true" placeholder="Doliprane">
+							<p:outputLabel value="Libellé:"></p:outputLabel>
+							<p:inputText value="#{gestionMedicamentBean.medicament.libelle }" size="18" required="true" placeholder="Doliprane">
  								<f:ajax />
  							</p:inputText>
 							
 							
 						
-							<p:outputLabel value="prix : "></p:outputLabel>
-							<p:inputText value="#{gestionMedicamentBean.medicament.prix }" size="20" required="true" placeholder="15.54">
+							<p:outputLabel value="Prix:"></p:outputLabel>
+							<p:inputText value="#{gestionMedicamentBean.medicament.prix }" size="5" required="true" placeholder="15.54">
  								<f:ajax />
  							</p:inputText>
 						
 							
-							<p:outputLabel value="Description : "></p:outputLabel>
-							<p:inputText value="#{gestionMedicamentBean.medicament.description }" size="20" required="true" placeholder="efficace">
+							<p:outputLabel value="Description:"></p:outputLabel>
+							<p:inputText value="#{gestionMedicamentBean.medicament.description }" size="18" required="true" placeholder="efficace">
  								<f:ajax />
  							</p:inputText>
 							
 							
-							<p:outputLabel value="quantité stock : "></p:outputLabel>
+							<p:outputLabel value="Quantité stock:"></p:outputLabel>
 							<p:inputText converterMessage="Ce champ est un chiffre!"
-							 value="#{gestionMedicamentBean.medicament.quantiteStock }" size="20" required="true" placeholder="15">
+							 value="#{gestionMedicamentBean.medicament.quantiteStock }" size="18" required="true" placeholder="15">
  								<f:ajax />
  							</p:inputText>
 											
 							
-							<p:outputLabel value="Date peremption : "></p:outputLabel>
-							<p:datePicker value="#{gestionMedicamentBean.medicament.datePeremtion }" size="20">
+							<p:outputLabel value="Date Peremption:" style="width:100px"></p:outputLabel>
+							<p:datePicker value="#{gestionMedicamentBean.medicament.datePeremtion }" size="5">
  								<f:ajax />
  							</p:datePicker>											
 							
-							<p:outputLabel value="Fournisseur : "></p:outputLabel>
-							<p:inputText value="#{gestionMedicamentBean.medicament.fournisseur }" size="20" required="true" placeholder="Dupon">
+							<p:outputLabel value="Fournisseur:"></p:outputLabel>
+							<p:inputText value="#{gestionMedicamentBean.medicament.fournisseur }" size="18" required="true" placeholder="Dupon">
  								<f:ajax />
  							</p:inputText>	
 	
-							
-							<h:inputHidden value="#{gestionMedicamentBean.medicament.id }" />
-							
-								<p:commandButton value="Enregistrer" action="#{gestionMedicamentBean.addMed }" update="list" />
-								<h:button value="Annuler" style="margin-top:-20px" class="btn btn-danger" update="@form list" action="#{gestionMedicamentBean.reset }"/>
+								<h:inputHidden value="#{gestionMedicamentBean.medicament.id }" />			
+								<p:commandButton value="Enregistrer" class="btn btn-secondary" action="#{gestionMedicamentBean.addMed }" update="list" />
+								<h:button value="Annuler" class="btn btn-danger" update="@form list" action="#{gestionMedicamentBean.reset }"/>
+								
+								
 						</h:panelGrid>
 						</h:form>						
  				
@@ -157,7 +157,7 @@
 		</div>
 	
 	
-	<script src="/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
 	</ui:define>
 
 
