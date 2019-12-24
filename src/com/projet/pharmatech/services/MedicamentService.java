@@ -38,4 +38,8 @@ public class MedicamentService implements Serializable{
 	public List<Medicament> getAllMedicaments() {
 		return medicamentDao.findAll();
 	}
+
+	public void save(Medicament medicament) {
+		medicamentDao.add(medicament);
+	}
 }

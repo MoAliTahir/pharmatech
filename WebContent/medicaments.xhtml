@@ -1,131 +1,143 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
-	
-<ui:composition template="./resources/template/layout.xhtml">
-	<ui:define name="head">
-		<title>Clients</title>
-		<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
-		<style>
-			.b1{
-			background-color: #e62e4f;
-			color: white;
-			}
-		</style>
-	</ui:define>
+	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="body">
+<h:head>
+  <h:title></h:title>
+<meta charset="UTF-8"></meta>
+</h:head>
+<h:body>
 	
-		<h:form>
-	    	<p:growl showDetail="true" life="5000">
-	        	<p:autoUpdate />
-	    	</p:growl>
-		</h:form>
-		
-		<div class="container-fluid">
-			<h2 class="h2 text-center">Gestion des Clients</h2>
+
+<h:outputStylesheet library="css" name="style.css" />
+
+
+	<h1>Gestion de vente :</h1>
+
+			<div class="container-fluid">
+			<h2 class="h2 text-center">Gestion des medicaments aj</h2>
 			
 			<div class="row">
 				<div class="col-md-12">
-					<h4>Ajouter un nouveau Client</h4>
-					<h:form id="form">
-						<h:panelGrid id="form1" style="margin-top:-20px" columns="6" cellpadding="5" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="ui-fluid" >
+					<h4>Ajouter un nouveau medicament</h4>
+ 					<h:form id="form">
+ 						<h:panelGrid id="form1" style="margin-top:-20px" columns="6" cellpadding="5" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="ui-fluid" >
 							
 							<p:outputLabel value="Catégorie : "></p:outputLabel>
-							<p:inputText value="#{gestionMedicamentBean.medicament.categorie }" size="30" required="true" placeholder="Dupon">
-								<f:ajax />
-							</p:inputText>
+							<p:inputText value="#{gestionMedicamentBean.medicament.categorie }" size="20" required="true" placeholder="Comprimé">
+ 								<f:ajax />
+ 							</p:inputText>
 							
 							
 							<p:outputLabel value="Libellé : "></p:outputLabel>
-							<p:inputText value="#{gestionMedicamentBean.medicament.libelle }" size="30" required="true" placeholder="Dupon">
-								<f:ajax />
-							</p:inputText>
+							<p:inputText value="#{gestionMedicamentBean.medicament.libelle }" size="20" required="true" placeholder="Doliprane">
+ 								<f:ajax />
+ 							</p:inputText>
 							
 							
 						
 							<p:outputLabel value="prix : "></p:outputLabel>
-							<p:inputText value="#{gestionMedicamentBean.medicament.prix }" size="30" required="true" placeholder="Dupon">
-								<f:ajax />
-							</p:inputText>
-							
-							
-							
-							<p:outputLabel value="Fournisseur : "></p:outputLabel>
-							<p:inputText value="#{clientsBean.medicament.fournisseur }" size="30" required="true" placeholder="Dupon">
-								<f:ajax />
-							</p:inputText>
-							
-							
+							<p:inputText value="#{gestionMedicamentBean.medicament.prix }" size="20" required="true" placeholder="15.54">
+ 								<f:ajax />
+ 							</p:inputText>
+						
 							
 							<p:outputLabel value="Description : "></p:outputLabel>
-							<p:inputText value="#{clientsBean.medicament.description }" size="30" required="true" placeholder="Dupon">
-								<f:ajax />
-							</p:inputText>
+							<p:inputText value="#{gestionMedicamentBean.medicament.description }" size="20" required="true" placeholder="efficace">
+ 								<f:ajax />
+ 							</p:inputText>
 							
 							
 							<p:outputLabel value="quantité stock : "></p:outputLabel>
-							<p:inputText value="#{clientsBean.medicament.quantiteStock }" size="30" required="true" placeholder="Dupon">
-								<f:ajax />
-							</p:inputText>
+							<p:inputText converterMessage="Ce champ est un chiffre!"
+							 value="#{gestionMedicamentBean.medicament.quantiteStock }" size="20" required="true" placeholder="15">
+ 								<f:ajax />
+ 							</p:inputText>
+											
 							
+							<p:outputLabel value="Date peremption : "></p:outputLabel>
+							<p:datePicker value="#{gestionMedicamentBean.medicament.datePeremtion }" size="20">
+ 								<f:ajax />
+ 							</p:datePicker>											
 							
+							<p:outputLabel value="Fournisseur : "></p:outputLabel>
+							<p:inputText value="#{gestionMedicamentBean.medicament.fournisseur }" size="20" required="true" placeholder="Dupon">
+ 								<f:ajax />
+ 							</p:inputText>	
+	
 							
+							<h:inputHidden value="#{gestionMedicamentBean.medicament.id }" />
 							
-							<h:inputHidden value="#{clientsBean.client.id }"></h:inputHidden>
-							<p:commandButton value="Enregistrer" style="margin-top:-20px" class="btn btn-danger" update="@all" action="#{clientsBean.addClient }"/>
-							<h:button value="Annuler" style="margin-top:-20px" class="btn btn-danger" update="@form list" action="#{clientsBean.reset }"/>
-							
+								<p:commandButton value="Enregistrer" action="#{gestionMedicamentBean.addMed }" update="list" />
+								<h:button value="Annuler" style="margin-top:-20px" class="btn btn-danger" update="@form list" action="#{gestionMedicamentBean.reset }"/>
 						</h:panelGrid>
-					</h:form>
-				
+						</h:form>						
+ 				
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 				
-					<h4 class="h4">Liste des clients</h4>
+					<h4 class="h4">Liste des medicaments</h4>
 					
-					<p:dataTable var="client" id="list" value="#{clientsBean.clients}" rows="5" paginator="true" 
+					<p:dataTable var="medicament" id="list" value="#{gestionMedicamentBean.medicaments}" rows="5" paginator="true" 
                  		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                  		rowsPerPageTemplate="5,10,15">
-					    <p:column headerText="iD">
-					        <h:outputText value="#{client.id}" />
-					    </p:column>
-					    			 
-					    <p:column headerText="Firt Name">
-					        <h:outputText value="#{client.nom}" />
-					    </p:column>
-				 
-					    <p:column headerText="Last Name">
-					        <h:outputText value="#{client.prenom}" />
-					    </p:column>
-					    
-					     <p:column headerText="CIN">
-					        <h:outputText value="#{client.CIN}" />
-					    </p:column>
+            
+            <p:column headerText="Id" filterBy="#{medicament.id}">
+				<h:outputText value="#{medicament.id}" />
+			</p:column>
+
+			<p:column headerText="Categorie" >
+				<h:outputText value="#{medicament.categorie}" />
+			</p:column>
+
+			<p:column headerText="Date Ajout" >
+				<h:outputText value="#{medicament.dateAjout}" />
+			</p:column>
+
+			<p:column headerText="Date Peremption">
+				<h:outputText value="#{medicaments.datePeremtion}" />
+			</p:column>
+
+			<p:column headerText="Description" >
+				<h:outputText value="#{medicament.description}" />
+			</p:column>
+
+			<p:column headerText="libelle" >
+				<h:outputText value="#{medicament.libelle}" />
+			</p:column>
+
+			<p:column headerText="Quantite Stock" >
+				<h:outputText value="#{medicament.quantiteStock}" />
+			</p:column>
+
+			<p:column headerText="Statut">
+				<h:outputText value="#{medicament.perime ? 'Perime': 'Valable'}" />
+			</p:column>
+
+			<p:column headerText="Prix">
+				<h:outputText value="#{medicament.prix}">
+					<f:convertNumber currencySymbol="MAD" type="currency" />
+				</h:outputText>
+			</p:column>
 				    
 				    	<p:column headerText="Action">		
 					    	<h:form>
-					    		<p:commandButton value="Modifier" action="#{ clientsBean.setClient(client) }" update=":form:form1" />
-					    		<p:commandButton value="Supprimer" action="#{ clientsBean.delete(client) }" update="@all" />
+					    		<p:commandButton value="Modifier" action="#{gestionMedicamentBean.setMed(medicament) }" update=":form:form1" />
+					    		<p:commandButton value="Supprimer" action="#{gestionMedicamentBean.delete(medicament) }" update="@all" />
 					    	</h:form>
+					    	
 				    	</p:column>
 				</p:dataTable>
 					
 				</div>
 			</div>
 		</div>
+		
 	
-	
-	<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
-	</ui:define>
-
-
-</ui:composition>
-
+ </h:body>
 </html>

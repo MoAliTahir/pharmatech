@@ -9,7 +9,8 @@ import org.hibernate.Session;
 import com.projet.pharmatech.utils.HibernateUtil;
 
 public abstract class EntityDaoImpl<E>  {
-	Session session = HibernateUtil.openSession();
+//	Session session = HibernateUtil.openSession();
+	final Session session = HibernateUtil.openSession();
 	private Class<E> type;
 	
 	@SuppressWarnings("unchecked")
@@ -19,9 +20,10 @@ public abstract class EntityDaoImpl<E>  {
 		type = (Class<E>) pt.getActualTypeArguments()[0];
 	}
 	
+ 
 	public E add(E e) {
-		session.beginTransaction();
-		session.save(e);
+		if(!session.getTransaction().isActive())session.beginTransaction();
+ 		session.save(e);
 		session.getTransaction().commit();
 		
 		String className = e.getClass().getSimpleName();
@@ -33,7 +35,7 @@ public abstract class EntityDaoImpl<E>  {
 
 	
 	public E update(E e) {
-		session.beginTransaction();
+		if(!session.getTransaction().isActive())session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		E u = (E) session.merge(e);
 		session.getTransaction().commit();
@@ -42,7 +44,7 @@ public abstract class EntityDaoImpl<E>  {
 
 
 	public void delete(int id) {
-		session.beginTransaction();
+		if(!session.getTransaction().isActive())session.beginTransaction();
 		E u = findById(id);
 		session.delete(u);
 		session.getTransaction().commit();
