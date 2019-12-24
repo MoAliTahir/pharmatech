@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import com.projet.pharmatech.entities.Client;
 import com.projet.pharmatech.entities.Commande;
@@ -19,10 +19,31 @@ import com.projet.pharmatech.services.CommandeService;
 import com.projet.pharmatech.services.MedicamentService;
 
 @ManagedBean(name="medicamentsViewBean")
-@SessionScoped
+@ViewScoped
 public class MedicamentsViewBean implements Serializable {
  
-	
+
+	@PostConstruct
+    public void init() {
+    	 commandeService= new CommandeService();
+    	 filteredMedicaments=new ArrayList<>();
+    	 medicaments = new ArrayList<>();
+    	 panier= new ArrayList<>();
+    	 commande= new Commande();
+    	 invalidLignesCommandes= new ArrayList<LigneCommande>();
+      	medicamentService=new MedicamentService();
+     	medicamentSelectionne = new Medicament();
+     	ligneARetirer = new LigneCommande();
+     	clients= new ArrayList<Client>();
+     	clientService= new ClientService();
+    	 try {
+    		 clients.addAll(clientService.findAll());
+           medicaments.addAll(medicamentService.getAllMedicaments());
+     	 }catch(Exception e) {
+     		 e.printStackTrace();
+    	 }
+    }
+
 	
     public MedicamentsViewBean() {
 		super();
@@ -126,27 +147,6 @@ public class MedicamentsViewBean implements Serializable {
 		this.ligneARetirer = ligneARetirer;
 	}
 
-
-	@PostConstruct
-    public void init() {
-    	 commandeService= new CommandeService();
-    	 filteredMedicaments=new ArrayList<>();
-    	 medicaments = new ArrayList<>();
-    	 panier= new ArrayList<>();
-    	 commande= new Commande();
-    	 invalidLignesCommandes= new ArrayList<LigneCommande>();
-      	medicamentService=new MedicamentService();
-     	medicamentSelectionne = new Medicament();
-     	ligneARetirer = new LigneCommande();
-     	clients= new ArrayList<Client>();
-     	clientService= new ClientService();
-    	 try {
-    		 clients.addAll(clientService.findAll());
-           medicaments.addAll(medicamentService.getAllMedicaments());
-     	 }catch(Exception e) {
-     		 e.printStackTrace();
-    	 }
-    }
 
  
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {

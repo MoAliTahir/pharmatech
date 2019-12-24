@@ -28,8 +28,13 @@ public class HibernateUtil {
     }
     
     public static Session openSession(){
-     return sessionFactory.openSession();
-    }
+    	final SessionFactory sf = new Configuration()
+    	        .configure("hibernate.cfg.xml").buildSessionFactory();
+
+    	    // factory = new Configuration().configure().buildSessionFactory();
+    	    final Session session = sf.openSession();
+    	    return session;
+     }
     
     public Session getCurrentSession(){
      return sessionFactory.getCurrentSession();

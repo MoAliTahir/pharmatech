@@ -2,7 +2,7 @@ package com.projet.pharmatech.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,9 +27,9 @@ public class Medicament implements Serializable{
 	private int quantiteStock;
 	private String description;
 	@Column(name = "date_ajout")
-	private LocalDate dateAjout;
+	private Date dateAjout;
 	@Column(name = "date_peremption")
-	private LocalDate datePeremtion;
+	private Date datePeremtion;
 	
 	
 	public Medicament() {
@@ -39,7 +39,7 @@ public class Medicament implements Serializable{
 	
 	
 	public Medicament(String libelle, String categorie, String fournisseur, double prix, int quantiteStock,
-			String description, LocalDate dateAjout, LocalDate datePeremtion) {
+			String description, Date dateAjout, Date datePeremtion) {
 		super();
 		this.libelle = libelle;
 		this.categorie = categorie;
@@ -77,28 +77,33 @@ public class Medicament implements Serializable{
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
+	
 	public int getQuantiteStock() {
 		return quantiteStock;
 	}
+
 	public void setQuantiteStock(int quantiteStock) {
 		this.quantiteStock = quantiteStock;
 	}
+
+
+
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public LocalDate getDateAjout() {
+	public Date getDateAjout() {
 		return dateAjout;
 	}
-	public void setDateAjout(LocalDate dateAjout) {
+	public void setDateAjout(Date dateAjout) {
 		this.dateAjout = dateAjout;
 	}
-	public LocalDate getDatePeremtion() {
+	public Date getDatePeremtion() {
 		return datePeremtion;
 	}
-	public void setDatePeremtion(LocalDate datePeremtion) {
+	public void setDatePeremtion(Date datePeremtion) {
 		this.datePeremtion = datePeremtion;
 	}
 
@@ -111,21 +116,13 @@ public class Medicament implements Serializable{
 	}
 
 	public boolean getPerime() {
-		LocalDate now = LocalDate.now();
+		Date now = new Date();
 		if(datePeremtion==null) {
 			return false;
 		}
 		return now.compareTo(this.datePeremtion)>0;
 	}
 
-
-
-
-	
-	public void ajouterAuPanier() {
-		System.out.println("Ajouter au panier");
-	}
-	
 	
 	
 

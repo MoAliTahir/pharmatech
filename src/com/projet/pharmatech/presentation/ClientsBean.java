@@ -58,7 +58,7 @@ public class ClientsBean implements Serializable {
 		   this.clientService.update(this.client);
 		}
 		else {
-			   this.clientService.update(this.client);
+			   this.clientService.add(this.client);
 		}
 		client= new Client();
 	}

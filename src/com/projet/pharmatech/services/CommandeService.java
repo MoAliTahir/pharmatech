@@ -12,10 +12,18 @@ public class CommandeService implements Serializable{
 	/**
 	 * 
 	 */
+	MedicamentService medicamentService = new MedicamentService();
 	private static final long serialVersionUID = 1L;
 	CommandeDaoImpl commandeDao = new CommandeDaoImpl();
 	
 	public Commande add(Commande c) {
+		c.getLignesCommande().stream().
+		forEach(m ->
+		{
+			medicamentService.findById(m.getMedicament().getId()).setQuantiteStock(m.getMedicament().getQuantiteStock()-m.getQuantite());
+											medicamentService.update(medicamentService.findById(m.getMedicament().getId()));
+												} );
+		
 		return commandeDao.add(c);
 	};
 	
