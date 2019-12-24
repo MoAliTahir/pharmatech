@@ -1,12 +1,12 @@
 package com.projet.pharmatech.services;
 
 import java.io.Serializable;
-
-
 import java.util.List;
 
 import com.projet.pharmatech.daoImpl.CommandeDaoImpl;
 import com.projet.pharmatech.entities.Commande;
+import com.projet.pharmatech.entities.LigneCommande;
+import com.projet.pharmatech.entities.Medicament;
 
 public class CommandeService implements Serializable{
 	/**
@@ -17,13 +17,15 @@ public class CommandeService implements Serializable{
 	CommandeDaoImpl commandeDao = new CommandeDaoImpl();
 	
 	public Commande add(Commande c) {
-		c.getLignesCommande().stream().
-		forEach(m ->
-		{
-			medicamentService.findById(m.getMedicament().getId()).setQuantiteStock(m.getMedicament().getQuantiteStock()-m.getQuantite());
-											medicamentService.update(medicamentService.findById(m.getMedicament().getId()));
-												} );
-		
+		for (LigneCommande ligne : c.getLignesCommande()) {
+			
+			Medicament medicament = ligne.getMedicament();
+			int quantiteEnStock = medicament.getQuantiteStock();
+			int quantiteDeLaCommande= ligne.getQuantite();
+			medicament.setQuantiteStock(quantiteEnStock-quantiteDeLaCommande);
+
+			ligne.setMedicament(medicament);
+		}
 		return commandeDao.add(c);
 	};
 	

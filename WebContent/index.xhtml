@@ -16,7 +16,7 @@
 
 
 	<h1>Gestion de vente :</h1>
-	<h:form>
+	<h:form id="id">
 		<p:dataTable var="medicament"
  			value="#{medicamentsViewBean.medicaments}"
 			widgetVar="medicamentsTable" emptyMessage="Aucun medicament!"
@@ -103,9 +103,11 @@
 				
 		</p:dataGrid> 
 		</div>	
+				
 				<h:inputText value="#{medicamentsViewBean.prixTotal}">
 					<f:ajax />
  				</h:inputText>
+ 				MAD
 				<!-- testing this -->
 		      		<p:selectOneListbox id="client" value="" >
 		   				<f:selectItems value="#{medicamentsViewBean.clients}" var="c" itemLabel="#{c.id} - #{c.nom} #{c.prenom}" itemValue="" />
@@ -119,8 +121,8 @@
 				   		<f:setPropertyActionListener target="#{medicamentsViewBean.ligneARetirer}" value="#{ligneCommande}"></f:setPropertyActionListener>
 			    </p:commandButton>
 
-			   <p:commandButton process="@this"  value="Valider la commande" action="#{medicamentsViewBean.validerPanier}" update="@form"  >
-			   </p:commandButton>
+			   <p:commandButton process="@this"  value="Valider la commande" action="#{medicamentsViewBean.validerPanier}" update="@form :id"  >
+			   </p:commandButton>                                                     
 			   
 			   	<a href="clients.xhtml" class="btn btn-primary">Clients</a>
 			   	<a href="medicaments.xhtml" class="btn btn-primary">Medicaments</a>
