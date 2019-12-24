@@ -30,7 +30,7 @@ public class Client implements Serializable {
 		
 	@OneToMany(targetEntity = Commande.class, mappedBy = "client", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	List<Commande> commandes;
-	private String CNE;
+	private String CIN;
 	
 	
 	
@@ -41,23 +41,23 @@ public class Client implements Serializable {
 	}
 	
 	
-	public Client(String nom, String prenom, String CNE) {
+	public Client(String nom, String prenom, String CIN) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
-		this.CNE=CNE;
+		this.CIN=CIN;
  		this.commandes = new ArrayList<Commande>();
 	}
 
 
 
 
-	public Client(String nom, String prenom, List<Commande> commandes, String CNE) {
+	public Client(String nom, String prenom, List<Commande> commandes, String CIN) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
  		this.commandes = commandes;
- 		this.CNE=CNE;
+ 		this.CIN=CIN;
 	}
 
 
@@ -81,20 +81,21 @@ public class Client implements Serializable {
 		this.prenom = prenom;
 	}
 
-	public String getCNE() {
-		return CNE;
-	}
-
-
-	public void setCNE(String cNE) {
-		CNE = cNE;
-	}
-
 	public List<Commande> getCommandes() {
 		return commandes;
 	}
 	public void setCommandes(List<Commande> commandes) {
 		this.commandes = commandes;
+	}
+
+
+	public String getCIN() {
+		return CIN;
+	}
+
+
+	public void setCIN(String cIN) {
+		CIN = cIN;
 	}
 	
 	
