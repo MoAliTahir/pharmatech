@@ -42,37 +42,36 @@ public class AuthFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-			HttpServletRequest reqt = (HttpServletRequest) request;
-			HttpServletResponse resp = (HttpServletResponse) response;
-			HttpSession ses = reqt.getSession(false);
-	
-			String reqURI = reqt.getRequestURI();
-			boolean loggedIn= ses!=null && ses.getAttribute("authUser")!=null;
-			boolean loginRequest= reqt.getRequestURI().contentEquals(reqt.getContextPath() + "/faces/login.xhtml");
-			boolean resourceRequest = reqt.getRequestURI().startsWith(reqt.getContextPath()+ ResourceHandler.RESOURCE_IDENTIFIER);
-			
-			
-			
-			System.out.println(reqt.getContextPath());
-		if(loggedIn && loginRequest)
-		{
-			if(((String) ses.getAttribute("userRole")).equals("admin"))
-				resp.sendRedirect(reqt.getContextPath() + "/faces/admin/acceuil.xhtml");
-			else
-				resp.sendRedirect(reqt.getContextPath() + "/faces/acceuil.xhtml");
-		}else if(loggedIn)
-		{
-			if(((String) ses.getAttribute("userRole")).equals("admin") && reqURI.indexOf("/admin") < 0)
-				resp.sendRedirect(reqt.getContextPath() + "/faces/admin/acceuil.xhtml");
-			else
-				chain.doFilter(request, response);
-		}
-		else if(loggedIn || resourceRequest || loginRequest)
-			chain.doFilter(request, response);
-		else
-			resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
-	}
+		HttpServletRequest reqt = (HttpServletRequest) request;
+		HttpServletResponse resp = (HttpServletResponse) response;
+		HttpSession ses = reqt.getSession(false);
 
+		String reqURI = reqt.getRequestURI();
+		boolean loggedIn= ses!=null && ses.getAttribute("authUser")!=null;
+		boolean loginRequest= reqt.getRequestURI().contentEquals(reqt.getContextPath() + "/faces/login.xhtml");
+		boolean resourceRequest = reqt.getRequestURI().startsWith(reqt.getContextPath()+ ResourceHandler.RESOURCE_IDENTIFIER);
+		
+		
+		
+		System.out.println(reqt.getContextPath());
+	if(loggedIn && loginRequest)
+	{
+		if(((String) ses.getAttribute("userRole")).equals("admin"))
+			resp.sendRedirect(reqt.getContextPath() + "/faces/admin/acceuil.xhtml");
+		else
+			resp.sendRedirect(reqt.getContextPath() + "/faces/acceuil.xhtml");
+	}else if(loggedIn)
+	{
+		if(((String) ses.getAttribute("userRole")).equals("admin") && reqURI.indexOf("/admin") < 0)
+			resp.sendRedirect(reqt.getContextPath() + "/faces/admin/acceuil.xhtml");
+		else
+			chain.doFilter(request, response);
+	}
+	else if(loggedIn || resourceRequest || loginRequest)
+		chain.doFilter(request, response);
+	else
+		resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
+}
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */

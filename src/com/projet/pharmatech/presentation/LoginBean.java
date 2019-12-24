@@ -1,5 +1,6 @@
 package com.projet.pharmatech.presentation;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
@@ -64,16 +65,16 @@ public class LoginBean implements Serializable {
 		}
 	}
 	
-	public String logout() {
+	public void logout() throws IOException {
 		System.out.println("Logging out...");
 		HttpSession session = SessionUtil.getSession();
 		String role = (String) session.getAttribute("userRole");
 		session.invalidate();
 		
 		if(role.equals("admin"))
-			return "../login.xhtml?faces-redirect=true";
-		
-		return "login.xhtml?faces-redirect=true";
+			FacesContext.getCurrentInstance().getExternalContext().redirect("../login.xhtml?faces-redirect=true");
+		else
+			FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?faces-redirect=true");
 	}
 	
 	
